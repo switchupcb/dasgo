@@ -64,8 +64,24 @@ The following examples are provided.
 
 ##### Resources
 
-```
-TODO
+```go
+// Embed Object
+// https://discord.com/developers/docs/resources/channel#embed-object
+type Embed struct {
+	Title       string          `json:"title,omitempty"`
+	Type        string          `json:"type,omitempty"`
+	Description *string         `json:"description,omitempty"`
+	URL         string          `json:"url,omitempty"`
+	Timestamp   time.Time       `json:"timestamp,omitempty"`
+	Color       CodeFlag        `json:"color,omitempty"`
+	Footer      *EmbedFooter    `json:"footer,omitempty"`
+	Image       *EmbedImage     `json:"image,omitempty"`
+	Thumbnail   *EmbedThumbnail `json:"thumbnail,omitempty"`
+	Video       *EmbedVideo     `json:"video,omitempty"`
+	Provider    *EmbedProvider  `json:"provider,omitempty"`
+	Author      *EmbedAuthor    `json:"author,omitempty"`
+	Fields      []*EmbedField   `json:"fields,omitempty"`
+}
 ```
 
 ##### Requests
