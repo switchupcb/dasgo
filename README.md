@@ -1,5 +1,5 @@
 # Dasgo
-Dasgo provides 1:1 type definitions for the [Discord API](https://discord.com/developers/docs/reference) in **Go** and is a submodule of the [Discord API Spec](https://github.com/switchupcb/discord-api-spec). As a result, it aims to provide a direct representation of Discord API Objects (by version).
+Dasgo provides 1:1 type definitions for the [Discord API](https://discord.com/developers/docs/reference) in **Go** and is a submodule of the [Discord API Spec](https://github.com/switchupcb/discord-api-spec). As a result, it aims to provide a direct representation of Discord API Objects.
 
 ## Using Dasgo
 
