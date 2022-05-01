@@ -5,90 +5,6 @@ import (
 	"time"
 )
 
-// Activity Object
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-structure
-type Activity struct {
-	Name          string              `json:"name,omitempty"`
-	Type          *Flag               `json:"type,omitempty"`
-	URL           string              `json:"url,omitempty"`
-	CreatedAt     int                 `json:"created_at,omitempty"`
-	Timestamps    *ActivityTimestamps `json:"timestamps,omitempty"`
-	ApplicationID Snowflake           `json:"application_id,omitempty"`
-	Details       string              `json:"details,omitempty"`
-	State         string              `json:"state,omitempty"`
-	Emoji         *Emoji              `json:"emoji,omitempty"`
-	Party         *ActivityParty      `json:"party,omitempty"`
-	Assets        *ActivityAssets     `json:"assets,omitempty"`
-	Secrets       *ActivitySecrets    `json:"secrets,omitempty"`
-	Instance      bool                `json:"instance,omitempty"`
-	Flags         BitFlag             `json:"flags,omitempty"`
-	Buttons       []Button            `json:"buttons,omitempty"`
-}
-
-// ActivityTimestamps Struct
-// https://discord.com/developers/docs/game-sdk/activities#data-models-activitytimestamps-struct
-type ActivityTimestamps struct {
-	Start int `json:"start,omitempty"`
-	End   int `json:"end,omitempty"`
-}
-
-// ActivityAssets Struct
-// https://discord.com/developers/docs/game-sdk/activities#data-models-activitytimestamps-struct
-type ActivityAssets struct {
-	LargeImage string `json:"large_image,omitempty"`
-	LargeText  string `json:"large_text,omitempty"`
-	SmallImage string `json:"small_image,omitempty"`
-	SmallText  string `json:"small_text,omitempty"`
-}
-
-// ActivityParty Struct
-// https://discord.com/developers/docs/game-sdk/activities#data-models-activityparty-struct
-type ActivityParty struct {
-	ID   string `json:"id,omitempty"`
-	Size []int  `json:"size,omitempty"`
-}
-
-// PartySize Struct
-// https://discord.com/developers/docs/game-sdk/activities#data-models-partysize-struct
-type PartySize struct {
-	CurrentSize int32 `json:"current_size,omitempty"`
-	MaxSize     int32 `json:"max_size,omitempty"`
-}
-
-// ActivitySecrets Struct
-// https://discord.com/developers/docs/game-sdk/activities#data-models-activitysecrets-struct
-type ActivitySecrets struct {
-	Join     string `json:"join,omitempty"`
-	Spectate string `json:"spectate,omitempty"`
-	Match    string `json:"match,omitempty"`
-}
-
-// ActivityType Enum
-// https://discord.com/developers/docs/game-sdk/activities#data-models-activitytype-enum
-const (
-	FlagEnumTypeActivityPlaying   = 0
-	FlagEnumTypeActivityStreaming = 1
-	FlagEnumTypeActivityListening = 2
-	FlagEnumTypeActivityWatching  = 3
-	FlagEnumTypeActivityCustom    = 4
-	FlagEnumTypeActivityCompeting = 5
-)
-
-// ActivityJoinRequestReply Enum
-// https://discord.com/developers/docs/game-sdk/activities#data-models-activityjoinrequestreply-enum
-const (
-	FlagEnumReplyRequestJoinActivityNo     = 0
-	FlagEnumReplyRequestJoinActivityYes    = 1
-	FlagEnumReplyRequestJoinActivityIgnore = 2
-)
-
-// ActivityActionType Enum
-// https://discord.com/developers/docs/game-sdk/activities#data-models-activityactiontype-enum
-const (
-	FlagEnumTypeActionActivityJoin     = 1
-	FlagEnumTypeActionActivitySpectate = 2
-)
-
 // Application Object
 // https://discord.com/developers/docs/resources/application
 type Application struct {
@@ -681,6 +597,105 @@ type Reaction struct {
 	Me    bool     `json:"me,omitempty"`
 	Emoji *Emoji   `json:"emoji,omitempty"`
 }
+
+// Client Status Object
+// https://discord.com/developers/docs/topics/gateway#client-status-object
+type ClientStatus struct {
+	Desktop *string `json:"desktop,omitempty"`
+	Mobile  *string `json:"mobile,omitempty"`
+	Web     *string `json:"web,omitempty"`
+}
+
+// Activity Object
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-structure
+type Activity struct {
+	Name          string              `json:"name,omitempty"`
+	Type          *Flag               `json:"type,omitempty"`
+	URL           string              `json:"url,omitempty"`
+	CreatedAt     int                 `json:"created_at,omitempty"`
+	Timestamps    *ActivityTimestamps `json:"timestamps,omitempty"`
+	ApplicationID Snowflake           `json:"application_id,omitempty"`
+	Details       string              `json:"details,omitempty"`
+	State         string              `json:"state,omitempty"`
+	Emoji         *Emoji              `json:"emoji,omitempty"`
+	Party         *ActivityParty      `json:"party,omitempty"`
+	Assets        *ActivityAssets     `json:"assets,omitempty"`
+	Secrets       *ActivitySecrets    `json:"secrets,omitempty"`
+	Instance      bool                `json:"instance,omitempty"`
+	Flags         BitFlag             `json:"flags,omitempty"`
+	Buttons       []Button            `json:"buttons,omitempty"`
+}
+
+// Activity Types
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-types
+const (
+	FlagEnumTypeActivityPlaying   = 0
+	FlagEnumTypeActivityStreaming = 1
+	FlagEnumTypeActivityListening = 2
+	FlagEnumTypeActivityWatching  = 3
+	FlagEnumTypeActivityCustom    = 4
+	FlagEnumTypeActivityCompeting = 5
+)
+
+// Activity Timestamps Struct
+// htthttps://discord.com/developers/docs/topics/gateway#activity-object-activity-timestamps
+type ActivityTimestamps struct {
+	Start int `json:"start,omitempty"`
+	End   int `json:"end,omitempty"`
+}
+
+// Activity Emoji
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-emoji
+type ActivityEmoji struct {
+	Name     string    `json:"name,omitempty"`
+	ID       Snowflake `json:"id,omitempty"`
+	Animated bool      `json:"animated,omitempty"`
+}
+
+// Activity Party Struct
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-party
+type ActivityParty struct {
+	ID   string  `json:"id,omitempty"`
+	Size *[2]int `json:"size,omitempty"`
+}
+
+// Activity Assets Struct
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-assets
+type ActivityAssets struct {
+	LargeImage string `json:"large_image,omitempty"`
+	LargeText  string `json:"large_text,omitempty"`
+	SmallImage string `json:"small_image,omitempty"`
+	SmallText  string `json:"small_text,omitempty"`
+}
+
+// Activity Asset Image
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-asset-image
+type ActivityAssetImage struct {
+	ApplicationAsset string `json:"application_asset_id,omitempty"`
+	MediaProxyImage  string `json:"image_id,omitempty"`
+}
+
+// Activity Secrets Struct
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-secrets
+type ActivitySecrets struct {
+	Join     string `json:"join,omitempty"`
+	Spectate string `json:"spectate,omitempty"`
+	Match    string `json:"match,omitempty"`
+}
+
+// Activity Flags
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-flags
+const (
+	FlagActivityINSTANCE                    = 1 << 0
+	FlagActivityJOIN                        = 1 << 1
+	FlagActivitySPECTATE                    = 1 << 2
+	FlagActivityJOIN_REQUEST                = 1 << 3
+	FlagActivitySYNC                        = 1 << 4
+	FlagActivityPLAY                        = 1 << 5
+	FlagActivityPARTY_PRIVACY_FRIENDS       = 1 << 6
+	FlagActivityPARTY_PRIVACY_VOICE_CHANNEL = 1 << 7
+	FlagActivityEMBEDDED                    = 1 << 8
+)
 
 // Guild Object
 // https://discord.com/developers/docs/resources/guild#guild-object
