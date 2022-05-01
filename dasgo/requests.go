@@ -1,3 +1,4 @@
+// Package dasgo provides Type Definitions for the Discord API.
 package dasgo
 
 import (
