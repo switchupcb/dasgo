@@ -12,13 +12,9 @@ type GetGatewayResponse struct {
 // Get Gateway Bot Response
 // https://discord.com/developers/docs/topics/gateway#get-gateway-example-response
 type GetGatewayBotResponse struct {
-	URL               string `json:"url,omitempty"`
-	Shards            *int   `json:"shards,omitempty"`
-	SessionStartLimit struct {
-		Total      uint `json:"total"`
-		Remaining  uint `json:"remaining"`
-		ResetAfter uint `json:"reset_after"`
-	} `json:"session_start_limit"`
+	URL               string            `json:"url,omitempty"`
+	Shards            *int              `json:"shards,omitempty"`
+	SessionStartLimit SessionStartLimit `json:"session_start_limit"`
 }
 
 // Current Authorization Information Response Structure
