@@ -1,6 +1,6 @@
 # Contribution
 
-Dasgo is currently based on [contributor-led documentation](https://github.com/discord/discord-api-docs). In the future, it will be generated via JSON that is provided by the [Discord API Spec](https://github.com/switchupcb/discord-api-spec).
+Dasgo is currently based on [contributor-led documentation](https://github.com/discord/discord-api-docs).
 
 ## Pull Requests
 
@@ -86,19 +86,35 @@ type Embed struct {
 
 ##### Requests
 
-```
-TODO
+```go
+// Edit Global Application Command
+// PATCH/applications/{application.id}/commands/{command.id}
+// https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command
+type EditGlobalApplicationCommand struct {
+	CommandID                Snowflake
+	Name                     string                      `json:"name,omitempty"`
+	NameLocalizations        map[Flag]string             `json:"name_localizations,omitempty"`
+	Description              string                      `json:"description,omitempty"`
+	DescriptionLocalizations map[Flag]string             `json:"description_localizations,omitempty"`
+	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
+	DefaultPermission        bool                        `json:"default_permission,omitempty"`
+}
 ```
 
 ##### Events
 
-```
-TODO
+```go
+// Thread Members Update
+// https://discord.com/developers/docs/topics/gateway#thread-members-update
+type ThreadMembersUpdate struct {
+	ID             Snowflake       `json:"id,omitempty"`
+	GuildID        Snowflake       `json:"guild_id,omitempty"`
+	MemberCount    int             `json:"member_count,omitempty"`
+	AddedMembers   []*ThreadMember `json:"added_members,omitempty"`
+	RemovedMembers []Snowflake     `json:"removed_member_ids,omitempty"`
+}
 ```
 
 ## Roadmap
 
-Dasgo is currently a work in-progress.
-
-1. Add remaining object API objects.
-2. Add comments (descriptions) to fields.
+Dasgo definitions are completed and in maintenance mode. However, one feature that may prove to be useful is adding comments for field-descriptions.
