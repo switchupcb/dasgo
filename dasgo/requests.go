@@ -269,7 +269,7 @@ type ModifyChannel struct {
 	ChannelID Snowflake
 }
 
-// Modify Channel
+// Modify Channel Group DM
 // PATCH /channels/{channel.id}
 // https://discord.com/developers/docs/resources/channel#modify-channel-json-params-group-dm
 type ModifyChannelGroupDM struct {
@@ -278,7 +278,7 @@ type ModifyChannelGroupDM struct {
 	Icon      int    `json:"icon,omitempty"`
 }
 
-// Modify Channel
+// Modify Channel Guild
 // PATCH /channels/{channel.id}
 // https://discord.com/developers/docs/resources/channel#modify-channel-json-params-guild-channel
 type ModifyChannelGuild struct {
@@ -289,13 +289,13 @@ type ModifyChannelGuild struct {
 	Topic                      *string                `json:"topic,omitempty"`
 	NSFW                       bool                   `json:"nsfw,omitempty"`
 	RateLimitPerUser           *CodeFlag              `json:"rate_limit_per_user,omitempty"`
-	Bitrate                    *uint                  `json:"bitrate,omitempty"`
-	UserLimit                  *Flag                  `json:"user_limit,omitempty"`
+	Bitrate                    *int                   `json:"bitrate,omitempty"`
+	UserLimit                  *int                   `json:"user_limit,omitempty"`
 	PermissionOverwrites       *[]PermissionOverwrite `json:"permission_overwrites,omitempty"`
 	ParentID                   *Snowflake             `json:"parent_id,omitempty"`
 	RTCRegion                  *string                `json:"rtc_region,omitempty"`
 	VideoQualityMode           Flag                   `json:"video_quality_mode,omitempty"`
-	DefaultAutoArchiveDuration *uint                  `json:"default_auto_archive_duration,omitempty"`
+	DefaultAutoArchiveDuration int                    `json:"default_auto_archive_duration,omitempty"`
 }
 
 // Modify Channel
@@ -428,7 +428,6 @@ type EditMessage struct {
 	MessageID       Snowflake
 	Content         *string          `json:"content,omitempty"`
 	Embeds          []*Embed         `json:"embeds,omitempty"`
-	Embed           *Embed           `json:"embed,omitempty"`
 	Flags           *BitFlag         `json:"flags,omitempty"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
 	Components      []*Component     `json:"components,omitempty"`
@@ -497,7 +496,8 @@ type DeleteChannelPermission struct {
 // POST /channels/{channel.id}/followers
 // https://discord.com/developers/docs/resources/channel#follow-news-channel
 type FollowNewsChannel struct {
-	ChannelID Snowflake
+	ChannelID        Snowflake
+	WebhookChannelID Snowflake `json:"webhook_channel_id,omitempty"`
 }
 
 // Trigger Typing Indicator
@@ -555,8 +555,8 @@ type StartThreadfromMessage struct {
 	ChannelID           Snowflake
 	MessageID           Snowflake
 	Name                string `json:"name,omitempty"`
-	RateLimitPerUser    uint   `json:"rate_limit_per_user,omitempty"`
-	AutoArchiveDuration *int   `json:"auto_archive_duration,omitempty"`
+	AutoArchiveDuration int    `json:"auto_archive_duration,omitempty"`
+	RateLimitPerUser    int    `json:"rate_limit_per_user,omitempty"`
 }
 
 // Start Thread without Message
@@ -564,35 +564,27 @@ type StartThreadfromMessage struct {
 // https://discord.com/developers/docs/resources/channel#start-thread-without-message
 type StartThreadwithoutMessage struct {
 	ChannelID           Snowflake
-	Name                string    `json:"name,omitempty"`
-	AutoArchiveDuration CodeFlag  `json:"auto_archive_duration,omitempty"`
-	Type                *Flag     `json:"type,omitempty"`
-	Invitable           bool      `json:"invitable,omitempty"`
-	RateLimitPerUser    *CodeFlag `json:"rate_limit_per_user,omitempty"`
+	Name                string `json:"name,omitempty"`
+	AutoArchiveDuration int    `json:"auto_archive_duration,omitempty"`
+	Type                Flag   `json:"type,omitempty"`
+	Invitable           bool   `json:"invitable,omitempty"`
+	RateLimitPerUser    int    `json:"rate_limit_per_user,omitempty"`
 }
 
 // Start Thread in Forum Channel
 // POST /channels/{channel.id}/threads
 // https://discord.com/developers/docs/resources/channel#start-thread-in-forum-channel
 type StartThreadinForumChannel struct {
-	ChannelID Snowflake
-}
-
-// Start Thread in Forum Channel
-// POST /channels/{channel.id}/threads
-// https://discord.com/developers/docs/resources/channel#start-thread-in-forum-channel-json-params-for-the-thread
-type StartThreadinForumChannelThread struct {
 	ChannelID           Snowflake
-	Name                string    `json:"name,omitempty"`
-	RateLimitPerUser    uint      `json:"rate_limit_per_user,omitempty"`
-	AutoArchiveDuration *CodeFlag `json:"auto_archive_duration,omitempty"`
+	Name                string                    `json:"name,omitempty"`
+	AutoArchiveDuration int                       `json:"auto_archive_duration,omitempty"`
+	RateLimitPerUser    int                       `json:"rate_limit_per_user,omitempty"`
+	Message             *ForumThreadMessageParams `json:"message,omitempty"`
 }
 
-// Start Thread in Forum Channel
-// POST /channels/{channel.id}/threads
-// https://discord.com/developers/docs/resources/channel#start-thread-in-forum-channel-json-params-for-the-message
-type StartThreadinForumChannelMessage struct {
-	ChannelID       Snowflake
+// Forum Thread Message Params Object
+// https://discord.com/developers/docs/resources/channel#start-thread-in-forum-channel-forum-thread-message-params-object
+type ForumThreadMessageParams struct {
 	Content         *string          `json:"content,omitempty"`
 	Embeds          []*Embed         `json:"embeds,omitempty"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`

@@ -110,6 +110,15 @@ type Component interface {
 	Type()
 }
 
+// Component Types
+// https://discord.com/developers/docs/interactions/message-components#component-object-component-types
+const (
+	FlagTypesComponentActionRow  = 1
+	FlagTypesComponentButton     = 2
+	FlagTypesComponentSelectMenu = 3
+	FlagTypesComponentTextInput  = 4
+)
+
 func (c ActionsRow) Type() Flag {
 	return FlagTypesComponentActionRow
 }
@@ -479,12 +488,14 @@ type Channel struct {
 	ParentID                   Snowflake             `json:"parent_id,omitempty"`
 	LastPinTimestamp           time.Time             `json:"last_pin_timestamp,omitempty"`
 	RTCRegion                  string                `json:"rtc_region,omitempty"`
+	VideoQualityMode           Flag                  `json:"video_quality_mode,omitempty"`
 	MessageCount               Flag                  `json:"message_count,omitempty"`
 	MemberCount                Flag                  `json:"member_count,omitempty"`
 	ThreadMetadata             *ThreadMetadata       `json:"thread_metadata,omitempty"`
 	Member                     *ThreadMember         `json:"member,omitempty"`
-	DefaultAutoArchiveDuration CodeFlag              `json:"default_auto_archive_duration,omitempty"`
+	DefaultAutoArchiveDuration int                   `json:"default_auto_archive_duration,omitempty"`
 	Permissions                *string               `json:"permissions,omitempty"`
+	Flags                      BitFlag               `json:"flags,omitempty"`
 }
 
 // Channel Types
@@ -501,6 +512,7 @@ const (
 	FlagTypesChannelGUILD_PRIVATE_THREAD = 12
 	FlagTypesChannelGUILD_STAGE_VOICE    = 13
 	FlagTypesChannelGUILD_DIRECTORY      = 14
+	FlagTypesChannelGUILD_FORUM          = 15
 )
 
 // Video Quality Modes
@@ -510,11 +522,143 @@ const (
 	FlagModesQualityVideoFULL = 2
 )
 
+// Channel Flags
+// https://discord.com/developers/docs/resources/channel#channel-object-channel-flags
+const (
+	FlagChannelPINNED = 1 << 1
+)
+
+// Message Object
+// https://discord.com/developers/docs/resources/channel#message-object
+type Message struct {
+	ID                Snowflake         `json:"id,omitempty"`
+	ChannelID         *Snowflake        `json:"channel_id,omitempty"`
+	GuildID           *Snowflake        `json:"guild_id,omitempty"`
+	Author            *User             `json:"author,omitempty"`
+	Member            *GuildMember      `json:"member,omitempty"`
+	Content           string            `json:"content,omitempty"`
+	Timestamp         time.Time         `json:"timestamp,omitempty"`
+	EditedTimestamp   time.Time         `json:"edited_timestamp,omitempty"`
+	TTS               bool              `json:"tts,omitempty"`
+	MentionEveryone   bool              `json:"mention_everyone,omitempty"`
+	Mentions          []*User           `json:"mentions,omitempty"`
+	MentionRoles      []*Snowflake      `json:"mention_roles,omitempty"`
+	MentionChannels   []*ChannelMention `json:"mention_channels,omitempty"`
+	Attachments       []*Attachment     `json:"attachments,omitempty"`
+	Embeds            []*Embed          `json:"embeds,omitempty"`
+	Reactions         []*Reaction       `json:"reactions,omitempty"`
+	Nonce             interface{}       `json:"nonce,omitempty"`
+	Pinned            bool              `json:"pinned,omitempty"`
+	WebhookID         *Snowflake        `json:"webhook_id,omitempty"`
+	Type              *Flag             `json:"type,omitempty"`
+	Activity          MessageActivity   `json:"activity,omitempty"`
+	Application       *Application      `json:"application,omitempty"`
+	ApplicationID     Snowflake         `json:"application_id,omitempty"`
+	MessageReference  *MessageReference `json:"message_reference,omitempty"`
+	Flags             CodeFlag          `json:"flags,omitempty"`
+	ReferencedMessage *Message          `json:"referenced_message,omitempty"`
+	Interaction       *Interaction      `json:"interaction,omitempty"`
+	Thread            *Channel          `json:"thread,omitempty"`
+	Components        []*Component      `json:"components,omitempty"`
+	StickerItems      []*StickerItem    `json:"sticker_items,omitempty"`
+}
+
+// Message Types
+// https://discord.com/developers/docs/resources/channel#message-object-message-types
+const (
+	FlagTypesMessageDEFAULT                                      = 0
+	FlagTypesMessageRECIPIENT_ADD                                = 1
+	FlagTypesMessageRECIPIENT_REMOVE                             = 2
+	FlagTypesMessageCALL                                         = 3
+	FlagTypesMessageCHANNEL_NAME_CHANGE                          = 4
+	FlagTypesMessageCHANNEL_ICON_CHANGE                          = 5
+	FlagTypesMessageCHANNEL_PINNED_MESSAGE                       = 6
+	FlagTypesMessageGUILD_MEMBER_JOIN                            = 7
+	FlagTypesMessageUSER_PREMIUM_GUILD_SUBSCRIPTION              = 8
+	FlagTypesMessageUSER_PREMIUM_GUILD_SUBSCRIPTION_TIER_ONE     = 9
+	FlagTypesMessageUSER_PREMIUM_GUILD_SUBSCRIPTION_TIER_TWO     = 10
+	FlagTypesMessageUSER_PREMIUM_GUILD_SUBSCRIPTION_TIER_THREE   = 11
+	FlagTypesMessageCHANNEL_FOLLOW_ADD                           = 12
+	FlagTypesMessageGUILD_DISCOVERY_DISQUALIFIED                 = 14
+	FlagTypesMessageGUILD_DISCOVERY_REQUALIFIED                  = 15
+	FlagTypesMessageGUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING = 16
+	FlagTypesMessageGUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING   = 17
+	FlagTypesMessageTHREAD_CREATED                               = 18
+	FlagTypesMessageREPLY                                        = 19
+	FlagTypesMessageCHAT_INPUT_COMMAND                           = 20
+	FlagTypesMessageTHREAD_STARTER_MESSAGE                       = 21
+	FlagTypesMessageGUILD_INVITE_REMINDER                        = 22
+	FlagTypesMessageCONTEXT_MENU_COMMAND                         = 23
+)
+
+// Message Activity Structure
+// https://discord.com/developers/docs/resources/channel#message-object-message-activity-structure
+type MessageActivity struct {
+	Type    int     `json:"type,omitempty"`
+	PartyID *string `json:"party_id,omitempty"`
+}
+
+// Message Activity Types
+// https://discord.com/developers/docs/resources/channel#message-object-message-activity-types
+const (
+	FlagTypesActivityMessageJOIN         = 1
+	FlagTypesActivityMessageSPECTATE     = 2
+	FlagTypesActivityMessageLISTEN       = 3
+	FlagTypesActivityMessageJOIN_REQUEST = 5
+)
+
+// Message Flags
+// https://discord.com/developers/docs/resources/channel#message-object-message-flags
+const (
+	FlagFlagsMessageCROSSPOSTED                            = 1 << 0
+	FlagFlagsMessageIS_CROSSPOST                           = 1 << 1
+	FlagFlagsMessageSUPPRESS_EMBEDS                        = 1 << 2
+	FlagFlagsMessageSOURCE_MESSAGE_DELETED                 = 1 << 3
+	FlagFlagsMessageURGENT                                 = 1 << 4
+	FlagFlagsMessageHAS_THREAD                             = 1 << 5
+	FlagFlagsMessageEPHEMERAL                              = 1 << 6
+	FlagFlagsMessageLOADING                                = 1 << 7
+	FlagFlagsMessageFAILED_TO_MENTION_SOME_ROLES_IN_THREAD = 1 << 8
+)
+
+// Message Reference Object
+// https://discord.com/developers/docs/resources/channel#message-reference-object
+type MessageReference struct {
+	MessageID       Snowflake  `json:"message_id,omitempty"`
+	ChannelID       *Snowflake `json:"channel_id,omitempty"`
+	GuildID         *Snowflake `json:"guild_id,omitempty"`
+	FailIfNotExists bool       `json:"fail_if_not_exists,omitempty"`
+}
+
+// Followed Channel Structure
+// https://discord.com/developers/docs/resources/channel#followed-channel-object-followed-channel-structure
+type FollowedChannel struct {
+	ChannelID Snowflake `json:"channel_id,omitempty"`
+	WebhookID Snowflake `json:"webhook_id,omitempty"`
+}
+
+// Reaction Object
+// https://discord.com/developers/docs/resources/channel#reaction-object
+type Reaction struct {
+	Count CodeFlag `json:"count,omitempty"`
+	Me    bool     `json:"me,omitempty"`
+	Emoji *Emoji   `json:"emoji,omitempty"`
+}
+
+// Overwrite Object
+// https://discord.com/developers/docs/resources/channel#overwrite-object
+type PermissionOverwrite struct {
+	ID    Snowflake `json:"id,omitempty"`
+	Type  *Flag     `json:"type,omitempty"`
+	Deny  string    `json:"deny,omitempty"`
+	Allow string    `json:"allow,omitempty"`
+}
+
 // Thread Metadata Object
 // https://discord.com/developers/docs/resources/channel#thread-metadata-object
 type ThreadMetadata struct {
 	Archived            bool      `json:"archived,omitempty"`
-	AutoArchiveDuration CodeFlag  `json:"auto_archive_duration,omitempty"`
+	AutoArchiveDuration int       `json:"auto_archive_duration,omitempty"`
 	Locked              bool      `json:"locked,omitempty"`
 	Invitable           bool      `json:"invitable,omitempty"`
 	CreateTimestamp     time.Time `json:"create_timestamp,omitempty"`
@@ -528,15 +672,6 @@ type ThreadMember struct {
 	JoinTimestamp time.Time `json:"join_timestamp,omitempty"`
 	Flags         CodeFlag  `json:"flags,omitempty"`
 }
-
-// Component Types
-// https://discord.com/developers/docs/interactions/message-components#component-object-component-types
-const (
-	FlagTypesComponentActionRow  = 1
-	FlagTypesComponentButton     = 2
-	FlagTypesComponentSelectMenu = 3
-	FlagTypesComponentTextInput  = 4
-)
 
 // Embed Object
 // https://discord.com/developers/docs/resources/channel#embed-object
@@ -555,19 +690,6 @@ type Embed struct {
 	Author      *EmbedAuthor    `json:"author,omitempty"`
 	Fields      []*EmbedField   `json:"fields,omitempty"`
 }
-
-// Embed Types
-// https://discord.com/developers/docs/resources/channel#embed-object-embed-types
-var (
-	EmbedTypes = map[string]string{
-		"rich":    "generic embed rendered from embed attributes",
-		"image":   "image embed",
-		"video":   "video embed",
-		"gifv":    "animated gif image embed rendered as a video embed",
-		"article": "article embed",
-		"link":    "link embed",
-	}
-)
 
 // Embed Thumbnail Structure
 // https://discord.com/developers/docs/resources/channel#embed-object-embed-thumbnail-structure
@@ -640,6 +762,47 @@ const (
 	FlagLimitsEmbedAuthorName       = 256
 )
 
+// Message Attachment Object
+// https://discord.com/developers/docs/resources/channel#attachment-object-attachment-structure
+type Attachment struct {
+	ID          Snowflake `json:"id,omitempty"`
+	Filename    string    `json:"filename,omitempty"`
+	Description string    `json:"description,omitempty"`
+	ContentType string    `json:"content_type,omitempty"`
+	Size        int       `json:"size,omitempty"`
+	URL         string    `json:"url,omitempty"`
+	ProxyURL    *string   `json:"proxy_url,omitempty"`
+	Height      int       `json:"height,omitempty"`
+	Width       int       `json:"width,omitempty"`
+	Emphemeral  bool      `json:"ephemeral,omitempty"`
+}
+
+// Channel Mention Object
+// https://discord.com/developers/docs/resources/channel#channel-mention-object
+type ChannelMention struct {
+	ID      Snowflake `json:"id,omitempty"`
+	GuildID Snowflake `json:"guild_id,omitempty"`
+	Type    *Flag     `json:"type,omitempty"`
+	Name    string    `json:"name,omitempty"`
+}
+
+// Allowed Mentions Structure
+// https://discord.com/developers/docs/resources/channel#allowed-mentions-object-allowed-mentions-structure
+type AllowedMentions struct {
+	Parse       []*string    `json:"parse,omitempty"`
+	Roles       []*Snowflake `json:"roles,omitempty"`
+	Users       []*Snowflake `json:"users,omitempty"`
+	RepliedUser bool         `json:"replied_user,omitempty"`
+}
+
+// Allowed Mention Types
+// https://discord.com/developers/docs/resources/channel#allowed-mentions-object-allowed-mentions-structure
+const (
+	FlagTypesMentionAllowedRoles     = "roles"
+	FlagTypesMentionAllowedsUsers    = "users"
+	FlagTypesMentionAllowedsEveryone = "everyone"
+)
+
 // Emoji Object
 // https://discord.com/developers/docs/resources/emoji#emoji-object-emoji-structure
 type Emoji struct {
@@ -651,14 +814,6 @@ type Emoji struct {
 	Managed       bool        `json:"managed,omitempty"`
 	Animated      bool        `json:"animated,omitempty"`
 	Available     bool        `json:"available,omitempty"`
-}
-
-// Reaction Object
-// https://discord.com/developers/docs/resources/channel#reaction-object
-type Reaction struct {
-	Count CodeFlag `json:"count,omitempty"`
-	Me    bool     `json:"me,omitempty"`
-	Emoji *Emoji   `json:"emoji,omitempty"`
 }
 
 // Client Status Object
@@ -773,7 +928,7 @@ type Guild struct {
 	Permissions                 *string                `json:"permissions,omitempty"`
 	Region                      string                 `json:"region,omitempty"`
 	AfkChannelID                Snowflake              `json:"afk_channel_id,omitempty"`
-	AfkTimeout                  *uint                  `json:"afk_timeout,omitempty"`
+	AfkTimeout                  int                    `json:"afk_timeout,omitempty"`
 	WidgetEnabled               bool                   `json:"widget_enabled,omitempty"`
 	WidgetChannelID             Snowflake              `json:"widget_channel_id,omitempty"`
 	VerificationLevel           *Flag                  `json:"verification_level,omitempty"`
@@ -790,7 +945,7 @@ type Guild struct {
 	JoinedAt                    time.Time              `json:"joined_at,omitempty"`
 	Large                       bool                   `json:"large,omitempty"`
 	Unavailable                 bool                   `json:"unavailable,omitempty"`
-	MemberCount                 uint                   `json:"member_count,omitempty"`
+	MemberCount                 int                    `json:"member_count,omitempty"`
 	VoiceStates                 []*VoiceState          `json:"voice_states,omitempty"`
 	Members                     []*GuildMember         `json:"members,omitempty"`
 	Channels                    []*Channel             `json:"channels,omitempty"`
@@ -1122,147 +1277,6 @@ type InviteMetadata struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 }
 
-// Channel Mention Object
-// https://discord.com/developers/docs/resources/channel#channel-mention-object
-type ChannelMention struct {
-	ID      Snowflake `json:"id,omitempty"`
-	GuildID Snowflake `json:"guild_id,omitempty"`
-	Type    *Flag     `json:"type,omitempty"`
-	Name    string    `json:"name,omitempty"`
-}
-
-// Allowed Mentions Structure
-// https://discord.com/developers/docs/resources/channel#allowed-mentions-object-allowed-mentions-structure
-type AllowedMentions struct {
-	Parse       []*string    `json:"parse,omitempty"`
-	Roles       []*Snowflake `json:"roles,omitempty"`
-	Users       []*Snowflake `json:"users,omitempty"`
-	RepliedUser bool         `json:"replied_user,omitempty"`
-}
-
-// Allowed Mention Types
-// https://discord.com/developers/docs/resources/channel#allowed-mentions-object-allowed-mentions-structure
-const (
-	FlagTypesMentionAllowedRoles     = "roles"
-	FlagTypesMentionAllowedsUsers    = "users"
-	FlagTypesMentionAllowedsEveryone = "everyone"
-)
-
-// Message Object
-// https://discord.com/developers/docs/resources/channel#message-object
-type Message struct {
-	ID                Snowflake         `json:"id,omitempty"`
-	ChannelID         *Snowflake        `json:"channel_id,omitempty"`
-	GuildID           *Snowflake        `json:"guild_id,omitempty"`
-	Author            *User             `json:"author,omitempty"`
-	Member            *GuildMember      `json:"member,omitempty"`
-	Content           string            `json:"content,omitempty"`
-	Timestamp         time.Time         `json:"timestamp,omitempty"`
-	EditedTimestamp   time.Time         `json:"edited_timestamp,omitempty"`
-	TTS               bool              `json:"tts,omitempty"`
-	MentionEveryone   bool              `json:"mention_everyone,omitempty"`
-	Mentions          []*User           `json:"mentions,omitempty"`
-	MentionRoles      []*Snowflake      `json:"mention_roles,omitempty"`
-	MentionChannels   []*ChannelMention `json:"mention_channels,omitempty"`
-	Attachments       []*Attachment     `json:"attachments,omitempty"`
-	Embeds            []*Embed          `json:"embeds,omitempty"`
-	Reactions         []*Reaction       `json:"reactions,omitempty"`
-	Nonce             interface{}       `json:"nonce,omitempty"`
-	Pinned            bool              `json:"pinned,omitempty"`
-	WebhookID         *Snowflake        `json:"webhook_id,omitempty"`
-	Type              *Flag             `json:"type,omitempty"`
-	Activity          MessageActivity   `json:"activity,omitempty"`
-	Application       *Application      `json:"application,omitempty"`
-	MessageReference  *MessageReference `json:"message_reference,omitempty"`
-	Flags             CodeFlag          `json:"flags,omitempty"`
-	ReferencedMessage *Message          `json:"referenced_message,omitempty"`
-	Interaction       *Interaction      `json:"interaction,omitempty"`
-	Thread            *Channel          `json:"thread,omitempty"`
-	Components        []*Component      `json:"components,omitempty"`
-	StickerItems      []*StickerItem    `json:"sticker_items,omitempty"`
-}
-
-// Message Types
-// https://discord.com/developers/docs/resources/channel#message-object-message-types
-const (
-	FlagTypesMessageDEFAULT                                      = 0
-	FlagTypesMessageRECIPIENT_ADD                                = 1
-	FlagTypesMessageRECIPIENT_REMOVE                             = 2
-	FlagTypesMessageCALL                                         = 3
-	FlagTypesMessageCHANNEL_NAME_CHANGE                          = 4
-	FlagTypesMessageCHANNEL_ICON_CHANGE                          = 5
-	FlagTypesMessageCHANNEL_PINNED_MESSAGE                       = 6
-	FlagTypesMessageGUILD_MEMBER_JOIN                            = 7
-	FlagTypesMessageUSER_PREMIUM_GUILD_SUBSCRIPTION              = 8
-	FlagTypesMessageUSER_PREMIUM_GUILD_SUBSCRIPTION_TIER_ONE     = 9
-	FlagTypesMessageUSER_PREMIUM_GUILD_SUBSCRIPTION_TIER_TWO     = 10
-	FlagTypesMessageUSER_PREMIUM_GUILD_SUBSCRIPTION_TIER_THREE   = 11
-	FlagTypesMessageCHANNEL_FOLLOW_ADD                           = 12
-	FlagTypesMessageGUILD_DISCOVERY_DISQUALIFIED                 = 14
-	FlagTypesMessageGUILD_DISCOVERY_REQUALIFIED                  = 15
-	FlagTypesMessageGUILD_DISCOVERY_GRACE_PERIOD_INITIAL_WARNING = 16
-	FlagTypesMessageGUILD_DISCOVERY_GRACE_PERIOD_FINAL_WARNING   = 17
-	FlagTypesMessageTHREAD_CREATED                               = 18
-	FlagTypesMessageREPLY                                        = 19
-	FlagTypesMessageCHAT_INPUT_COMMAND                           = 20
-	FlagTypesMessageTHREAD_STARTER_MESSAGE                       = 21
-	FlagTypesMessageGUILD_INVITE_REMINDER                        = 22
-	FlagTypesMessageCONTEXT_MENU_COMMAND                         = 23
-)
-
-// Message Activity Structure
-// https://discord.com/developers/docs/resources/channel#message-object-message-activity-structure
-type MessageActivity struct {
-	Type    int     `json:"type,omitempty"`
-	PartyID *string `json:"party_id,omitempty"`
-}
-
-// Message Activity Types
-// https://discord.com/developers/docs/resources/channel#message-object-message-activity-types
-const (
-	FlagTypesActivityMessageJOIN         = 1
-	FlagTypesActivityMessageSPECTATE     = 2
-	FlagTypesActivityMessageLISTEN       = 3
-	FlagTypesActivityMessageJOIN_REQUEST = 5
-)
-
-// Message Flags
-// https://discord.com/developers/docs/resources/channel#message-object-message-flags
-const (
-	FlagFlagsMessageCROSSPOSTED                            = 1 << 0
-	FlagFlagsMessageIS_CROSSPOST                           = 1 << 1
-	FlagFlagsMessageSUPPRESS_EMBEDS                        = 1 << 2
-	FlagFlagsMessageSOURCE_MESSAGE_DELETED                 = 1 << 3
-	FlagFlagsMessageURGENT                                 = 1 << 4
-	FlagFlagsMessageHAS_THREAD                             = 1 << 5
-	FlagFlagsMessageEPHEMERAL                              = 1 << 6
-	FlagFlagsMessageLOADING                                = 1 << 7
-	FlagFlagsMessageFAILED_TO_MENTION_SOME_ROLES_IN_THREAD = 1 << 8
-)
-
-// Message Reference Object
-// https://discord.com/developers/docs/resources/channel#message-reference-object
-type MessageReference struct {
-	MessageID       Snowflake  `json:"message_id,omitempty"`
-	ChannelID       *Snowflake `json:"channel_id,omitempty"`
-	GuildID         *Snowflake `json:"guild_id,omitempty"`
-	FailIfNotExists bool       `json:"fail_if_not_exists,omitempty"`
-}
-
-// Message Attachment Object
-// https://discord.com/developers/docs/resources/channel#attachment-object
-type Attachment struct {
-	ID       Snowflake `json:"id,omitempty"`
-	Filename string    `json:"filename,omitempty"`
-	Size     uint      `json:"size,omitempty"`
-	URL      string    `json:"url,omitempty"`
-	ProxyURL *string   `json:"proxy_url,omitempty"`
-	Height   uint      `json:"height,omitempty"`
-	Width    uint      `json:"width,omitempty"`
-
-	SpoilerTag bool `json:"-,omitempty"`
-}
-
 // Sticker Structure
 // https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-structure
 type Sticker struct {
@@ -1391,15 +1405,6 @@ const (
 	FlagFlagsPermissionBitwiseMODERATE_MEMBERS           = 1 << 40
 )
 
-// Overwrite Object
-// https://discord.com/developers/docs/resources/channel#overwrite-object
-type PermissionOverwrite struct {
-	ID    Snowflake `json:"id,omitempty"`
-	Type  *Flag     `json:"type,omitempty"`
-	Deny  string    `json:"deny,omitempty"`
-	Allow string    `json:"allow,omitempty"`
-}
-
 const (
 	FlagPermissionOverwriteTypeRole   = 0
 	FlagPermissionOverwriteTypeMember = 1
@@ -1410,7 +1415,7 @@ const (
 type Role struct {
 	ID           Snowflake `json:"id,omitempty"`
 	Name         string    `json:"name,omitempty"`
-	Color        uint      `json:"color,omitempty"`
+	Color        int       `json:"color,omitempty"`
 	Hoist        bool      `json:"hoist,omitempty"`
 	Icon         string    `json:"icon,omitempty"`
 	UnicodeEmoji string    `json:"unicode_emoji,omitempty"`
