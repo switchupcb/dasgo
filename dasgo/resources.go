@@ -816,159 +816,54 @@ type Emoji struct {
 	Available     bool        `json:"available,omitempty"`
 }
 
-// Client Status Object
-// https://discord.com/developers/docs/topics/gateway#client-status-object
-type ClientStatus struct {
-	Desktop *string `json:"desktop,omitempty"`
-	Mobile  *string `json:"mobile,omitempty"`
-	Web     *string `json:"web,omitempty"`
-}
-
-// Activity Object
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-structure
-type Activity struct {
-	Name          string              `json:"name,omitempty"`
-	Type          *Flag               `json:"type,omitempty"`
-	URL           string              `json:"url,omitempty"`
-	CreatedAt     int                 `json:"created_at,omitempty"`
-	Timestamps    *ActivityTimestamps `json:"timestamps,omitempty"`
-	ApplicationID Snowflake           `json:"application_id,omitempty"`
-	Details       string              `json:"details,omitempty"`
-	State         string              `json:"state,omitempty"`
-	Emoji         *Emoji              `json:"emoji,omitempty"`
-	Party         *ActivityParty      `json:"party,omitempty"`
-	Assets        *ActivityAssets     `json:"assets,omitempty"`
-	Secrets       *ActivitySecrets    `json:"secrets,omitempty"`
-	Instance      bool                `json:"instance,omitempty"`
-	Flags         BitFlag             `json:"flags,omitempty"`
-	Buttons       []Button            `json:"buttons,omitempty"`
-}
-
-// Activity Types
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-types
-const (
-	FlagEnumTypeActivityPlaying   = 0
-	FlagEnumTypeActivityStreaming = 1
-	FlagEnumTypeActivityListening = 2
-	FlagEnumTypeActivityWatching  = 3
-	FlagEnumTypeActivityCustom    = 4
-	FlagEnumTypeActivityCompeting = 5
-)
-
-// Activity Timestamps Struct
-// htthttps://discord.com/developers/docs/topics/gateway#activity-object-activity-timestamps
-type ActivityTimestamps struct {
-	Start int `json:"start,omitempty"`
-	End   int `json:"end,omitempty"`
-}
-
-// Activity Emoji
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-emoji
-type ActivityEmoji struct {
-	Name     string    `json:"name,omitempty"`
-	ID       Snowflake `json:"id,omitempty"`
-	Animated bool      `json:"animated,omitempty"`
-}
-
-// Activity Party Struct
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-party
-type ActivityParty struct {
-	ID   string  `json:"id,omitempty"`
-	Size *[2]int `json:"size,omitempty"`
-}
-
-// Activity Assets Struct
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-assets
-type ActivityAssets struct {
-	LargeImage string `json:"large_image,omitempty"`
-	LargeText  string `json:"large_text,omitempty"`
-	SmallImage string `json:"small_image,omitempty"`
-	SmallText  string `json:"small_text,omitempty"`
-}
-
-// Activity Asset Image
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-asset-image
-type ActivityAssetImage struct {
-	ApplicationAsset string `json:"application_asset_id,omitempty"`
-	MediaProxyImage  string `json:"image_id,omitempty"`
-}
-
-// Activity Secrets Struct
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-secrets
-type ActivitySecrets struct {
-	Join     string `json:"join,omitempty"`
-	Spectate string `json:"spectate,omitempty"`
-	Match    string `json:"match,omitempty"`
-}
-
-// Activity Flags
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-flags
-const (
-	FlagActivityINSTANCE                    = 1 << 0
-	FlagActivityJOIN                        = 1 << 1
-	FlagActivitySPECTATE                    = 1 << 2
-	FlagActivityJOIN_REQUEST                = 1 << 3
-	FlagActivitySYNC                        = 1 << 4
-	FlagActivityPLAY                        = 1 << 5
-	FlagActivityPARTY_PRIVACY_FRIENDS       = 1 << 6
-	FlagActivityPARTY_PRIVACY_VOICE_CHANNEL = 1 << 7
-	FlagActivityEMBEDDED                    = 1 << 8
-)
-
 // Guild Object
 // https://discord.com/developers/docs/resources/guild#guild-object
 type Guild struct {
-	ID                          Snowflake              `json:"id,omitempty"`
-	Name                        string                 `json:"name,omitempty"`
-	Icon                        string                 `json:"icon,omitempty"`
-	Splash                      string                 `json:"splash,omitempty"`
-	DiscoverySplash             string                 `json:"discovery_splash,omitempty"`
-	Owner                       bool                   `json:"owner,omitempty"`
-	OwnerID                     Snowflake              `json:"owner_id,omitempty"`
-	Permissions                 *string                `json:"permissions,omitempty"`
-	Region                      string                 `json:"region,omitempty"`
-	AfkChannelID                Snowflake              `json:"afk_channel_id,omitempty"`
-	AfkTimeout                  int                    `json:"afk_timeout,omitempty"`
-	WidgetEnabled               bool                   `json:"widget_enabled,omitempty"`
-	WidgetChannelID             Snowflake              `json:"widget_channel_id,omitempty"`
-	VerificationLevel           *Flag                  `json:"verification_level,omitempty"`
-	DefaultMessageNotifications *Flag                  `json:"default_message_notifications,omitempty"`
-	ExplicitContentFilter       *Flag                  `json:"explicit_content_filter,omitempty"`
-	Roles                       []*Role                `json:"roles,omitempty"`
-	Emojis                      []*Emoji               `json:"emojis,omitempty"`
-	Features                    []*string              `json:"features,omitempty"`
-	MFALevel                    *Flag                  `json:"mfa_level,omitempty"`
-	ApplicationID               Snowflake              `json:"application_id,omitempty"`
-	SystemChannelID             Snowflake              `json:"system_channel_id,omitempty"`
-	SystemChannelFlags          BitFlag                `json:"system_channel_flags,omitempty"`
-	RulesChannelID              Snowflake              `json:"rules_channel_id,omitempty"`
-	JoinedAt                    time.Time              `json:"joined_at,omitempty"`
-	Large                       bool                   `json:"large,omitempty"`
-	Unavailable                 bool                   `json:"unavailable,omitempty"`
-	MemberCount                 int                    `json:"member_count,omitempty"`
-	VoiceStates                 []*VoiceState          `json:"voice_states,omitempty"`
-	Members                     []*GuildMember         `json:"members,omitempty"`
-	Channels                    []*Channel             `json:"channels,omitempty"`
-	Threads                     []*Channel             `json:"threads,omitempty"`
-	Presences                   []*PresenceUpdate      `json:"presences,omitempty"`
-	MaxPresences                CodeFlag               `json:"max_presences,omitempty"`
-	MaxMembers                  int                    `json:"max_members,omitempty"`
-	VanityUrl                   *string                `json:"vanity_url_code,omitempty"`
-	Description                 *string                `json:"description,omitempty"`
-	Banner                      string                 `json:"banner,omitempty"`
-	PremiumTier                 *Flag                  `json:"premium_tier,omitempty"`
-	PremiumSubscriptionCount    *CodeFlag              `json:"premium_subscription_count,omitempty"`
-	PreferredLocale             string                 `json:"preferred_locale,omitempty"`
-	PublicUpdatesChannelID      Snowflake              `json:"public_updates_channel_id,omitempty"`
-	MaxVideoChannelUsers        int                    `json:"max_video_channel_users,omitempty"`
-	ApproximateMemberCount      int                    `json:"approximate_member_count,omitempty"`
-	ApproximatePresenceCount    int                    `json:"approximate_presence_count,omitempty"`
-	WelcomeScreen               *WelcomeScreen         `json:"welcome_screen,omitempty"`
-	NSFWLevel                   *Flag                  `json:"nsfw_level,omitempty"`
-	StageInstances              []*StageInstance       `json:"stage_instances,omitempty"`
-	Stickers                    []*Sticker             `json:"stickers,omitempty"`
-	GuildScheduledEvents        []*GuildScheduledEvent `json:"guild_scheduled_events,omitempty"`
-	PremiumProgressBarEnabled   bool                   `json:"premium_progress_bar_enabled,omitempty"`
+	ID                          Snowflake      `json:"id,omitempty"`
+	Name                        string         `json:"name,omitempty"`
+	Icon                        string         `json:"icon,omitempty"`
+	IconHash                    string         `json:"icon_hash,omitempty"`
+	Splash                      string         `json:"splash,omitempty"`
+	DiscoverySplash             string         `json:"discovery_splash,omitempty"`
+	Owner                       bool           `json:"owner,omitempty"`
+	OwnerID                     Snowflake      `json:"owner_id,omitempty"`
+	Permissions                 *string        `json:"permissions,omitempty"`
+	Region                      string         `json:"region,omitempty"`
+	AfkChannelID                Snowflake      `json:"afk_channel_id,omitempty"`
+	AfkTimeout                  int            `json:"afk_timeout,omitempty"`
+	WidgetEnabled               bool           `json:"widget_enabled,omitempty"`
+	WidgetChannelID             Snowflake      `json:"widget_channel_id,omitempty"`
+	VerificationLevel           *Flag          `json:"verification_level,omitempty"`
+	DefaultMessageNotifications *Flag          `json:"default_message_notifications,omitempty"`
+	ExplicitContentFilter       *Flag          `json:"explicit_content_filter,omitempty"`
+	Roles                       []*Role        `json:"roles,omitempty"`
+	Emojis                      []*Emoji       `json:"emojis,omitempty"`
+	Features                    []*string      `json:"features,omitempty"`
+	MFALevel                    *Flag          `json:"mfa_level,omitempty"`
+	ApplicationID               Snowflake      `json:"application_id,omitempty"`
+	SystemChannelID             Snowflake      `json:"system_channel_id,omitempty"`
+	SystemChannelFlags          BitFlag        `json:"system_channel_flags,omitempty"`
+	RulesChannelID              Snowflake      `json:"rules_channel_id,omitempty"`
+	MaxPresences                CodeFlag       `json:"max_presences,omitempty"`
+	MaxMembers                  int            `json:"max_members,omitempty"`
+	VanityUrl                   *string        `json:"vanity_url_code,omitempty"`
+	Description                 *string        `json:"description,omitempty"`
+	Banner                      string         `json:"banner,omitempty"`
+	PremiumTier                 *Flag          `json:"premium_tier,omitempty"`
+	PremiumSubscriptionCount    *CodeFlag      `json:"premium_subscription_count,omitempty"`
+	PreferredLocale             string         `json:"preferred_locale,omitempty"`
+	PublicUpdatesChannelID      Snowflake      `json:"public_updates_channel_id,omitempty"`
+	MaxVideoChannelUsers        int            `json:"max_video_channel_users,omitempty"`
+	ApproximateMemberCount      int            `json:"approximate_member_count,omitempty"`
+	ApproximatePresenceCount    int            `json:"approximate_presence_count,omitempty"`
+	WelcomeScreen               *WelcomeScreen `json:"welcome_screen,omitempty"`
+	NSFWLevel                   *Flag          `json:"nsfw_level,omitempty"`
+	Stickers                    []*Sticker     `json:"stickers,omitempty"`
+	PremiumProgressBarEnabled   bool           `json:"premium_progress_bar_enabled,omitempty"`
+
+	// Unavailable Guild Object
+	// https://discord.com/developers/docs/resources/guild#unavailable-guild-object
+	Unavailable bool `json:"unavailable,omitempty"`
 }
 
 // Default Message Notification Level
@@ -1078,9 +973,20 @@ type GuildPreview struct {
 
 // Guild Widget Settings Object
 // https://discord.com/developers/docs/resources/guild#guild-widget-settings-object
-type GuildWidget struct {
+type GuildWidgetSettings struct {
 	Enabled   bool      `json:"enabled,omitempty"`
 	ChannelID Snowflake `json:"channel_id,omitempty"`
+}
+
+// Guild Widget Object
+// https://discord.com/developers/docs/resources/guild#et-gguild-widget-object-get-guild-widget-structure*
+type GuildWidget struct {
+	ID            Snowflake  `json:"id,omitempty"`
+	Name          string     `json:"name,omitempty"`
+	InstantInvite string     `json:"instant_invite,omitempty"`
+	Channels      []*Channel `json:"channels,omitempty"`
+	Members       []*User    `json:"members,omitempty"`
+	PresenceCount int        `json:"presence_count,omitempty"`
 }
 
 // Guild Member Object
@@ -1096,107 +1002,8 @@ type GuildMember struct {
 	Deaf                       bool         `json:"deaf,omitempty"`
 	Mute                       bool         `json:"mute,omitempty"`
 	Pending                    bool         `json:"pending,omitempty"`
-	CommunicationDisabledUntil time.Time    `json:"communication_disabled_until,omitempty"`
 	Permissions                *string      `json:"permissions,omitempty"`
-}
-
-// Guild Ban Object
-// https://discord.com/developers/docs/resources/guild#ban-object
-type Ban struct {
-	Reason *string `json:"reason,omitempty"`
-	User   *User   `json:"user,omitempty"`
-}
-
-// Guild Scheduled Event Object
-// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-structure
-type GuildScheduledEvent struct {
-	ID                 Snowflake                         `json:"id,omitempty"`
-	GuildID            Snowflake                         `json:"guild_id,omitempty"`
-	ChannelID          Snowflake                         `json:"channel_id,omitempty"`
-	CreatorID          Snowflake                         `json:"creator_id,omitempty"`
-	Name               string                            `json:"name,omitempty"`
-	Description        string                            `json:"description,omitempty"`
-	ScheduledStartTime time.Time                         `json:"scheduled_start_time,omitempty"`
-	ScheduledEndTime   time.Time                         `json:"scheduled_end_time,omitempty"`
-	PrivacyLevel       Flag                              `json:"privacy_level,omitempty"`
-	Status             Flag                              `json:"status,omitempty"`
-	EntityType         Flag                              `json:"entity_type,omitempty"`
-	EntityID           Snowflake                         `json:"entity_id,omitempty"`
-	EntityMetadata     GuildScheduledEventEntityMetadata `json:"entity_metadata,omitempty"`
-	Creator            *User                             `json:"creator,omitempty"`
-	UserCount          CodeFlag                          `json:"user_count,omitempty"`
-	Image              string                            `json:"image,omitempty"`
-}
-
-// Guild Scheduled Event Privacy Level
-// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-privacy-level
-const (
-	FlagGuildScheduledEventPrivacyLevelGUILD_ONLY = 2
-)
-
-// Guild Scheduled Event Entity Types
-// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-entity-types
-const (
-	FlagTypesEntityEventScheduledGuildSTAGE_INSTANCE = 1
-	FlagTypesEntityEventScheduledGuildVOICE          = 2
-	FlagTypesEntityEventScheduledGuildEXTERNAL       = 3
-)
-
-// Guild Scheduled Event Status
-// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-status
-const (
-	FlagStatusEventScheduledGuildSCHEDULED = 1
-	FlagStatusEventScheduledGuildACTIVE    = 2
-	FlagStatusEventScheduledGuildCOMPLETED = 3
-	FlagStatusEventScheduledGuildCANCELED  = 4
-)
-
-// Guild Scheduled Event Entity Metadata
-// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-entity-metadata
-type GuildScheduledEventEntityMetadata struct {
-	// location of the event (1-100 characters)
-	// required for events with 'entity_type': EXTERNAL
-	Location string `json:"location,omitempty"`
-}
-
-// Guild Scheduled Event User Object
-// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-user-object-guild-scheduled-event-user-structure
-type GuildScheduledEventUser struct {
-	GuildScheduledEventID Snowflake    `json:"guild_scheduled_event_id,omitempty"`
-	User                  *User        `json:"user,omitempty"`
-	Member                *GuildMember `json:"member,omitempty"`
-}
-
-// Guild Template Object
-// https://discord.com/developers/docs/resources/guild-template#guild-template-object
-type GuildTemplate struct {
-	Code                  string    `json:"code,omitempty"`
-	Name                  string    `json:"name,omitempty"`
-	Description           *string   `json:"description,omitempty"`
-	UsageCount            *int      `json:"usage_count,omitempty"`
-	CreatorID             Snowflake `json:"creator_id,omitempty"`
-	Creator               *User     `json:"creator,omitempty"`
-	CreatedAt             time.Time `json:"created_at,omitempty"`
-	UpdatedAt             time.Time `json:"updated_at,omitempty"`
-	SourceGuildID         Snowflake `json:"source_guild_id,omitempty"`
-	SerializedSourceGuild *Guild    `json:"serialized_source_guild,omitempty"`
-	IsDirty               bool      `json:"is_dirty,omitempty"`
-}
-
-// Welcome Screen Object
-// https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure
-type WelcomeScreen struct {
-	Description           *string                 `json:"description,omitempty"`
-	WelcomeScreenChannels []*WelcomeScreenChannel `json:"welcome_channels,omitempty"`
-}
-
-// Welcome Screen Channel Structure
-// https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-channel-structure
-type WelcomeScreenChannel struct {
-	ChannelID   Snowflake  `json:"channel_id,omitempty"`
-	Description *string    `json:"description,omitempty"`
-	EmojiID     *Snowflake `json:"emoji_id,omitempty"`
-	EmojiName   *string    `json:"emoji_name,omitempty"`
+	CommunicationDisabledUntil time.Time    `json:"communication_disabled_until,omitempty"`
 }
 
 // Integration Object
@@ -1242,6 +1049,202 @@ type IntegrationApplication struct {
 	Description *string   `json:"description,omitempty"`
 	Bot         *User     `json:"bot,omitempty"`
 }
+
+// Guild Ban Object
+// https://discord.com/developers/docs/resources/guild#ban-object
+type Ban struct {
+	Reason *string `json:"reason,omitempty"`
+	User   *User   `json:"user,omitempty"`
+}
+
+// Welcome Screen Object
+// https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure
+type WelcomeScreen struct {
+	Description           *string                 `json:"description,omitempty"`
+	WelcomeScreenChannels []*WelcomeScreenChannel `json:"welcome_channels,omitempty"`
+}
+
+// Welcome Screen Channel Structure
+// https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-channel-structure
+type WelcomeScreenChannel struct {
+	ChannelID   Snowflake  `json:"channel_id,omitempty"`
+	Description *string    `json:"description,omitempty"`
+	EmojiID     *Snowflake `json:"emoji_id,omitempty"`
+	EmojiName   *string    `json:"emoji_name,omitempty"`
+}
+
+// Guild Scheduled Event Object
+// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-structure
+type GuildScheduledEvent struct {
+	ID                 Snowflake                         `json:"id,omitempty"`
+	GuildID            Snowflake                         `json:"guild_id,omitempty"`
+	ChannelID          Snowflake                         `json:"channel_id,omitempty"`
+	CreatorID          Snowflake                         `json:"creator_id,omitempty"`
+	Name               string                            `json:"name,omitempty"`
+	Description        string                            `json:"description,omitempty"`
+	ScheduledStartTime time.Time                         `json:"scheduled_start_time,omitempty"`
+	ScheduledEndTime   time.Time                         `json:"scheduled_end_time,omitempty"`
+	PrivacyLevel       Flag                              `json:"privacy_level,omitempty"`
+	Status             Flag                              `json:"status,omitempty"`
+	EntityType         Flag                              `json:"entity_type,omitempty"`
+	EntityID           Snowflake                         `json:"entity_id,omitempty"`
+	EntityMetadata     GuildScheduledEventEntityMetadata `json:"entity_metadata,omitempty"`
+	Creator            *User                             `json:"creator,omitempty"`
+	UserCount          int                               `json:"user_count,omitempty"`
+	Image              string                            `json:"image,omitempty"`
+}
+
+// Guild Scheduled Event Privacy Level
+// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-privacy-level
+const (
+	FlagGuildScheduledEventPrivacyLevelGUILD_ONLY = 2
+)
+
+// Guild Scheduled Event Entity Types
+// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-entity-types
+const (
+	FlagTypesEntityEventScheduledGuildSTAGE_INSTANCE = 1
+	FlagTypesEntityEventScheduledGuildVOICE          = 2
+	FlagTypesEntityEventScheduledGuildEXTERNAL       = 3
+)
+
+// Guild Scheduled Event Status
+// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-status
+const (
+	FlagStatusEventScheduledGuildSCHEDULED = 1
+	FlagStatusEventScheduledGuildACTIVE    = 2
+	FlagStatusEventScheduledGuildCOMPLETED = 3
+	FlagStatusEventScheduledGuildCANCELED  = 4
+)
+
+// Guild Scheduled Event Entity Metadata
+// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-entity-metadata
+type GuildScheduledEventEntityMetadata struct {
+	Location string `json:"location,omitempty"`
+}
+
+// Guild Scheduled Event User Object
+// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-user-object-guild-scheduled-event-user-structure
+type GuildScheduledEventUser struct {
+	GuildScheduledEventID Snowflake    `json:"guild_scheduled_event_id,omitempty"`
+	User                  *User        `json:"user,omitempty"`
+	Member                *GuildMember `json:"member,omitempty"`
+}
+
+// Guild Template Object
+// https://discord.com/developers/docs/resources/guild-template#guild-template-object
+type GuildTemplate struct {
+	Code                  string    `json:"code,omitempty"`
+	Name                  string    `json:"name,omitempty"`
+	Description           *string   `json:"description,omitempty"`
+	UsageCount            *int      `json:"usage_count,omitempty"`
+	CreatorID             Snowflake `json:"creator_id,omitempty"`
+	Creator               *User     `json:"creator,omitempty"`
+	CreatedAt             time.Time `json:"created_at,omitempty"`
+	UpdatedAt             time.Time `json:"updated_at,omitempty"`
+	SourceGuildID         Snowflake `json:"source_guild_id,omitempty"`
+	SerializedSourceGuild *Guild    `json:"serialized_source_guild,omitempty"`
+	IsDirty               bool      `json:"is_dirty,omitempty"`
+}
+
+// Client Status Object
+// https://discord.com/developers/docs/topics/gateway#client-status-object
+type ClientStatus struct {
+	Desktop *string `json:"desktop,omitempty"`
+	Mobile  *string `json:"mobile,omitempty"`
+	Web     *string `json:"web,omitempty"`
+}
+
+// Activity Object
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-structure
+type Activity struct {
+	Name          string              `json:"name,omitempty"`
+	Type          *Flag               `json:"type,omitempty"`
+	URL           string              `json:"url,omitempty"`
+	CreatedAt     int                 `json:"created_at,omitempty"`
+	Timestamps    *ActivityTimestamps `json:"timestamps,omitempty"`
+	ApplicationID Snowflake           `json:"application_id,omitempty"`
+	Details       string              `json:"details,omitempty"`
+	State         string              `json:"state,omitempty"`
+	Emoji         *Emoji              `json:"emoji,omitempty"`
+	Party         *ActivityParty      `json:"party,omitempty"`
+	Assets        *ActivityAssets     `json:"assets,omitempty"`
+	Secrets       *ActivitySecrets    `json:"secrets,omitempty"`
+	Instance      bool                `json:"instance,omitempty"`
+	Flags         BitFlag             `json:"flags,omitempty"`
+	Buttons       []Button            `json:"buttons,omitempty"`
+}
+
+// Activity Types
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-types
+const (
+	FlagEnumTypeActivityPlaying   = 0
+	FlagEnumTypeActivityStreaming = 1
+	FlagEnumTypeActivityListening = 2
+	FlagEnumTypeActivityWatching  = 3
+	FlagEnumTypeActivityCustom    = 4
+	FlagEnumTypeActivityCompeting = 5
+)
+
+// Activity Timestamps Struct
+// htthttps://discord.com/developers/docs/topics/gateway#activity-object-activity-timestamps
+type ActivityTimestamps struct {
+	Start int `json:"start,omitempty"`
+	End   int `json:"end,omitempty"`
+}
+
+// Activity Emoji
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-emoji
+type ActivityEmoji struct {
+	Name     string    `json:"name,omitempty"`
+	ID       Snowflake `json:"id,omitempty"`
+	Animated bool      `json:"animated,omitempty"`
+}
+
+// Activity Party Struct
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-party
+type ActivityParty struct {
+	ID   string  `json:"id,omitempty"`
+	Size *[2]int `json:"size,omitempty"`
+}
+
+// Activity Assets Struct
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-assets
+type ActivityAssets struct {
+	LargeImage string `json:"large_image,omitempty"`
+	LargeText  string `json:"large_text,omitempty"`
+	SmallImage string `json:"small_image,omitempty"`
+	SmallText  string `json:"small_text,omitempty"`
+}
+
+// Activity Asset Image
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-asset-image
+type ActivityAssetImage struct {
+	ApplicationAsset string `json:"application_asset_id,omitempty"`
+	MediaProxyImage  string `json:"image_id,omitempty"`
+}
+
+// Activity Secrets Struct
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-secrets
+type ActivitySecrets struct {
+	Join     string `json:"join,omitempty"`
+	Spectate string `json:"spectate,omitempty"`
+	Match    string `json:"match,omitempty"`
+}
+
+// Activity Flags
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-flags
+const (
+	FlagActivityINSTANCE                    = 1 << 0
+	FlagActivityJOIN                        = 1 << 1
+	FlagActivitySPECTATE                    = 1 << 2
+	FlagActivityJOIN_REQUEST                = 1 << 3
+	FlagActivitySYNC                        = 1 << 4
+	FlagActivityPLAY                        = 1 << 5
+	FlagActivityPARTY_PRIVACY_FRIENDS       = 1 << 6
+	FlagActivityPARTY_PRIVACY_VOICE_CHANNEL = 1 << 7
+	FlagActivityEMBEDDED                    = 1 << 8
+)
 
 // Invite Object
 // https://discord.com/developers/docs/resources/invite#invite-object
