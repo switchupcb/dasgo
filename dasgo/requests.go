@@ -23,7 +23,8 @@ type CreateGlobalApplicationCommand struct {
 	Description              string                      `json:"description,omitempty"`
 	DescriptionLocalizations map[Flag]string             `json:"description_localizations,omitempty"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
-	DefaultPermission        bool                        `json:"default_permission,omitempty"`
+	DefaultMemberPermissions string                      `json:"default_member_permissions,omitempty"`
+	DMPermission             bool                        `json:"dm_permission,omitempty"`
 	Type                     Flag                        `json:"type,omitempty"`
 }
 
@@ -46,7 +47,8 @@ type EditGlobalApplicationCommand struct {
 	Description              string                      `json:"description,omitempty"`
 	DescriptionLocalizations map[Flag]string             `json:"description_localizations,omitempty"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
-	DefaultPermission        bool                        `json:"default_permission,omitempty"`
+	DefaultMemberPermissions string                      `json:"default_member_permissions,omitempty"`
+	DMPermission             bool                        `json:"dm_permission,omitempty"`
 }
 
 // Delete Global Application Command
@@ -85,7 +87,8 @@ type CreateGuildApplicationCommand struct {
 	Description              string                      `json:"description,omitempty"`
 	DescriptionLocalizations map[Flag]string             `json:"description_localizations,omitempty"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
-	DefaultPermission        bool                        `json:"default_permission,omitempty"`
+	DefaultMemberPermissions string                      `json:"default_member_permissions,omitempty"`
+	DMPermission             bool                        `json:"dm_permission,omitempty"`
 	Type                     Flag                        `json:"type,omitempty"`
 }
 
@@ -110,7 +113,8 @@ type EditGuildApplicationCommand struct {
 	Description              string                      `json:"description,omitempty"`
 	DescriptionLocalizations map[Flag]string             `json:"description_localizations,omitempty"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
-	DefaultPermission        bool                        `json:"default_permission,omitempty"`
+	DefaultMemberPermissions string                      `json:"default_member_permissions,omitempty"`
+	DMPermission             bool                        `json:"dm_permission,omitempty"`
 }
 
 // Delete Guild Application Command
@@ -133,7 +137,8 @@ type BulkOverwriteGuildApplicationCommands struct {
 	Description              string                      `json:"description,omitempty"`
 	DescriptionLocalizations map[Flag]string             `json:"description_localizations,omitempty"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
-	DefaultPermission        bool                        `json:"default_permission,omitempty"`
+	DefaultMemberPermissions string                      `json:"default_member_permissions,omitempty"`
+	DMPermission             bool                        `json:"dm_permission,omitempty"`
 	Type                     Flag                        `json:"type,omitempty"`
 }
 
@@ -170,6 +175,73 @@ type EditApplicationCommandPermissions struct {
 type BatchEditApplicationCommandPermissions struct {
 	ApplicationID Snowflake
 	GuildID       Snowflake
+}
+
+// Create Interaction Response
+// POST /interactions/{interaction.id}/{interaction.token}/callback
+// https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
+type CreateInteractionResponse struct {
+	InteractionID    Snowflake
+	InteractionToken string
+}
+
+// Get Original Interaction Response
+// GET /webhooks/{application.id}/{interaction.token}/messages/@original
+// https://discord.com/developers/docs/interactions/receiving-and-responding#get-original-interaction-response
+type GetOriginalInteractionResponse struct {
+	ApplicationID    Snowflake
+	InteractionToken string
+}
+
+// Edit Original Interaction Response
+// PATCH /webhooks/{application.id}/{interaction.token}/messages/@original
+// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-original-interaction-response
+type EditOriginalInteractionResponse struct {
+	ApplicationID    Snowflake
+	InteractionToken string
+}
+
+// Delete Original Interaction Response
+// DELETE /webhooks/{application.id}/{interaction.token}/messages/@original
+// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-original-interaction-response
+type DeleteOriginalInteractionResponse struct {
+	ApplicationID    Snowflake
+	InteractionToken string
+}
+
+// Create Followup Message
+// POST /webhooks/{application.id}/{interaction.token}
+// https://discord.com/developers/docs/interactions/receiving-and-responding#create-followup-message
+type CreateFollowupMessage struct {
+	ApplicationID    Snowflake
+	InteractionToken string
+}
+
+// Get Followup Message
+// GET /webhooks/{application.id}/{interaction.token}/messages/{message.id}
+// https://discord.com/developers/docs/interactions/receiving-and-responding#get-followup-message
+type GetFollowupMessage struct {
+	ApplicationID    Snowflake
+	InteractionToken string
+	MessageID        Snowflake
+}
+
+// Edit Followup Message
+// PATCH /webhooks/{application.id}/{interaction.token}/messages/{message.id}
+// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-followup-message
+type EditFollowupMessage struct {
+	ApplicationID    Snowflake
+	InteractionToken string
+	MessageID        Snowflake
+}
+
+// Delete Followup Message
+// DELETE /webhooks/{application.id}/{interaction.token}/messages/{message.id}
+// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-followup-message
+type DeleteFollowupMessage struct {
+	ApplicationID    Snowflake
+	InteractionToken string
+	MessageID        Snowflake
 }
 
 // Get Guild Audit Log
@@ -1211,73 +1283,6 @@ type ModifyGuildTemplate struct {
 type DeleteGuildTemplate struct {
 	GuildID      Snowflake
 	TemplateCode string
-}
-
-// Create Interaction Response
-// POST /interactions/{interaction.id}/{interaction.token}/callback
-// https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
-type CreateInteractionResponse struct {
-	InteractionID    Snowflake
-	InteractionToken string
-}
-
-// Get Original Interaction Response
-// GET /webhooks/{application.id}/{interaction.token}/messages/@original
-// https://discord.com/developers/docs/interactions/receiving-and-responding#get-original-interaction-response
-type GetOriginalInteractionResponse struct {
-	ApplicationID    Snowflake
-	InteractionToken string
-}
-
-// Edit Original Interaction Response
-// PATCH /webhooks/{application.id}/{interaction.token}/messages/@original
-// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-original-interaction-response
-type EditOriginalInteractionResponse struct {
-	ApplicationID    Snowflake
-	InteractionToken string
-}
-
-// Delete Original Interaction Response
-// DELETE /webhooks/{application.id}/{interaction.token}/messages/@original
-// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-original-interaction-response
-type DeleteOriginalInteractionResponse struct {
-	ApplicationID    Snowflake
-	InteractionToken string
-}
-
-// Create Followup Message
-// POST /webhooks/{application.id}/{interaction.token}
-// https://discord.com/developers/docs/interactions/receiving-and-responding#create-followup-message
-type CreateFollowupMessage struct {
-	ApplicationID    Snowflake
-	InteractionToken string
-}
-
-// Get Followup Message
-// GET /webhooks/{application.id}/{interaction.token}/messages/{message.id}
-// https://discord.com/developers/docs/interactions/receiving-and-responding#get-followup-message
-type GetFollowupMessage struct {
-	ApplicationID    Snowflake
-	InteractionToken string
-	MessageID        Snowflake
-}
-
-// Edit Followup Message
-// PATCH /webhooks/{application.id}/{interaction.token}/messages/{message.id}
-// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-followup-message
-type EditFollowupMessage struct {
-	ApplicationID    Snowflake
-	InteractionToken string
-	MessageID        Snowflake
-}
-
-// Delete Followup Message
-// DELETE /webhooks/{application.id}/{interaction.token}/messages/{message.id}
-// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-followup-message
-type DeleteFollowupMessage struct {
-	ApplicationID    Snowflake
-	InteractionToken string
-	MessageID        Snowflake
 }
 
 // Get Invite
