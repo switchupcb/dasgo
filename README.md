@@ -1,5 +1,5 @@
 # Dasgo
-Dasgo provides 1:1 type definitions for the [Discord API](https://discord.com/developers/docs/reference) in **Go** and is a submodule of the [Discord API Spec](https://github.com/switchupcb/discord-api-spec). As a result, it aims to provide a direct representation of Discord API Objects.
+Dasgo provides a direct representation of [Discord API Objects](https://discord.com/developers/docs/reference) in **Go**.
 
 ## Using Dasgo
 
@@ -40,3 +40,11 @@ You can contribute to this repository by reading [Contribution](CONTRIBUTING.md)
 ### License
 
 The [BSD 3-Clause](LICENSE) is a permissive license.
+
+## Libraries
+
+Libraries that use Dasgo.
+
+| Library                                      | Description                                    |
+| :------------------------------------------- | :--------------------------------------------- |
+| [Disgo](https://github.com/switchupcb/disgo) | Discord API Wrapper, Cache, and Shard Manager. |
