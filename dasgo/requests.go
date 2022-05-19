@@ -1386,7 +1386,7 @@ type GetUser struct {
 
 // Modify Current User
 // PATCH /users/@me
-// https://discord.com/developers/docs/resources/user#modify-current-
+// https://discord.com/developers/docs/resources/user#modify-current-user
 // TODO (Image Data)
 type ModifyCurrentUser struct {
 	Username string  `json:"username,omitempty"`
@@ -1444,6 +1444,7 @@ type ListVoiceRegions struct{}
 // Create Webhook
 // POST /channels/{channel.id}/webhooks
 // https://discord.com/developers/docs/resources/webhook#create-webhook
+// TODO (Image Data)
 type CreateWebhook struct {
 	ChannelID Snowflake
 	Name      string `json:"name,omitempty"`
@@ -1518,18 +1519,19 @@ type DeleteWebhookwithToken struct {
 type ExecuteWebhook struct {
 	WebhookID       Snowflake
 	WebhookToken    string
-	Wait            bool             `json:"wait,omitempty"`
-	ThreadID        Snowflake        `json:"thread_id,omitempty"`
+	Wait            bool             `url:"wait"`
+	ThreadID        Snowflake        `url:"thread_id"`
 	Content         string           `json:"content,omitempty"`
 	Username        string           `json:"username,omitempty"`
 	AvatarURL       string           `json:"avatar_url,omitempty"`
 	TTS             bool             `json:"tts,omitempty"`
-	Files           []byte           `dasgo:"files"`
-	Components      []Component      `json:"components,omitempty"`
 	Embeds          []*Embed         `json:"embeds,omitempty"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
+	Components      []Component      `json:"components,omitempty"`
+	Files           []byte           `dasgo:"files"`
 	PayloadJSON     string           `json:"payload_json,omitempty"`
 	Attachments     []*Attachment    `json:"attachments,omitempty"`
+	Flags           BitFlag          `json:"flags,omitempty"`
 }
 
 // Execute Slack-Compatible Webhook
@@ -1538,8 +1540,8 @@ type ExecuteWebhook struct {
 type ExecuteSlackCompatibleWebhook struct {
 	WebhookID    Snowflake
 	WebhookToken string
-	ThreadID     Snowflake `json:"thread_id,omitempty"`
-	Wait         bool      `json:"wait,omitempty"`
+	ThreadID     Snowflake `url:"thread_id,omitempty"`
+	Wait         bool      `url:"wait,omitempty"`
 }
 
 // Execute GitHub-Compatible Webhook
@@ -1548,8 +1550,8 @@ type ExecuteSlackCompatibleWebhook struct {
 type ExecuteGitHubCompatibleWebhook struct {
 	WebhookID    Snowflake
 	WebhookToken string
-	ThreadID     Snowflake `json:"thread_id,omitempty"`
-	Wait         bool      `json:"wait,omitempty"`
+	ThreadID     Snowflake `url:"thread_id,omitempty"`
+	Wait         bool      `url:"wait,omitempty"`
 }
 
 // Get Webhook Message
@@ -1559,7 +1561,7 @@ type GetWebhookMessage struct {
 	WebhookID    Snowflake
 	WebhookToken string
 	MessageID    Snowflake
-	ThreadID     Snowflake `json:"thread_id,omitempty"`
+	ThreadID     Snowflake `url:"thread_id,omitempty"`
 }
 
 // Edit Webhook Message
@@ -1569,10 +1571,10 @@ type EditWebhookMessage struct {
 	WebhookID       Snowflake
 	WebhookToken    string
 	MessageID       Snowflake
-	ThreadID        Snowflake        `json:"thread_id,omitempty"`
+	ThreadID        Snowflake        `url:"thread_id,omitempty"`
 	Content         *string          `json:"content,omitempty"`
-	Components      []*Component     `json:"components,omitempty"`
 	Embeds          []*Embed         `json:"embeds,omitempty"`
+	Components      []*Component     `json:"components,omitempty"`
 	Files           []byte           `dasgo:"files"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
 	PayloadJSON     string           `json:"payload_json,omitempty"`
@@ -1585,7 +1587,7 @@ type EditWebhookMessage struct {
 type DeleteWebhookMessage struct {
 	WebhookID    Snowflake
 	WebhookToken string
-	MessageID    Snowflake
+	ThreadID     *Snowflake `url:"thread_id,omitempty"`
 }
 
 // Get Current Bot Application Information

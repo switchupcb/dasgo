@@ -27,6 +27,15 @@ type ListJoinedPrivateArchivedThreadsResponse struct {
 	HasMore bool            `json:"has_more"`
 }
 
+// Current Authorization Information Response Structure
+// https://discord.com/developers/docs/topics/oauth2#get-current-authorization-information
+type CurrentAuthorizationInformationResponse struct {
+	Application *Application `json:"application"`
+	Scopes      []*int       `json:"scopes"`
+	Expires     *time.Time   `json:"expires"`
+	User        *User        `json:"user"`
+}
+
 // Get Gateway Response
 // https://discord.com/developers/docs/topics/gateway#get-gateway-example-response
 type GetGatewayResponse struct {
@@ -39,19 +48,4 @@ type GetGatewayBotResponse struct {
 	URL               string            `json:"url,omitempty"`
 	Shards            *int              `json:"shards,omitempty"`
 	SessionStartLimit SessionStartLimit `json:"session_start_limit"`
-}
-
-// Current Authorization Information Response Structure
-// https://discord.com/developers/docs/topics/oauth2#get-current-authorization-information
-type CurrentAuthorizationInformationResponse struct {
-	Application *Application `json:"application"`
-	Scopes      []*int       `json:"scopes"`
-	Expires     *time.Time   `json:"expires"`
-	User        *User        `json:"user"`
-}
-
-// Modify Current User Nick Response
-// https://discord.com/developers/docs/topics/gateway#get-gateway-example-response
-type ModifyCurrentUserNickResponse struct {
-	Nick *string `json:"nick,omitempty"`
 }
