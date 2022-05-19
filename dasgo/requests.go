@@ -64,7 +64,7 @@ type DeleteGlobalApplicationCommand struct {
 // https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
 type BulkOverwriteGlobalApplicationCommands struct {
 	ApplicationID       Snowflake
-	ApplicationCommands []*ApplicationCommand
+	ApplicationCommands []*ApplicationCommand `json:"commands,omitempty"`
 }
 
 // Get Guild Application Commands
@@ -1587,6 +1587,7 @@ type EditWebhookMessage struct {
 type DeleteWebhookMessage struct {
 	WebhookID    Snowflake
 	WebhookToken string
+	MessageID    Snowflake
 	ThreadID     *Snowflake `url:"thread_id,omitempty"`
 }
 
