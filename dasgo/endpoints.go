@@ -30,7 +30,7 @@ const (
 	EndpointGetGuildAuditLog                       = "guilds/{guild.id}/audit-logs"
 	EndpointGetChannel                             = "channels/{channel.id}"
 	EndpointModifyChannel                          = "channels/{channel.id}"
-	EndpointDeleteCloseChannel                     = "/channels/{channel.id}"
+	EndpointDeleteCloseChannel                     = "channels/{channel.id}"
 	EndpointGetChannelMessages                     = "channels/{channel.id}/messages"
 	EndpointGetChannelMessage                      = "channels/{channel.id}/messages/{message.id}"
 	EndpointCreateMessage                          = "channels/{channel.id}/messages"
