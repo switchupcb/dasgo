@@ -27,6 +27,13 @@ type ListJoinedPrivateArchivedThreadsResponse struct {
 	HasMore bool            `json:"has_more"`
 }
 
+// List Active Guild Threads Response Body
+// https://discord.com/developers/docs/resources/guild#list-active-guild-threads-response-body
+type ListActiveGuildThreadsResponse struct {
+	Threads []*Channel      `json:"threads"`
+	Members []*ThreadMember `json:"members"`
+}
+
 // Current Authorization Information Response Structure
 // https://discord.com/developers/docs/topics/oauth2#get-current-authorization-information
 type CurrentAuthorizationInformationResponse struct {

@@ -826,7 +826,7 @@ type ModifyGuildChannelPositions struct {
 
 // List Active Guild Threads
 // GET /guilds/{guild.id}/threads/active
-// https://discord.com/developers/docs/resources/guild#list-active-threads
+// https://discord.com/developers/docs/resources/guild#list-active-guild-threads
 type ListActiveGuildThreads struct {
 	GuildID Snowflake
 	Threads []*Channel      `json:"threads,omitempty"`
