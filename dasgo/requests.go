@@ -1263,16 +1263,6 @@ type DeleteGuildTemplate struct {
 	TemplateCode string
 }
 
-// Get Gateway
-// GET /gateway
-// https://discord.com/developers/docs/topics/gateway#get-gateway
-type GetGateway struct{}
-
-// Get Gateway Bot
-// GET /gateway/bot
-// https://discord.com/developers/docs/topics/gateway#get-gateway-bot
-type GetGatewayBot struct{}
-
 // Get Invite
 // GET /invites/{invite.code}
 // https://discord.com/developers/docs/resources/invite#get-invite
@@ -1289,16 +1279,6 @@ type GetInvite struct {
 type DeleteInvite struct {
 	InviteCode string
 }
-
-// Get Current Bot Application Information
-// GET /oauth2/applications/@me
-// https://discord.com/developers/docs/topics/oauth2#get-current-bot-application-information
-type GetCurrentBotApplicationInformation struct{}
-
-// Get Current Authorization Information
-// GET /oauth2/@me
-// https://discord.com/developers/docs/topics/oauth2#get-current-authorization-information
-type GetCurrentAuthorizationInformation struct{}
 
 // Create Stage Instance
 // POST /stage-instances
@@ -1370,7 +1350,7 @@ type CreateGuildSticker struct {
 	Name        string  `json:"name,omitempty"`
 	Description string  `json:"description,omitempty"`
 	Tags        *string `json:"tags,omitempty"`
-	Files       []byte  `dasgo:"files"`
+	File        []byte  `dasgo:"file"`
 }
 
 // Modify Guild Sticker
@@ -1392,9 +1372,22 @@ type DeleteGuildSticker struct {
 	StickerID Snowflake
 }
 
+// Get Current User
+// GET/users/@me
+// https://discord.com/developers/docs/resources/user#get-current-user
+type GetCurrentUser struct{}
+
+// Get User
+// GET/users/{user.id}
+// https://discord.com/developers/docs/resources/user#get-user
+type GetUser struct {
+	UserID Snowflake
+}
+
 // Modify Current User
 // PATCH /users/@me
-// https://discord.com/developers/docs/resources/user#modify-current-user
+// https://discord.com/developers/docs/resources/user#modify-current-
+// TODO (Image Data)
 type ModifyCurrentUser struct {
 	Username string  `json:"username,omitempty"`
 	Avatar   *string `json:"avatar,omitempty"`
@@ -1406,7 +1399,7 @@ type ModifyCurrentUser struct {
 type GetCurrentUserGuilds struct {
 	Before *Snowflake `json:"before,omitempty"`
 	After  *Snowflake `json:"after,omitempty"`
-	Limit  Flag       `json:"limit,omitempty"`
+	Limit  *int       `json:"limit,omitempty"`
 }
 
 // Get Current User Guild Member
@@ -1441,9 +1434,7 @@ type CreateGroupDM struct {
 // Get User Connections
 // GET /users/@me/connections
 // https://discord.com/developers/docs/resources/user#get-user-connections
-type GetUserConnections struct {
-	RecipientID Snowflake `json:"recipient_id,omitempty"`
-}
+type GetUserConnections struct{}
 
 // List Voice Regions
 // GET /voice/regions
@@ -1596,3 +1587,23 @@ type DeleteWebhookMessage struct {
 	WebhookToken string
 	MessageID    Snowflake
 }
+
+// Get Current Bot Application Information
+// GET /oauth2/applications/@me
+// https://discord.com/developers/docs/topics/oauth2#get-current-bot-application-information
+type GetCurrentBotApplicationInformation struct{}
+
+// Get Current Authorization Information
+// GET /oauth2/@me
+// https://discord.com/developers/docs/topics/oauth2#get-current-authorization-information
+type GetCurrentAuthorizationInformation struct{}
+
+// Get Gateway
+// GET /gateway
+// https://discord.com/developers/docs/topics/gateway#get-gateway
+type GetGateway struct{}
+
+// Get Gateway Bot
+// GET /gateway/bot
+// https://discord.com/developers/docs/topics/gateway#get-gateway-bot
+type GetGatewayBot struct{}

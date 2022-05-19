@@ -1147,105 +1147,6 @@ type GuildTemplate struct {
 	IsDirty               bool      `json:"is_dirty,omitempty"`
 }
 
-// Client Status Object
-// https://discord.com/developers/docs/topics/gateway#client-status-object
-type ClientStatus struct {
-	Desktop *string `json:"desktop,omitempty"`
-	Mobile  *string `json:"mobile,omitempty"`
-	Web     *string `json:"web,omitempty"`
-}
-
-// Activity Object
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-structure
-type Activity struct {
-	Name          string              `json:"name,omitempty"`
-	Type          *Flag               `json:"type,omitempty"`
-	URL           string              `json:"url,omitempty"`
-	CreatedAt     int                 `json:"created_at,omitempty"`
-	Timestamps    *ActivityTimestamps `json:"timestamps,omitempty"`
-	ApplicationID Snowflake           `json:"application_id,omitempty"`
-	Details       string              `json:"details,omitempty"`
-	State         string              `json:"state,omitempty"`
-	Emoji         *Emoji              `json:"emoji,omitempty"`
-	Party         *ActivityParty      `json:"party,omitempty"`
-	Assets        *ActivityAssets     `json:"assets,omitempty"`
-	Secrets       *ActivitySecrets    `json:"secrets,omitempty"`
-	Instance      bool                `json:"instance,omitempty"`
-	Flags         BitFlag             `json:"flags,omitempty"`
-	Buttons       []Button            `json:"buttons,omitempty"`
-}
-
-// Activity Types
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-types
-const (
-	FlagEnumTypeActivityPlaying   = 0
-	FlagEnumTypeActivityStreaming = 1
-	FlagEnumTypeActivityListening = 2
-	FlagEnumTypeActivityWatching  = 3
-	FlagEnumTypeActivityCustom    = 4
-	FlagEnumTypeActivityCompeting = 5
-)
-
-// Activity Timestamps Struct
-// htthttps://discord.com/developers/docs/topics/gateway#activity-object-activity-timestamps
-type ActivityTimestamps struct {
-	Start int `json:"start,omitempty"`
-	End   int `json:"end,omitempty"`
-}
-
-// Activity Emoji
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-emoji
-type ActivityEmoji struct {
-	Name     string    `json:"name,omitempty"`
-	ID       Snowflake `json:"id,omitempty"`
-	Animated bool      `json:"animated,omitempty"`
-}
-
-// Activity Party Struct
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-party
-type ActivityParty struct {
-	ID   string  `json:"id,omitempty"`
-	Size *[2]int `json:"size,omitempty"`
-}
-
-// Activity Assets Struct
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-assets
-type ActivityAssets struct {
-	LargeImage string `json:"large_image,omitempty"`
-	LargeText  string `json:"large_text,omitempty"`
-	SmallImage string `json:"small_image,omitempty"`
-	SmallText  string `json:"small_text,omitempty"`
-}
-
-// Activity Asset Image
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-asset-image
-type ActivityAssetImage struct {
-	ApplicationAsset string `json:"application_asset_id,omitempty"`
-	MediaProxyImage  string `json:"image_id,omitempty"`
-}
-
-// Activity Secrets Struct
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-secrets
-type ActivitySecrets struct {
-	Join     string `json:"join,omitempty"`
-	Spectate string `json:"spectate,omitempty"`
-	Match    string `json:"match,omitempty"`
-}
-
-// Activity Flags
-// https://discord.com/developers/docs/topics/gateway#activity-object-activity-flags
-const (
-	FlagActivityINSTANCE                    = 1 << 0
-	FlagActivityJOIN                        = 1 << 1
-	FlagActivitySPECTATE                    = 1 << 2
-	FlagActivityJOIN_REQUEST                = 1 << 3
-	FlagActivitySYNC                        = 1 << 4
-	FlagActivityPLAY                        = 1 << 5
-	FlagActivityPARTY_PRIVACY_FRIENDS       = 1 << 6
-	FlagActivityPARTY_PRIVACY_VOICE_CHANNEL = 1 << 7
-	FlagActivityEMBEDDED                    = 1 << 8
-)
-
 // Invite Object
 // https://discord.com/developers/docs/resources/invite#invite-object
 type Invite struct {
@@ -1253,8 +1154,8 @@ type Invite struct {
 	Guild                    *Guild               `json:"guild,omitempty"`
 	Channel                  *Channel             `json:"channel,omitempty"`
 	Inviter                  *User                `json:"inviter,omitempty"`
-	TargetUser               *User                `json:"target_user,omitempty"`
 	TargetType               Flag                 `json:"target_type,omitempty"`
+	TargetUser               *User                `json:"target_user,omitempty"`
 	TargetApplication        *Application         `json:"target_application,omitempty"`
 	ApproximatePresenceCount int                  `json:"approximate_presence_count,omitempty"`
 	ApproximateMemberCount   int                  `json:"approximate_member_count,omitempty"`
@@ -1278,6 +1179,18 @@ type InviteMetadata struct {
 	MaxAge    int       `json:"max_age,omitempty"`
 	Temporary bool      `json:"temporary,omitempty"`
 	CreatedAt time.Time `json:"created_at,omitempty"`
+}
+
+// Stage Instance Object
+// https://discord.com/developers/docs/resources/stage-instance#stage-instance-object
+type StageInstance struct {
+	ID                    Snowflake  `json:"id,omitempty"`
+	GuildID               *Snowflake `json:"guild_id,omitempty"`
+	ChannelID             *Snowflake `json:"channel_id,omitempty"`
+	Topic                 string     `json:"topic,omitempty"`
+	PrivacyLevel          Flag       `json:"privacy_level,omitempty"`
+	DiscoverableDisabled  bool       `json:"discoverable_disabled,omitempty"`
+	GuildScheduledEventID Snowflake  `json:"guild_scheduled_event_id,omitempty"`
 }
 
 // Sticker Structure
@@ -1321,21 +1234,85 @@ type StickerItem struct {
 }
 
 // Sticker Pack Object
-// StickerPack represents a pack of standard stickers.
+// https://discord.com/developers/docs/resources/sticker#sticker-pack-object-sticker-pack-structure
 type StickerPack struct {
-	ID            Snowflake `json:"id,omitempty"`
-	Type          Flag      `json:"type,omitempty"`
-	GuildID       Snowflake `json:"guild_id,omitempty"`
-	ChannelID     Snowflake `json:"channel_id,omitempty"`
-	User          *User     `json:"user,omitempty"`
-	Name          string    `json:"name,omitempty"`
-	Avatar        string    `json:"avatar,omitempty"`
-	Token         string    `json:"token,omitempty"`
-	ApplicationID Snowflake `json:"application_id,omitempty"`
-	SourceGuild   *Guild    `json:"source_guild,omitempty"`
-	SourceChannel *Channel  `json:"source_channel,omitempty"`
-	URL           string    `json:"url,omitempty"`
+	ID             Snowflake  `json:"id,omitempty"`
+	Stickers       []*Sticker `json:"stickers,omitempty"`
+	Name           string     `json:"name,omitempty"`
+	SKU_ID         Snowflake  `json:"sku_id,omitempty"`
+	CoverStickerID Snowflake  `json:"cover_sticker_id,omitempty"`
+	Description    string     `json:"description,omitempty"`
+	BannerAssetID  Snowflake  `json:"banner_asset_id,omitempty"`
 }
+
+// User Object
+// https://discord.com/developers/docs/resources/user#user-object
+type User struct {
+	ID            Snowflake `json:"id,omitempty"`
+	Username      string    `json:"username,omitempty"`
+	Discriminator string    `json:"discriminator,omitempty"`
+	Avatar        string    `json:"avatar,omitempty"`
+	Bot           bool      `json:"bot,omitempty"`
+	System        bool      `json:"system,omitempty"`
+	MFAEnabled    bool      `json:"mfa_enabled,omitempty"`
+	Banner        string    `json:"banner,omitempty"`
+	AccentColor   int       `json:"accent_color,omitempty"`
+	Locale        string    `json:"locale,omitempty"`
+	Verified      bool      `json:"verified,omitempty"`
+	Email         *string   `json:"email,omitempty"`
+	Flags         *BitFlag  `json:"flag,omitempty"`
+	PremiumType   *Flag     `json:"premium_type,omitempty"`
+	PublicFlags   BitFlag   `json:"public_flag,omitempty"`
+}
+
+// User Flags
+// https://discord.com/developers/docs/resources/user#user-object-user-flags
+const (
+	FlagFlagsUserNONE                         = 0
+	FlagFlagsUserSTAFF                        = 1 << 0
+	FlagFlagsUserPARTNER                      = 1 << 1
+	FlagFlagsUserHYPESQUAD                    = 1 << 2
+	FlagFlagsUserBUG_HUNTER_LEVEL_1           = 1 << 3
+	FlagFlagsUserHYPESQUAD_ONLINE_HOUSE_ONE   = 1 << 6
+	FlagFlagsUserHYPESQUAD_ONLINE_HOUSE_TWO   = 1 << 7
+	FlagFlagsUserHYPESQUAD_ONLINE_HOUSE_THREE = 1 << 8
+	FlagFlagsUserPREMIUM_EARLY_SUPPORTER      = 1 << 9
+	FlagFlagsUserTEAM_PSEUDO_USER             = 1 << 10
+	FlagFlagsUserBUG_HUNTER_LEVEL_2           = 1 << 14
+	FlagFlagsUserVERIFIED_BOT                 = 1 << 16
+	FlagFlagsUserVERIFIED_DEVELOPER           = 1 << 17
+	FlagFlagsUserCERTIFIED_MODERATOR          = 1 << 18
+	FlagFlagsUserBOT_HTTP_INTERACTIONS        = 1 << 19
+)
+
+// Premium Types
+// https://discord.com/developers/docs/resources/user#user-object-premium-types
+const (
+	FlagTypesPremiumNONE         = 0
+	FlagTypesPremiumNITROCLASSIC = 1
+	FlagTypesPremiumNITRO        = 2
+)
+
+// User Connection Object
+// https://discord.com/developers/docs/resources/user#connection-object-connection-structure
+type Connection struct {
+	ID           string         `json:"id,omitempty"`
+	Name         string         `json:"name,omitempty"`
+	Type         string         `json:"type,omitempty"`
+	Revoked      bool           `json:"revoked,omitempty"`
+	Integrations []*Integration `json:"integrations,omitempty"`
+	Verified     bool           `json:"verified,omitempty"`
+	FriendSync   bool           `json:"friend_sync,omitempty"`
+	ShowActivity bool           `json:"show_activity,omitempty"`
+	Visibility   Flag           `json:"visibility,omitempty"`
+}
+
+// Visibility Types
+// https://discord.com/developers/docs/resources/user#connection-object-visibility-types
+const (
+	FlagTypesVisibilityNONE     = 0
+	FlagTypesVisibilityEVERYONE = 1
+)
 
 // Webhook Object
 // https://discord.com/developers/docs/resources/webhook#webhook-object
@@ -1437,18 +1414,6 @@ type RoleTags struct {
 	PremiumSubscriber bool      `json:"premium_subscriber,omitempty"`
 }
 
-// Stage Instance Object
-// https://discord.com/developers/docs/resources/stage-instance#stage-instance-object
-type StageInstance struct {
-	ID                    Snowflake  `json:"id,omitempty"`
-	GuildID               *Snowflake `json:"guild_id,omitempty"`
-	ChannelID             *Snowflake `json:"channel_id,omitempty"`
-	Topic                 string     `json:"topic,omitempty"`
-	PrivacyLevel          Flag       `json:"privacy_level,omitempty"`
-	DiscoverableDisabled  bool       `json:"discoverable_disabled,omitempty"`
-	GuildScheduledEventID Snowflake  `json:"guild_scheduled_event_id,omitempty"`
-}
-
 // Privacy Level
 // https://discord.com/developers/docs/resources/stage-instance#stage-instance-object-privacy-level
 const (
@@ -1483,75 +1448,6 @@ const (
 	FlagEnumStateMembershipACCEPTED = 2
 )
 
-// User Object
-// https://discord.com/developers/docs/resources/user#user-object
-type User struct {
-	ID            Snowflake `json:"id,omitempty"`
-	Username      string    `json:"username,omitempty"`
-	Discriminator string    `json:"discriminator,omitempty"`
-	Avatar        string    `json:"avatar,omitempty"`
-	Bot           bool      `json:"bot,omitempty"`
-	System        bool      `json:"system,omitempty"`
-	MFAEnabled    bool      `json:"mfa_enabled,omitempty"`
-	Banner        string    `json:"banner,omitempty"`
-	AccentColor   int       `json:"accent_color,omitempty"`
-	Locale        string    `json:"locale,omitempty"`
-	Verified      bool      `json:"verified,omitempty"`
-	Email         *string   `json:"email,omitempty"`
-	Flags         *BitFlag  `json:"flag,omitempty"`
-	PremiumType   *Flag     `json:"premium_type,omitempty"`
-	PublicFlags   BitFlag   `json:"public_flag,omitempty"`
-}
-
-// User Flags
-// https://discord.com/developers/docs/resources/user#user-object-user-flags
-const (
-	FlagFlagsUserNONE                         = 0
-	FlagFlagsUserSTAFF                        = 1 << 0
-	FlagFlagsUserPARTNER                      = 1 << 1
-	FlagFlagsUserHYPESQUAD                    = 1 << 2
-	FlagFlagsUserBUG_HUNTER_LEVEL_1           = 1 << 3
-	FlagFlagsUserHYPESQUAD_ONLINE_HOUSE_ONE   = 1 << 6
-	FlagFlagsUserHYPESQUAD_ONLINE_HOUSE_TWO   = 1 << 7
-	FlagFlagsUserHYPESQUAD_ONLINE_HOUSE_THREE = 1 << 8
-	FlagFlagsUserPREMIUM_EARLY_SUPPORTER      = 1 << 9
-	FlagFlagsUserTEAM_PSEUDO_USER             = 1 << 10
-	FlagFlagsUserBUG_HUNTER_LEVEL_2           = 1 << 14
-	FlagFlagsUserVERIFIED_BOT                 = 1 << 16
-	FlagFlagsUserVERIFIED_DEVELOPER           = 1 << 17
-	FlagFlagsUserCERTIFIED_MODERATOR          = 1 << 18
-	FlagFlagsUserBOT_HTTP_INTERACTIONS        = 1 << 19
-)
-
-// Premium Types
-// https://discord.com/developers/docs/resources/user#user-object-premium-types
-const (
-	FlagTypesPremiumNONE         = 0
-	FlagTypesPremiumNITROCLASSIC = 1
-	FlagTypesPremiumNITRO        = 2
-)
-
-// User Connection Object
-// https://discord.com/developers/docs/resources/user#connection-object-connection-structure
-type Connection struct {
-	ID           string         `json:"id,omitempty"`
-	Name         string         `json:"name,omitempty"`
-	Type         string         `json:"type,omitempty"`
-	Revoked      bool           `json:"revoked,omitempty"`
-	Integrations []*Integration `json:"integrations,omitempty"`
-	Verified     bool           `json:"verified,omitempty"`
-	FriendSync   bool           `json:"friend_sync,omitempty"`
-	ShowActivity bool           `json:"show_activity,omitempty"`
-	Visibility   Flag           `json:"visibility,omitempty"`
-}
-
-// Visibility Types
-// https://discord.com/developers/docs/resources/user#connection-object-visibility-types
-const (
-	FlagTypesVisibilityNONE     = 0
-	FlagTypesVisibilityEVERYONE = 1
-)
-
 // Voice State Object
 // https://discord.com/developers/docs/resources/voice#voice-state-object-voice-state-structure
 type VoiceState struct {
@@ -1579,3 +1475,102 @@ type VoiceRegion struct {
 	Deprecated bool   `json:"deprecated,omitempty"`
 	Custom     bool   `json:"custom,omitempty"`
 }
+
+// Client Status Object
+// https://discord.com/developers/docs/topics/gateway#client-status-object
+type ClientStatus struct {
+	Desktop *string `json:"desktop,omitempty"`
+	Mobile  *string `json:"mobile,omitempty"`
+	Web     *string `json:"web,omitempty"`
+}
+
+// Activity Object
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-structure
+type Activity struct {
+	Name          string              `json:"name,omitempty"`
+	Type          *Flag               `json:"type,omitempty"`
+	URL           string              `json:"url,omitempty"`
+	CreatedAt     int                 `json:"created_at,omitempty"`
+	Timestamps    *ActivityTimestamps `json:"timestamps,omitempty"`
+	ApplicationID Snowflake           `json:"application_id,omitempty"`
+	Details       string              `json:"details,omitempty"`
+	State         string              `json:"state,omitempty"`
+	Emoji         *Emoji              `json:"emoji,omitempty"`
+	Party         *ActivityParty      `json:"party,omitempty"`
+	Assets        *ActivityAssets     `json:"assets,omitempty"`
+	Secrets       *ActivitySecrets    `json:"secrets,omitempty"`
+	Instance      bool                `json:"instance,omitempty"`
+	Flags         BitFlag             `json:"flags,omitempty"`
+	Buttons       []Button            `json:"buttons,omitempty"`
+}
+
+// Activity Types
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-types
+const (
+	FlagEnumTypeActivityPlaying   = 0
+	FlagEnumTypeActivityStreaming = 1
+	FlagEnumTypeActivityListening = 2
+	FlagEnumTypeActivityWatching  = 3
+	FlagEnumTypeActivityCustom    = 4
+	FlagEnumTypeActivityCompeting = 5
+)
+
+// Activity Timestamps Struct
+// htthttps://discord.com/developers/docs/topics/gateway#activity-object-activity-timestamps
+type ActivityTimestamps struct {
+	Start int `json:"start,omitempty"`
+	End   int `json:"end,omitempty"`
+}
+
+// Activity Emoji
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-emoji
+type ActivityEmoji struct {
+	Name     string    `json:"name,omitempty"`
+	ID       Snowflake `json:"id,omitempty"`
+	Animated bool      `json:"animated,omitempty"`
+}
+
+// Activity Party Struct
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-party
+type ActivityParty struct {
+	ID   string  `json:"id,omitempty"`
+	Size *[2]int `json:"size,omitempty"`
+}
+
+// Activity Assets Struct
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-assets
+type ActivityAssets struct {
+	LargeImage string `json:"large_image,omitempty"`
+	LargeText  string `json:"large_text,omitempty"`
+	SmallImage string `json:"small_image,omitempty"`
+	SmallText  string `json:"small_text,omitempty"`
+}
+
+// Activity Asset Image
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-asset-image
+type ActivityAssetImage struct {
+	ApplicationAsset string `json:"application_asset_id,omitempty"`
+	MediaProxyImage  string `json:"image_id,omitempty"`
+}
+
+// Activity Secrets Struct
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-secrets
+type ActivitySecrets struct {
+	Join     string `json:"join,omitempty"`
+	Spectate string `json:"spectate,omitempty"`
+	Match    string `json:"match,omitempty"`
+}
+
+// Activity Flags
+// https://discord.com/developers/docs/topics/gateway#activity-object-activity-flags
+const (
+	FlagActivityINSTANCE                    = 1 << 0
+	FlagActivityJOIN                        = 1 << 1
+	FlagActivitySPECTATE                    = 1 << 2
+	FlagActivityJOIN_REQUEST                = 1 << 3
+	FlagActivitySYNC                        = 1 << 4
+	FlagActivityPLAY                        = 1 << 5
+	FlagActivityPARTY_PRIVACY_FRIENDS       = 1 << 6
+	FlagActivityPARTY_PRIVACY_VOICE_CHANNEL = 1 << 7
+	FlagActivityEMBEDDED                    = 1 << 8
+)
