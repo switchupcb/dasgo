@@ -2,7 +2,7 @@
 package dasgo
 
 const (
-	EndpointBaseURL                                = "https://discord.com/api/v9/"
+	EndpointBaseURL                                = "https://discord.com/api/v10/"
 	EndpointGetGlobalApplicationCommands           = "applications/{application.id}/commands"
 	EndpointCreateGlobalApplicationCommand         = "applications/{application.id}/commands"
 	EndpointGetGlobalApplicationCommand            = "applications/{application.id}/commands/{command.id}"
@@ -168,6 +168,9 @@ const (
 	EndpointDeleteWebhookMessage                   = "webhooks/{webhook.id}/{webhook.token}/messages/{message.id}"
 	EndpointGetGateway                             = "gateway"
 	EndpointGetGatewayBot                          = "gateway/bot"
+	EndpointAuthorizationURL                       = "oauth2/authorize"
+	EndpointTokenURL                               = "oauth2/token"
+	EndpointTokenRevocationURL                     = "oauth2/token/revoke"
 	EndpointGetCurrentBotApplicationInformation    = "oauth2/applications/@me"
 	EndpointGetCurrentAuthorizationInformation     = "oauth2/@me"
 )

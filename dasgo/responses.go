@@ -56,3 +56,65 @@ type GetGatewayBotResponse struct {
 	Shards            *int              `json:"shards,omitempty"`
 	SessionStartLimit SessionStartLimit `json:"session_start_limit"`
 }
+
+// Redirect URL
+// https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-redirect-url-example
+type RedirectURL struct {
+	Code  string `url:"code,omitempty"`
+	State string `url:"state,omitempty"`
+
+	// https://discord.com/developers/docs/topics/oauth2#advanced-bot-authorization
+	GuildID     Snowflake `url:"guild_id,omitempty"`
+	Permissions BitFlag   `url:"permissions,omitempty"`
+}
+
+// Access Token Response
+// https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-access-token-response
+type AccessTokenResponse struct {
+	AccessToken  string        `json:"access_token,omitempty"`
+	TokenType    string        `json:"token_type,omitempty"`
+	ExpiresIn    time.Duration `json:"expires_in,omitempty"`
+	RefreshToken string        `json:"refresh_token,omitempty"`
+	Scope        string        `json:"scope,omitempty"`
+}
+
+// Redirect URI
+// https://discord.com/developers/docs/topics/oauth2#implicit-grant-redirect-url-example
+type RedirectURI struct {
+	AccessToken string        `url:"access_token,omitempty"`
+	TokenType   string        `url:"token_type,omitempty"`
+	ExpiresIn   time.Duration `url:"expires_in,omitempty"`
+	Scope       string        `url:"scope,omitempty"`
+	State       string        `url:"state,omitempty"`
+}
+
+// Client Credentials Access Token Response
+// https://discord.com/developers/docs/topics/oauth2#client-credentials-grant-client-credentials-access-token-response
+type ClientCredentialsAccessTokenResponse struct {
+	AccessToken string        `json:"access_token,omitempty"`
+	TokenType   string        `json:"token_type,omitempty"`
+	ExpiresIn   time.Duration `json:"expires_in,omitempty"`
+	Scope       string        `json:"scope,omitempty"`
+}
+
+// Webhook Token Response
+// https://discord.com/developers/docs/topics/oauth2#webhooks-webhook-token-response-example
+type WebhookTokenResponse struct {
+	TokenType    string        `json:"token_type,omitempty"`
+	AccessToken  string        `json:"access_token,omitempty"`
+	Scope        string        `json:"scope,omitempty"`
+	ExpiresIn    time.Duration `json:"expires_in,omitempty"`
+	RefreshToken string        `json:"refresh_token,omitempty"`
+	Webhook      *Webhook      `json:"webhook,omitempty"`
+}
+
+// Extended Bot Authorization Access Token Response
+// https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-access-token-response
+type ExtendedBotAuthorizationAccessTokenResponse struct {
+	TokenType    string        `json:"token_type,omitempty"`
+	Guild        *Guild        `json:"guild,omitempty"`
+	AccessToken  string        `json:"access_token,omitempty"`
+	Scope        string        `json:"scope,omitempty"`
+	ExpiresIn    time.Duration `json:"expires_in,omitempty"`
+	RefreshToken string        `json:"refresh_token,omitempty"`
+}

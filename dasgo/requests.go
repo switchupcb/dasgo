@@ -1610,3 +1610,55 @@ type GetGateway struct{}
 // GET /gateway/bot
 // https://discord.com/developers/docs/topics/gateway#get-gateway-bot
 type GetGatewayBot struct{}
+
+// Authorization URL
+// GET /oauth2/authorize
+// https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-authorization-url-example
+type AuthorizationURL struct {
+	ResponseType string    `url:"response_type,omitempty"`
+	ClientID     Snowflake `url:"client_id,omitempty"`
+	Scope        string    `url:"scope,omitempty"`
+	State        string    `url:"state,omitempty"`
+	RedirectURI  string    `url:"redirect_uri,omitempty"`
+	Prompt       string    `url:"prompt,omitempty"`
+}
+
+// Access Token Exchange
+// POST /oauth2/token
+// https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-access-token-exchange-example
+type AccessTokenExchange struct {
+	ClientID     Snowflake `url:"client_id,omitempty"`
+	ClientSecret string    `url:"client_secret,omitempty"`
+	GrantType    string    `url:"grant_type,omitempty"`
+	Code         string    `url:"code,omitempty"`
+	RedirectURI  string    `url:"redirect_uri,omitempty"`
+}
+
+// Refresh Token Exchange
+// POST /oauth2/token
+// https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-refresh-token-exchange-example
+type RefreshTokenExchange struct {
+	ClientID     Snowflake `url:"client_id,omitempty"`
+	ClientSecret string    `url:"client_secret,omitempty"`
+	GrantType    string    `url:"grant_type,omitempty"`
+	RedirectURI  string    `url:"redirect_uri,omitempty"`
+}
+
+// Client Credentials Token Request
+// POST /oauth2/token
+// https://discord.com/developers/docs/topics/oauth2#client-credentials-grant-client-credentials-token-request-example
+type ClientCredentialsTokenRequest struct {
+	GrantType string `url:"grant_type,omitempty"`
+	Scope     string `url:"scope,omitempty"`
+}
+
+// Bot Auth Parameters
+// GET /oauth2/authorize
+// https://discord.com/developers/docs/topics/oauth2#bot-authorization-flow-bot-auth-parameters
+type BotAuth struct {
+	ClientID           Snowflake `url:"client_id,omitempty"`
+	Scope              string    `url:"scope,omitempty"`
+	Permissions        BitFlag   `url:"permissions,omitempty"`
+	GuildID            Snowflake `url:"guild_id,omitempty"`
+	DisableGuildSelect bool      `url:"disable_guild_select,omitempty"`
+}
