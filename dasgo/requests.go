@@ -756,7 +756,6 @@ type GetGuildPreview struct {
 // Modify Guild
 // PATCH /guilds/{guild.id}
 // https://discord.com/developers/docs/resources/guild#modify-guild
-// TODO (Image Data)
 type ModifyGuild struct {
 	GuildID                     Snowflake
 	Name                        string     `json:"name,omitempty"`
@@ -972,7 +971,7 @@ type CreateGuildRole struct {
 	Permissions  string  `json:"permissions,omitempty"`
 	Color        *int    `json:"color,omitempty"`
 	Hoist        bool    `json:"hoist,omitempty"`
-	Icon         *int    `json:"icon,omitempty"`
+	Icon         *string `json:"icon,omitempty"`
 	UnicodeEmoji *string `json:"unicode_emoji,omitempty"`
 	Mentionable  bool    `json:"mentionable,omitempty"`
 }
@@ -989,7 +988,6 @@ type ModifyGuildRolePositions struct {
 // Modify Guild Role
 // PATCH /guilds/{guild.id}/roles/{role.id}
 // https://discord.com/developers/docs/resources/guild#modify-guild-role
-// TODO (Image Data)
 type ModifyGuildRole struct {
 	GuildID      Snowflake
 	RoleID       Snowflake
@@ -1387,7 +1385,6 @@ type GetUser struct {
 // Modify Current User
 // PATCH /users/@me
 // https://discord.com/developers/docs/resources/user#modify-current-user
-// TODO (Image Data)
 type ModifyCurrentUser struct {
 	Username string  `json:"username,omitempty"`
 	Avatar   *string `json:"avatar,omitempty"`
@@ -1444,7 +1441,6 @@ type ListVoiceRegions struct{}
 // Create Webhook
 // POST /channels/{channel.id}/webhooks
 // https://discord.com/developers/docs/resources/webhook#create-webhook
-// TODO (Image Data)
 type CreateWebhook struct {
 	ChannelID Snowflake
 	Name      string `json:"name,omitempty"`
