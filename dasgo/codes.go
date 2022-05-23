@@ -4,86 +4,86 @@ package dasgo
 // Gateway Opcodes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
 const (
-	FlagOpcodesGatewayDispatch  = 0
-	FlagOpcodesGatewayHeartbeat = 1
-	FlagOpcodesGatewayIdentify  = 2
-	FlagOpcodesGatewayPresence  = 3
-	FlagOpcodesGatewayVoice     = 4
-	FlagOpcodesGatewayResume    = 6
-	FlagOpcodesGatewayReconnect = 7
-	FlagOpcodesGatewayRequest   = 8
-	FlagOpcodesGatewayInvalid   = 9
-	FlagOpcodesGatewayHello     = 10
-	FlagOpcodesGatewayAck       = 11
+	FlagGatewayOpcodeDispatch  = 0
+	FlagGatewayOpcodeHeartbeat = 1
+	FlagGatewayOpcodeIdentify  = 2
+	FlagGatewayOpcodePresence  = 3
+	FlagGatewayOpcodeVoice     = 4
+	FlagGatewayOpcodeResume    = 6
+	FlagGatewayOpcodeReconnect = 7
+	FlagGatewayOpcodeRequest   = 8
+	FlagGatewayOpcodeInvalid   = 9
+	FlagGatewayOpcodeHello     = 10
+	FlagGatewayOpcodeAck       = 11
 )
 
 // Gateway Close Event Codes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-close-event-codes
 const (
-	FlagCodesEventCloseGatewayUnknownError         = 4000
-	FlagCodesEventCloseGatewayUnknownOpcode        = 4001
-	FlagCodesEventCloseGatewayDecodeError          = 4002
-	FlagCodesEventCloseGatewayNotAuthenticated     = 4003
-	FlagCodesEventCloseGatewayAuthenticationFailed = 4004
-	FlagCodesEventCloseGatewayAlreadyAuthenticated = 4005
-	FlagCodesEventCloseGatewayInvalidSeq           = 4007
-	FlagCodesEventCloseGatewayRateLimited          = 4008
-	FlagCodesEventCloseGatewaySessionTimed         = 4009
-	FlagCodesEventCloseGatewayInvalidShard         = 4010
-	FlagCodesEventCloseGatewayShardingRequired     = 4011
-	FlagCodesEventCloseGatewayInvalidAPIVersion    = 4012
-	FlagCodesEventCloseGatewayInvalidIntent        = 4013
-	FlagCodesEventCloseGatewayDisallowedIntent     = 4014
+	FlagGatewayCloseEventCodeUnknownError         = 4000
+	FlagGatewayCloseEventCodeUnknownOpcode        = 4001
+	FlagGatewayCloseEventCodeDecodeError          = 4002
+	FlagGatewayCloseEventCodeNotAuthenticated     = 4003
+	FlagGatewayCloseEventCodeAuthenticationFailed = 4004
+	FlagGatewayCloseEventCodeAlreadyAuthenticated = 4005
+	FlagGatewayCloseEventCodeInvalidSeq           = 4007
+	FlagGatewayCloseEventCodeRateLimited          = 4008
+	FlagGatewayCloseEventCodeSessionTimed         = 4009
+	FlagGatewayCloseEventCodeInvalidShard         = 4010
+	FlagGatewayCloseEventCodeShardingRequired     = 4011
+	FlagGatewayCloseEventCodeInvalidAPIVersion    = 4012
+	FlagGatewayCloseEventCodeInvalidIntent        = 4013
+	FlagGatewayCloseEventCodeDisallowedIntent     = 4014
 )
 
 // Voice Opcodes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-opcodes
 const (
-	FlagOpcodesVoiceIdentify           = 0
-	FlagOpcodesVoiceSelectProtocol     = 1
-	FlagOpcodesVoiceReadyServer        = 2
-	FlagOpcodesVoiceHeartbeat          = 3
-	FlagOpcodesVoiceSessionDescription = 4
-	FlagOpcodesVoiceSpeaking           = 5
-	FlagOpcodesVoiceHeartbeatACK       = 6
-	FlagOpcodesVoiceResume             = 7
-	FlagOpcodesVoiceHello              = 8
-	FlagOpcodesVoiceResumed            = 9
-	FlagOpcodesVoiceClientDisconnect   = 13
+	FlagVoiceOpcodeIdentify           = 0
+	FlagVoiceOpcodeSelectProtocol     = 1
+	FlagVoiceOpcodeReadyServer        = 2
+	FlagVoiceOpcodeHeartbeat          = 3
+	FlagVoiceOpcodeSessionDescription = 4
+	FlagVoiceOpcodeSpeaking           = 5
+	FlagVoiceOpcodeHeartbeatACK       = 6
+	FlagVoiceOpcodeResume             = 7
+	FlagVoiceOpcodeHello              = 8
+	FlagVoiceOpcodeResumed            = 9
+	FlagVoiceOpcodeClientDisconnect   = 13
 )
 
 // Voice Close Event Codes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-close-event-codes
 const (
-	FlagCodesEventCloseVoiceUnknownOpcode         = 4001
-	FlagCodesEventCloseVoiceFailedDecode          = 4002
-	FlagCodesEventCloseVoiceNotAuthenticated      = 4003
-	FlagCodesEventCloseVoiceAuthenticationFailed  = 4004
-	FlagCodesEventCloseVoiceAlreadyAuthenticated  = 4005
-	FlagCodesEventCloseVoiceInvalidSession        = 4006
-	FlagCodesEventCloseVoiceSessionTimeout        = 4009
-	FlagCodesEventCloseVoiceServerNotFound        = 4011
-	FlagCodesEventCloseVoiceUnknownProtocol       = 4012
-	FlagCodesEventCloseVoiceDisconnectedChannel   = 4014
-	FlagCodesEventCloseVoiceVoiceServerCrash      = 4015
-	FlagCodesEventCloseVoiceUnknownEncryptionMode = 4016
+	FlagVoiceCloseEventCodeUnknownOpcode         = 4001
+	FlagVoiceCloseEventCodeFailedDecode          = 4002
+	FlagVoiceCloseEventCodeNotAuthenticated      = 4003
+	FlagVoiceCloseEventCodeAuthenticationFailed  = 4004
+	FlagVoiceCloseEventCodeAlreadyAuthenticated  = 4005
+	FlagVoiceCloseEventCodeInvalidSession        = 4006
+	FlagVoiceCloseEventCodeSessionTimeout        = 4009
+	FlagVoiceCloseEventCodeServerNotFound        = 4011
+	FlagVoiceCloseEventCodeUnknownProtocol       = 4012
+	FlagVoiceCloseEventCodeDisconnectedChannel   = 4014
+	FlagVoiceCloseEventCodeVoiceServerCrash      = 4015
+	FlagVoiceCloseEventCodeUnknownEncryptionMode = 4016
 )
 
 // HTTP Response Codes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#http-http-response-codes
 const (
-	FlagCodesResponseHTTPOK                 = 200
-	FlagCodesResponseHTTPCREATED            = 201
-	FlagCodesResponseHTTPNOCONTENT          = 204
-	FlagCodesResponseHTTPNOTMODIFIED        = 304
-	FlagCodesResponseHTTPBADREQUEST         = 400
-	FlagCodesResponseHTTPUNAUTHORIZED       = 401
-	FlagCodesResponseHTTPFORBIDDEN          = 403
-	FlagCodesResponseHTTPNOTFOUND           = 404
-	FlagCodesResponseHTTPMETHODNOTALLOWED   = 405
-	FlagCodesResponseHTTPTOOMANYREQUESTS    = 429
-	FlagCodesResponseHTTPGATEWAYUNAVAILABLE = 502
-	FlagCodesResponseHTTPSERVERERROR        = 504 // 5xx (504 Not Guaranteed)
+	FlagHTTPResponseCodeOK                 = 200
+	FlagHTTPResponseCodeCREATED            = 201
+	FlagHTTPResponseCodeNOCONTENT          = 204
+	FlagHTTPResponseCodeNOTMODIFIED        = 304
+	FlagHTTPResponseCodeBADREQUEST         = 400
+	FlagHTTPResponseCodeUNAUTHORIZED       = 401
+	FlagHTTPResponseCodeFORBIDDEN          = 403
+	FlagHTTPResponseCodeNOTFOUND           = 404
+	FlagHTTPResponseCodeMETHODNOTALLOWED   = 405
+	FlagHTTPResponseCodeTOOMANYREQUESTS    = 429
+	FlagHTTPResponseCodeGATEWAYUNAVAILABLE = 502
+	FlagHTTPResponseCodeSERVERERROR        = 504 // 5xx (504 Not Guaranteed)
 )
 
 // JSON Error Codes
@@ -247,31 +247,31 @@ var (
 // RPC Error Codes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#rpc-rpc-error-codes
 const (
-	FlagCodesErrorRPCUnknownError                    = 1000
-	FlagCodesErrorRPCInvalidPayload                  = 4000
-	FlagCodesErrorRPCInvalidCommand                  = 4002
-	FlagCodesErrorRPCInvalidGuild                    = 4003
-	FlagCodesErrorRPCInvalidEvent                    = 4004
-	FlagCodesErrorRPCInvalidChannel                  = 4005
-	FlagCodesErrorRPCInvalidPermissions              = 4006
-	FlagCodesErrorRPCInvalidClientID                 = 4007
-	FlagCodesErrorRPCInvalidOrigin                   = 4008
-	FlagCodesErrorRPCInvalidToken                    = 4009
-	FlagCodesErrorRPCInvalidUser                     = 4010
-	FlagCodesErrorRPCOAuth2Error                     = 5000
-	FlagCodesErrorRPCSelectChannelTimedOut           = 5001
-	FlagCodesErrorRPCGET_GUILDTimedOut               = 5002
-	FlagCodesErrorRPCSelectVoiceForceRequired        = 5003
-	FlagCodesErrorRPCCaptureShortcutAlreadyListening = 5004
+	FlagRPCErrorCodeUnknownError                    = 1000
+	FlagRPCErrorCodeInvalidPayload                  = 4000
+	FlagRPCErrorCodeInvalidCommand                  = 4002
+	FlagRPCErrorCodeInvalidGuild                    = 4003
+	FlagRPCErrorCodeInvalidEvent                    = 4004
+	FlagRPCErrorCodeInvalidChannel                  = 4005
+	FlagRPCErrorCodeInvalidPermissions              = 4006
+	FlagRPCErrorCodeInvalidClientID                 = 4007
+	FlagRPCErrorCodeInvalidOrigin                   = 4008
+	FlagRPCErrorCodeInvalidToken                    = 4009
+	FlagRPCErrorCodeInvalidUser                     = 4010
+	FlagRPCErrorCodeOAuth2Error                     = 5000
+	FlagRPCErrorCodeSelectChannelTimedOut           = 5001
+	FlagRPCErrorCodeGET_GUILDTimedOut               = 5002
+	FlagRPCErrorCodeSelectVoiceForceRequired        = 5003
+	FlagRPCErrorCodeCaptureShortcutAlreadyListening = 5004
 )
 
 // RPC Close Event Codes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#rpc-rpc-close-event-codes
 const (
-	FlagCodesEventCloseRPCInvalidClientID = 4000
-	FlagCodesEventCloseRPCInvalidOrigin   = 4001
-	FlagCodesEventCloseRPCRateLimited     = 4002
-	FlagCodesEventCloseRPCTokenRevoked    = 4003
-	FlagCodesEventCloseRPCInvalidVersion  = 4004
-	FlagCodesEventCloseRPCInvalidEncoding = 4005
+	FlagRPCCloseEventCodeInvalidClientID = 4000
+	FlagRPCCloseEventCodeInvalidOrigin   = 4001
+	FlagRPCCloseEventCodeRateLimited     = 4002
+	FlagRPCCloseEventCodeTokenRevoked    = 4003
+	FlagRPCCloseEventCodeInvalidVersion  = 4004
+	FlagRPCCloseEventCodeInvalidEncoding = 4005
 )

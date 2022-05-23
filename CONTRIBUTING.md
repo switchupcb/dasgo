@@ -10,6 +10,12 @@ Pull requests must adhere to the following [specification](#specification).
 
 All types are named as defined by the source of truth; which is currently the [contributor-led documentation](https://github.com/discord/discord-api-docs).
 
+#### Flags
+
+A flag is a [flag](https://discord.com/developers/docs/resources/application#application-object-application-flags), [type](https://discord.com/developers/docs/resources/channel#embed-object-embed-types), [key](https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-key), [level](https://discord.com/developers/docs/resources/guild#guild-object-verification-level) or any other option that Discord provides. All flags are denoted by `Flag` followed by their option name _(in singular form)_, then the option value. For example, `FlagUserSTAFF`, `FlagVerificationLevelHIGH`, `FlagMessageTypeDEFAULT`, etc.
+
+_Flags that end in `Flags` should not include `Flags` (i.e `FlagMessageLOADING`)._
+
 #### Fields
 
 Fields use data types that best represent their usage.
@@ -18,7 +24,7 @@ Snowflakes fields are defined using a `uint64` alias.
 - [Discord Snowflake](https://discord.com/developers/docs/reference#snowflakes)  
 - [Twitter Snowflake](https://developer.twitter.com/en/docs/twitter-ids)  
 
-Option fields are defined as a `Flag`, `BitFlag`, or [`CodeFlag`](https://discord.com/developers/docs/topics/opcodes-and-status-codes) to provide a separation of concerns between usage. A flag is a [flag](https://discord.com/developers/docs/resources/application#application-object-application-flags), [type](https://discord.com/developers/docs/resources/channel#embed-object-embed-types), [key](https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-key), [level](https://discord.com/developers/docs/resources/guild#guild-object-verification-level) or any other option that Discord provides. All flags are denoted by `Flag` followed by their option name, then the option value; For example, `FlagUserSTAFF`, `FlagVerificationLevelHIGH`, `FlagPremiumTierNONE`, etc.
+Option fields are defined as a `Flag`, `BitFlag`, or [`CodeFlag`](https://discord.com/developers/docs/topics/opcodes-and-status-codes) to provide a separation of concerns between usage.
 
 #### Tags and Pointers
 
