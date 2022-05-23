@@ -4,7 +4,7 @@ package dasgo
 import "time"
 
 // List Public Archived Threads Response Body
-// https://discord.com/developers/docs/resources/channel#list-active-threads-response-body
+// https://discord.com/developers/docs/resources/channel#list-public-archived-threads-response-body
 type ListPublicArchivedThreadsResponse struct {
 	Threads []*Channel      `json:"threads"`
 	Members []*ThreadMember `json:"members"`
@@ -12,7 +12,7 @@ type ListPublicArchivedThreadsResponse struct {
 }
 
 // List Private Archived Threads Response Body
-// https://discord.com/developers/docs/resources/channel#list-active-threads-response-body
+// https://discord.com/developers/docs/resources/channel#list-private-archived-threads-response-body
 type ListPrivateArchivedThreadsResponse struct {
 	Threads []*Channel      `json:"threads"`
 	Members []*ThreadMember `json:"members"`
@@ -20,7 +20,7 @@ type ListPrivateArchivedThreadsResponse struct {
 }
 
 // List Joined Private Archived Threads Response Body
-// https://discord.com/developers/docs/resources/channel#list-active-threads-response-body
+// https://discord.com/developers/docs/resources/channel#list-joined-private-archived-threads-response-body
 type ListJoinedPrivateArchivedThreadsResponse struct {
 	Threads []*Channel      `json:"threads"`
 	Members []*ThreadMember `json:"members"`

@@ -15,9 +15,9 @@ type GatewayPayload struct {
 // Gateway URL Query String Params
 // https://discord.com/developers/docs/topics/gateway#connecting-gateway-url-query-string-params
 type GatewayURLQueryString struct {
-	V        int    `json:"v,omitempty"`
-	Encoding string `json:"encoding,omitempty"`
-	Compress string `json:"compress,omitempty"`
+	V        int    `url:"v,omitempty"`
+	Encoding string `url:"encoding,omitempty"`
+	Compress string `url:"compress,omitempty"`
 }
 
 // Session Start Limit Structure

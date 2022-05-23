@@ -10,7 +10,7 @@ import (
 // https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands
 type GetGlobalApplicationCommands struct {
 	ApplicationID     Snowflake
-	WithLocalizations bool `json:"with_localizations,omitempty"`
+	WithLocalizations bool `url:"with_localizations,omitempty"`
 }
 
 // Create Global Application Command
@@ -73,7 +73,7 @@ type BulkOverwriteGlobalApplicationCommands struct {
 type GetGuildApplicationCommands struct {
 	ApplicationID     Snowflake
 	GuildID           Snowflake
-	WithLocalizations bool `json:"with_localizations,omitempty"`
+	WithLocalizations bool `url:"with_localizations,omitempty"`
 }
 
 // Create Guild Application Command
@@ -249,10 +249,10 @@ type DeleteFollowupMessage struct {
 // https://discord.com/developers/docs/resources/audit-log#get-guild-audit-log
 type GetGuildAuditLog struct {
 	GuildID    Snowflake
-	UserID     Snowflake `json:"user_id"`
-	ActionType Flag      `json:"action_type"`
-	Before     Snowflake `json:"before,omitempty"`
-	Limit      Flag      `json:"limit,omitempty"`
+	UserID     Snowflake `url:"user_id"`
+	ActionType Flag      `url:"action_type"`
+	Before     Snowflake `url:"before,omitempty"`
+	Limit      Flag      `url:"limit,omitempty"`
 }
 
 // Get Channel
@@ -323,10 +323,10 @@ type DeleteCloseChannel struct {
 // https://discord.com/developers/docs/resources/channel#get-channel-messages
 type GetChannelMessages struct {
 	ChannelID Snowflake
-	Around    *Snowflake `json:"around,omitempty"`
-	Before    *Snowflake `json:"before,omitempty"`
-	After     *Snowflake `json:"after,omitempty"`
-	Limit     Flag       `json:"limit,omitempty"`
+	Around    *Snowflake `url:"around,omitempty"`
+	Before    *Snowflake `url:"before,omitempty"`
+	After     *Snowflake `url:"after,omitempty"`
+	Limit     Flag       `url:"limit,omitempty"`
 }
 
 // Get Channel Message
@@ -399,8 +399,8 @@ type GetReactions struct {
 	ChannelID Snowflake
 	MessageID Snowflake
 	Emoji     string
-	After     Snowflake `json:"after,omitempty"`
-	Limit     Flag      `json:"limit,omitempty"`
+	After     Snowflake `url:"after,omitempty"`
+	Limit     Flag      `url:"limit,omitempty"`
 }
 
 // Delete All Reactions
@@ -655,8 +655,8 @@ type ListActiveChannelThreads struct {
 // https://discord.com/developers/docs/resources/channel#list-public-archived-threads
 type ListPublicArchivedThreads struct {
 	ChannelID Snowflake
-	Before    Snowflake `json:"before,omitempty"`
-	Limit     int       `json:"limit,omitempty"`
+	Before    Snowflake `url:"before,omitempty"`
+	Limit     int       `url:"limit,omitempty"`
 }
 
 // List Private Archived Threads
@@ -664,8 +664,8 @@ type ListPublicArchivedThreads struct {
 // https://discord.com/developers/docs/resources/channel#list-private-archived-threads
 type ListPrivateArchivedThreads struct {
 	ChannelID Snowflake
-	Before    Snowflake `json:"before,omitempty"`
-	Limit     int       `json:"limit,omitempty"`
+	Before    Snowflake `url:"before,omitempty"`
+	Limit     int       `url:"limit,omitempty"`
 }
 
 // List Joined Private Archived Threads
@@ -673,8 +673,8 @@ type ListPrivateArchivedThreads struct {
 // https://discord.com/developers/docs/resources/channel#list-joined-private-archived-threads
 type ListJoinedPrivateArchivedThreads struct {
 	ChannelID Snowflake
-	Before    Snowflake `json:"before,omitempty"`
-	Limit     int       `json:"limit,omitempty"`
+	Before    Snowflake `url:"before,omitempty"`
+	Limit     int       `url:"limit,omitempty"`
 }
 
 // List Guild Emojis
@@ -743,7 +743,7 @@ type CreateGuild struct {
 // https://discord.com/developers/docs/resources/guild#get-guild
 type GetGuild struct {
 	GuildID    Snowflake
-	WithCounts bool `json:"with_counts,omitempty"`
+	WithCounts bool `url:"with_counts,omitempty"`
 }
 
 // Get Guild Preview
@@ -845,8 +845,8 @@ type GetGuildMember struct {
 // https://discord.com/developers/docs/resources/guild#list-guild-members
 type ListGuildMembers struct {
 	GuildID Snowflake
-	Limit   int       `json:"limit,omitempty"`
-	After   Snowflake `json:"after,omitempty"`
+	Limit   int       `url:"limit,omitempty"`
+	After   Snowflake `url:"after,omitempty"`
 }
 
 // Search Guild Members
@@ -854,8 +854,8 @@ type ListGuildMembers struct {
 // https://discord.com/developers/docs/resources/guild#search-guild-members
 type SearchGuildMembers struct {
 	GuildID Snowflake
-	Query   string `json:"query,omitempty"`
-	Limit   int    `json:"limit,omitempty"`
+	Query   string `url:"query,omitempty"`
+	Limit   int    `url:"limit,omitempty"`
 }
 
 // Add Guild Member
@@ -924,9 +924,9 @@ type RemoveGuildMember struct {
 // https://discord.com/developers/docs/resources/guild#get-guild-bans
 type GetGuildBans struct {
 	GuildID Snowflake
-	Limit   *int       `json:"limit,omitempty"`
-	Before  *Snowflake `json:"before,omitempty"`
-	After   *Snowflake `json:"after,omitempty"`
+	Limit   *int       `url:"limit,omitempty"`
+	Before  *Snowflake `url:"before,omitempty"`
+	After   *Snowflake `url:"after,omitempty"`
 }
 
 // Get Guild Ban
@@ -1013,8 +1013,8 @@ type DeleteGuildRole struct {
 // https://discord.com/developers/docs/resources/guild#get-guild-prune-count
 type GetGuildPruneCount struct {
 	GuildID      Snowflake
-	Days         int         `json:"days,omitempty"`
-	IncludeRoles []Snowflake `json:"include_roles,omitempty"`
+	Days         int         `url:"days,omitempty"`
+	IncludeRoles []Snowflake `url:"include_roles,omitempty"`
 }
 
 // Begin Guild Prune
@@ -1094,8 +1094,18 @@ type GetGuildWidgetImage struct {
 
 	// Widget Style Options
 	// https://discord.com/developers/docs/resources/guild#get-guild-widget-image-widget-style-options
-	Style string `json:"style,omitempty"`
+	Style string `url:"style,omitempty"`
 }
+
+// Widget Style Options
+// https://discord.com/developers/docs/resources/guild#get-guild-widget-image-widget-style-options
+const (
+	FlagWidgetStyleOptionShield  = "shield"
+	FlagWidgetStyleOptionBanner1 = "banner1"
+	FlagWidgetStyleOptionBanner2 = "banner2"
+	FlagWidgetStyleOptionBanner3 = "banner3"
+	FlagWidgetStyleOptionBanner4 = "banner4"
+)
 
 // Get Guild Welcome Screen
 // GET /guilds/{guild.id}/welcome-screen
@@ -1137,7 +1147,7 @@ type ModifyUserVoiceState struct {
 // https://discord.com/developers/docs/resources/guild-scheduled-event#list-scheduled-events-for-guild
 type ListScheduledEventsforGuild struct {
 	GuildID       Snowflake
-	WithUserCount bool `json:"with_user_count,omitempty"`
+	WithUserCount bool `url:"with_user_count,omitempty"`
 }
 
 // Create Guild Scheduled Event
@@ -1162,7 +1172,7 @@ type CreateGuildScheduledEvent struct {
 type GetGuildScheduledEvent struct {
 	GuildID               Snowflake
 	GuildScheduledEventID Snowflake
-	WithUserCount         bool `json:"with_user_count,omitempty"`
+	WithUserCount         bool `url:"with_user_count,omitempty"`
 }
 
 // Modify Guild Scheduled Event
@@ -1197,10 +1207,10 @@ type DeleteGuildScheduledEvent struct {
 type GetGuildScheduledEventUsers struct {
 	GuildID               Snowflake
 	GuildScheduledEventID Snowflake
-	Limit                 *int       `json:"limit,omitempty"`
-	WithMember            bool       `json:"with_member,omitempty"`
-	Before                *Snowflake `json:"before,omitempty"`
-	After                 *Snowflake `json:"after,omitempty"`
+	Limit                 *int       `url:"limit,omitempty"`
+	WithMember            bool       `url:"with_member,omitempty"`
+	Before                *Snowflake `url:"before,omitempty"`
+	After                 *Snowflake `url:"after,omitempty"`
 }
 
 // Get Guild Template
@@ -1266,9 +1276,9 @@ type DeleteGuildTemplate struct {
 // https://discord.com/developers/docs/resources/invite#get-invite
 type GetInvite struct {
 	InviteCode            string
-	GuildScheduledEventID Snowflake `json:"guild_scheduled_event_id,omitempty"`
-	WithCounts            bool      `json:"with_counts,omitempty"`
-	WithExpiration        bool      `json:"with_expiration,omitempty"`
+	GuildScheduledEventID Snowflake `url:"guild_scheduled_event_id,omitempty"`
+	WithCounts            bool      `url:"with_counts,omitempty"`
+	WithExpiration        bool      `url:"with_expiration,omitempty"`
 }
 
 // Delete Invite
