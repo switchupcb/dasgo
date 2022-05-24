@@ -6,17 +6,17 @@ Dasgo is currently based on [contributor-led documentation](https://github.com/d
 
 Pull requests must adhere to the following [specification](#specification).
 
-### Specification
+## Specification
 
-All types are named as defined by the source of truth; which is currently the [contributor-led documentation](https://github.com/discord/discord-api-docs).
+All types are named as defined by the source of truth; which is currently the contributor-led documentation.
 
-#### Flags
+### Flags
 
 A flag is a [flag](https://discord.com/developers/docs/resources/application#application-object-application-flags), [type](https://discord.com/developers/docs/resources/channel#embed-object-embed-types), [key](https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-key), [level](https://discord.com/developers/docs/resources/guild#guild-object-verification-level) or any other option that Discord provides. All flags are denoted by `Flag` followed by their option name _(in singular form)_, then the option value. For example, `FlagUserSTAFF`, `FlagVerificationLevelHIGH`, `FlagMessageTypeDEFAULT`, etc.
 
 _Flags that end in `Flags` should not include `Flags` (i.e `FlagMessageLOADING`)._
 
-#### Fields
+### Fields
 
 Fields use data types that best represent their usage.
 
@@ -24,104 +24,67 @@ Snowflakes fields are defined using a `uint64` alias.
 - [Discord Snowflake](https://discord.com/developers/docs/reference#snowflakes)  
 - [Twitter Snowflake](https://developer.twitter.com/en/docs/twitter-ids)  
 
-Option fields are defined as a `Flag`, `BitFlag`, or [`CodeFlag`](https://discord.com/developers/docs/topics/opcodes-and-status-codes) to provide a separation of concerns between usage.
+Option fields are defined as a `Flag`, `BitFlag`, or [`CodeFlag`](https://discord.com/developers/docs/topics/opcodes-and-status-codes) to provide a separation of concerns.
 
-#### Tags and Pointers
+### Tags and Pointers
 
-A JSON `omitempty` tag should **always** be applied to struct fields and maintain correctness with respect to its pointer. Apply a pointer to a field when the _Field's Discord Representation_ can **NOT** be equal to the Go Type's zero-value or required as `null`.
+Tags are applied to struct fields in order to marshal and unmarshal data. A `json` tag is applied to a field that pertains to a JSON key. A `url` tag is applied to a field that pertains to a URL Query String Parameter. `omitempty` and pointers are used to maintain correctness: A field with `omitempty` will **NOT** be included when it contains a zero value _(`nil` for pointers)_.
 
-For example, [Application Command Types](https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types) are never equal to 0. In contrast, an unsigned integer — which represents the Go `FlagApplicationCommandType` — has a zero-value equal to 0. This means an uninitialized unsigned integer _(which is equal to 0)_ can be considered as a `nil` value for the `FlagTypeCommandApplication`. As a result, fields that reference `FlagTypeCommandApplication` should **NOT** be a pointer.
+[Discord Nullable and Optional Resource Fields Documentation](https://discord.com/developers/docs/reference#nullable-and-optional-resource-fields) outlines the conditions when a field is optional or null. Optional fields are **NOT** required to be included in marshalled data _(i.e JSON/Query String)_. As a result, **optional fields should include an `omitempty` tag**. As a corollary do **NOT** include an `omitempty` tag when a field is required.
+
+When a valid value of an optional field is equivalent to the zero value of a field, it will **NOT** be marshalled. For example, a field `int` with a value of `0` and an `omitempty` tag will **NOT** be marshalled. This is problematic because the developer will **NOT** be able to set the field to the zero value. As a result, **optional fields that CAN be equal to the Go Type's zero value should be pointers**.
+
+Nullable fields are `nil` when marshalled. Therefore, **nullable fields should be pointers**. In contrast, an optional (`omitempty`) and nullable field (`*`) will cause conflict: For example, a field `*int` equivalent to `nil` with an `omitempty` tag will be **NOT** be included in marshalled data. This is problematic because the developer will **NOT** be able to set a field to null. As a result, **nullable and optional fields should be pointers _(without `omitempty`)_**.
+
+As we can see, any of the above cases that require a solution to a problem places responsibility in the hands of the developer. Optional fields that **CAN** be equal to the Go Type's zero value might **NOT** be nullable, so the developer is expected to ensure that this doesn't occur. Nullable and optional fields will **ALWAYS** be included in marshalled data _(since `omitempty` is **NOT** applied)_, so the developer **must** handle these fields.
+
+#### Examples
+
+The optional non-nullable `type` field of an [Application Command](https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types) contains [Application Command Type](https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types) values which are **NEVER** equal to 0. In contrast, an unsigned integer — which represents the Go `FlagApplicationCommandType` — has a zero value equal to 0. Since `omitempty` is applied, an uninitialized unsigned integer _(which is equal to 0)_ will **NOT** be marshalled.
 
 ```go
 type Application struct {
-	Flags uint `json:"flags,omitempty"`
+	// Type (optional, non-nullable) is NOT marshalled
+	// when Type == 0 but IS when Type == 1.
+	Type Flag `json:"type,omitempty"`
 }
 ```
 
-If this is not the case _(i.e [Verification Level](https://discord.com/developers/docs/resources/guild#guild-object-verification-level)),_ fields that reference the type **SHOULD** be a pointer.
- 
+If `FlagApplicationCommandType` contains a flag that **CAN** be 0, we need to apply a pointer.
+
 ```go
-type Guild struct {
-	VerificationLevel *uint `json:"verification_level,omitempty"`
+type Application struct {
+	// Type (optional, non-nullable) is NOT marshalled
+	// when Type == nil but IS when Type == 0.
+	Type *Flag `json:"type,omitempty"`
 }
 ```
 
-An empty struct response should **NOT** create a struct with default values. As a result, **structs** with `omitempty` must always be pointers.
+An optional non-nullable empty struct field _(i.e Author)_ should **NOT** create a struct with fields holding zero values. As a result, **structs** with `omitempty` should always be pointers.
 
 ```go
 type Embed struct {
+	// Author (optional, non-nullable) is NOT marshalled
+	// when EmbedAuthor == nil but IS when EmbedAuthor == &{}.
 	Author *EmbedAuthor `json:"author,omitempty"`
 }
 ```
 
-An exception is provided to slices, channels, and maps, which should **NEVER** be pointers, but may contain pointers to types.
+_An exception is provided to slices, channels, and maps, which — 99% of the time — should **NEVER** be pointers, but may contain pointers to types._
 
-#### Comments
+### Comments
 
-Add comments to types and fields in the following format.
+Add comments to structs in the following format.
 ```go
 // Name of Object (specified by header)
 // Link to Discord API definition
 type Name struct {
-    // Description for field (provided by Discord).
+    // Discord Field Description.
     Example string `json:"example,omitempty"`
 }
 ```
 
-The following examples are provided.
-
-##### Resources
-
-```go
-// Embed Object
-// https://discord.com/developers/docs/resources/channel#embed-object
-type Embed struct {
-	Title       string          `json:"title,omitempty"`
-	Type        string          `json:"type,omitempty"`
-	Description *string         `json:"description,omitempty"`
-	URL         string          `json:"url,omitempty"`
-	Timestamp   time.Time       `json:"timestamp,omitempty"`
-	Color       CodeFlag        `json:"color,omitempty"`
-	Footer      *EmbedFooter    `json:"footer,omitempty"`
-	Image       *EmbedImage     `json:"image,omitempty"`
-	Thumbnail   *EmbedThumbnail `json:"thumbnail,omitempty"`
-	Video       *EmbedVideo     `json:"video,omitempty"`
-	Provider    *EmbedProvider  `json:"provider,omitempty"`
-	Author      *EmbedAuthor    `json:"author,omitempty"`
-	Fields      []*EmbedField   `json:"fields,omitempty"`
-}
-```
-
-##### Requests
-
-```go
-// Edit Global Application Command
-// PATCH/applications/{application.id}/commands/{command.id}
-// https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command
-type EditGlobalApplicationCommand struct {
-	CommandID                Snowflake
-	Name                     string                      `json:"name,omitempty"`
-	NameLocalizations        map[Flag]string             `json:"name_localizations,omitempty"`
-	Description              string                      `json:"description,omitempty"`
-	DescriptionLocalizations map[Flag]string             `json:"description_localizations,omitempty"`
-	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
-	DefaultPermission        bool                        `json:"default_permission,omitempty"`
-}
-```
-
-##### Events
-
-```go
-// Thread Members Update
-// https://discord.com/developers/docs/topics/gateway#thread-members-update
-type ThreadMembersUpdate struct {
-	ID             Snowflake       `json:"id,omitempty"`
-	GuildID        Snowflake       `json:"guild_id,omitempty"`
-	MemberCount    int             `json:"member_count,omitempty"`
-	AddedMembers   []*ThreadMember `json:"added_members,omitempty"`
-	RemovedMembers []Snowflake     `json:"removed_member_ids,omitempty"`
-}
-```
+_Field comments are **NOT** required by the specification at the current time._
 
 ## Roadmap
 
