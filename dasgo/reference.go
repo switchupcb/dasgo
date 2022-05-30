@@ -1,6 +1,12 @@
 // Package dasgo provides Type Definitions for the Discord API.
 package dasgo
 
+// Version
+// https://discord.com/developers/docs/reference#api-versioning
+const (
+	VersionDiscordAPI = "10"
+)
+
 // Locales
 // https://discord.com/developers/docs/reference#locales
 const (

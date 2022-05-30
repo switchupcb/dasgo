@@ -1647,7 +1647,7 @@ type RefreshTokenExchange struct {
 	ClientID     Snowflake `url:"client_id,omitempty"`
 	ClientSecret string    `url:"client_secret,omitempty"`
 	GrantType    string    `url:"grant_type,omitempty"`
-	RedirectURI  string    `url:"redirect_uri,omitempty"`
+	RefreshToken string    `url:"refresh_token,omitempty"`
 }
 
 // Client Credentials Token Request
