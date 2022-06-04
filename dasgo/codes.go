@@ -4,17 +4,17 @@ package dasgo
 // Gateway Opcodes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
 const (
-	FlagGatewayOpcodeDispatch  = 0
-	FlagGatewayOpcodeHeartbeat = 1
-	FlagGatewayOpcodeIdentify  = 2
-	FlagGatewayOpcodePresence  = 3
-	FlagGatewayOpcodeVoice     = 4
-	FlagGatewayOpcodeResume    = 6
-	FlagGatewayOpcodeReconnect = 7
-	FlagGatewayOpcodeRequest   = 8
-	FlagGatewayOpcodeInvalid   = 9
-	FlagGatewayOpcodeHello     = 10
-	FlagGatewayOpcodeAck       = 11
+	FlagGatewayOpcodeDispatch            = 0
+	FlagGatewayOpcodeHeartbeat           = 1
+	FlagGatewayOpcodeIdentify            = 2
+	FlagGatewayOpcodePresenceUpdate      = 3
+	FlagGatewayOpcodeVoiceStateUpdate    = 4
+	FlagGatewayOpcodeResume              = 6
+	FlagGatewayOpcodeReconnect           = 7
+	FlagGatewayOpcodeRequestGuildMembers = 8
+	FlagGatewayOpcodeInvalidSession      = 9
+	FlagGatewayOpcodeHello               = 10
+	FlagGatewayOpcodeHeartbeatACK        = 11
 )
 
 // Gateway Close Event Codes
