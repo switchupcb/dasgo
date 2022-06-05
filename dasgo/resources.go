@@ -944,32 +944,30 @@ const (
 
 // Guild Features
 // https://discord.com/developers/docs/resources/guild#guild-object-guild-features
-var (
-	GuildFeatures = map[string]string{
-		"ANIMATED_BANNER":                  "guild has access to set an animated guild banner image",
-		"ANIMATED_ICON":                    "guild has access to set an animated guild icon",
-		"BANNER":                           "guild has access to set a guild banner image",
-		"COMMERCE":                         "guild has access to use commerce features (i.e. create store channels)",
-		"COMMUNITY":                        "guild can enable welcome screen, Membership Screening, stage channels and discovery, and receives community updates",
-		"DISCOVERABLE":                     "guild is able to be discovered in the directory",
-		"FEATURABLE":                       "guild is able to be featured in the directory",
-		"INVITE_SPLASH":                    "guild has access to set an invite splash background",
-		"MEMBER_VERIFICATION_GATE_ENABLED": "guild has enabled Membership Screening",
-		"MONETIZATION_ENABLED":             "guild has enabled monetization",
-		"MORE_STICKERS":                    "guild has increased custom sticker slots",
-		"NEWS":                             "guild has access to create news channels",
-		"PARTNERED":                        "guild is partnered",
-		"PREVIEW_ENABLED":                  "guild can be previewed before joining via Membership Screening or the directory",
-		"PRIVATE_THREADS":                  "guild has access to create private threads",
-		"ROLE_ICONS":                       "guild is able to set role icons",
-		"SEVEN_DAY_THREAD_ARCHIVE":         "guild has access to the seven day archive time for threads",
-		"THREE_DAY_THREAD_ARCHIVE":         "guild has access to the three day archive time for threads",
-		"TICKETED_EVENTS_ENABLED":          "guild has enabled ticketed events",
-		"VANITY_URL":                       "guild has access to set a vanity URL",
-		"VERIFIED":                         "guild is verified",
-		"VIP_REGIONS":                      "guild has access to set 384kbps bitrate in voice (previously VIP voice servers)",
-		"WELCOME_SCREEN_ENABLED":           "guild has enabled the welcome screen",
-	}
+const (
+	FlagGuildFeatureANIMATED_BANNER                  = "ANIMATED_BANNER"
+	FlagGuildFeatureANIMATED_ICON                    = "ANIMATED_ICON"
+	FlagGuildFeatureBANNER                           = "BANNER"
+	FlagGuildFeatureCOMMERCE                         = "COMMERCE"
+	FlagGuildFeatureCOMMUNITY                        = "COMMUNITY"
+	FlagGuildFeatureDISCOVERABLE                     = "DISCOVERABLE"
+	FlagGuildFeatureFEATURABLE                       = "FEATURABLE"
+	FlagGuildFeatureINVITE_SPLASH                    = "INVITE_SPLASH"
+	FlagGuildFeatureMEMBER_VERIFICATION_GATE_ENABLED = "MEMBER_VERIFICATION_GATE_ENABLED"
+	FlagGuildFeatureMONETIZATION_ENABLED             = "MONETIZATION_ENABLED"
+	FlagGuildFeatureMORE_STICKERS                    = "MORE_STICKERS"
+	FlagGuildFeatureNEWS                             = "NEWS"
+	FlagGuildFeaturePARTNERED                        = "PARTNERED"
+	FlagGuildFeaturePREVIEW_ENABLED                  = "PREVIEW_ENABLED"
+	FlagGuildFeaturePRIVATE_THREADS                  = "PRIVATE_THREADS"
+	FlagGuildFeatureROLE_ICONS                       = "ROLE_ICONS"
+	FlagGuildFeatureSEVEN_DAY_THREAD_ARCHIVE         = "SEVEN_DAY_THREAD_ARCHIVE"
+	FlagGuildFeatureTHREE_DAY_THREAD_ARCHIVE         = "THREE_DAY_THREAD_ARCHIVE"
+	FlagGuildFeatureTICKETED_EVENTS_ENABLED          = "TICKETED_EVENTS_ENABLED"
+	FlagGuildFeatureVANITY_URL                       = "VANITY_URL"
+	FlagGuildFeatureVERIFIED                         = "VERIFIED"
+	FlagGuildFeatureVIP_REGIONS                      = "VIP_REGIONS"
+	FlagGuildFeatureWELCOME_SCREEN_ENABLED           = "WELCOME_SCREEN_ENABLED"
 )
 
 // Guild Preview Object
