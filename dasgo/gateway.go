@@ -8,7 +8,7 @@ import "encoding/json"
 type GatewayPayload struct {
 	Op             *int           `json:"op,omitempty"`
 	Data           json.RawMessage `json:"d"`
-	SequenceNumber int          `json:"s"`
+	SequenceNumber int	          `json:"s"`
 	EventName      string          `json:"t"`
 }
 
