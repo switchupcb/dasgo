@@ -107,8 +107,6 @@ type InvalidSession struct {
 	Data bool `json:"d,omitempty"`
 }
 
-// TODO: no type, json y?
-
 // Application Command Permissions Update
 // https://discord.com/developers/docs/topics/gateway#application-command-permissions-update
 type ApplicationCommandPermissionsUpdate struct {
@@ -422,8 +420,6 @@ type MessageReactionAdd struct {
 	Emoji     *Emoji       `json:"emoji"`
 }
 
-// TODO: member not included in chart so I copied how it was treated above
-
 // Message Reaction Remove
 // https://discord.com/developers/docs/topics/gateway#message-reaction-remove
 type MessageReactionRemove struct {
@@ -431,7 +427,6 @@ type MessageReactionRemove struct {
 	ChannelID Snowflake    `json:"channel_id"`
 	MessageID Snowflake    `json:"message_id"`
 	GuildID   Snowflake    `json:"guild_id,omitempty"`
-	Member    *GuildMember `json:"member,omitempty"`
 	Emoji     *Emoji       `json:"emoji"`
 }
 

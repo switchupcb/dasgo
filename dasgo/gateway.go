@@ -157,13 +157,11 @@ type Resume struct {
 	Seq       uint32 `json:"seq"`
 }
 
-// TODO: was unclear
-
 // Heartbeat
 // https://discord.com/developers/docs/topics/gateway#heartbeat
 type Heartbeat struct {
 	Op   int   `json:"op,omitempty"`
-	Data int64 `json:"d,omitempty"`
+	Data int `json:"d,omitempty"`
 }
 
 // Guild Request Members Structure

@@ -43,9 +43,9 @@ type EditGlobalApplicationCommand struct {
 	ApplicationID            Snowflake
 	CommandID                Snowflake
 	Name                     string                      `json:"name,omitempty"`
-	NameLocalizations        map[Flag]string             `json:"name_localizations"`
+	NameLocalizations        map[string]string             `json:"name_localizations"`
 	Description              string                      `json:"description,omitempty"`
-	DescriptionLocalizations map[Flag]string             `json:"description_localizations"`
+	DescriptionLocalizations map[string]string             `json:"description_localizations"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions *string                      `json:"default_member_permissions,omitempty"`
 	DMPermission             *bool                        `json:"dm_permission,omitempty"`
@@ -83,9 +83,9 @@ type CreateGuildApplicationCommand struct {
 	ApplicationID            Snowflake
 	GuildID                  Snowflake
 	Name                     string                      `json:"name"`
-	NameLocalizations        map[Flag]string             `json:"name_localization"`
+	NameLocalizations        map[string]string             `json:"name_localization"`
 	Description              string                      `json:"description"`
-	DescriptionLocalizations map[Flag]string             `json:"description_localizations"`
+	DescriptionLocalizations map[string]string             `json:"description_localizations"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions *string                      `json:"default_member_permissions,omitempty"`
 	DMPermission             *bool                        `json:"dm_permission,omitempty"`
@@ -109,9 +109,9 @@ type EditGuildApplicationCommand struct {
 	GuildID                  Snowflake
 	CommandID                Snowflake
 	Name                     string                      `json:"name,omitempty"`
-	NameLocalizations        map[Flag]string             `json:"name_localizations"`
+	NameLocalizations        map[string]string             `json:"name_localizations"`
 	Description              string                      `json:"description,omitempty"`
-	DescriptionLocalizations map[Flag]string             `json:"description_localizations"`
+	DescriptionLocalizations map[string]string             `json:"description_localizations"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions *string                      `json:"default_member_permissions,omitempty"`
 	DMPermission             *bool                        `json:"dm_permission,omitempty"`
@@ -133,9 +133,9 @@ type BulkOverwriteGuildApplicationCommands struct {
 	ApplicationID            Snowflake
 	GuildID                  Snowflake
 	Name                     string                      `json:"name"`
-	NameLocalizations        map[Flag]string             `json:"name_localizations"`
+	NameLocalizations        map[string]string             `json:"name_localizations"`
 	Description              string                      `json:"description"`
-	DescriptionLocalizations map[Flag]string             `json:"description_localizations"`
+	DescriptionLocalizations map[string]string             `json:"description_localizations"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions *string                      `json:"default_member_permissions,omitempty"`
 	DMPermission             *bool                        `json:"dm_permission,omitempty"`
@@ -992,7 +992,7 @@ type ModifyGuildRole struct {
 	GuildID      Snowflake
 	RoleID       Snowflake
 	Name         string  `json:"name"`
-	Permissions  int64   `json:"permissions,string"`
+	Permissions  BitFlag   `json:"permissions"`
 	Color        *int    `json:"color"`
 	Hoist        bool    `json:"hoist"`
 	Icon         *string `json:"icon"`
@@ -1087,8 +1087,6 @@ type GetGuildVanityURL struct {
 	Code    string `json:"code,omitempty"`
 	Uses    int    `json:"uses,omitempty"`
 }
-
-// TODO: no table
 
 // Get Guild Widget Image
 // GET /guilds/{guild.id}/widget.png
@@ -1621,8 +1619,6 @@ type GetGateway struct{}
 // https://discord.com/developers/docs/topics/gateway#get-gateway-bot
 type GetGatewayBot struct{}
 
-// TODO: no table
-
 // Authorization URL
 // GET /oauth2/authorize
 // https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-authorization-url-example
@@ -1635,8 +1631,6 @@ type AuthorizationURL struct {
 	Prompt       string    `url:"prompt,omitempty"`
 }
 
-// TODO: can't find
-
 // Access Token Exchange
 // POST /oauth2/token
 // https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-access-token-exchange-example
@@ -1648,8 +1642,6 @@ type AccessTokenExchange struct {
 	RedirectURI  string    `url:"redirect_uri,omitempty"`
 }
 
-// TODO: can't find
-
 // Refresh Token Exchange
 // POST /oauth2/token
 // https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-refresh-token-exchange-example
@@ -1659,8 +1651,6 @@ type RefreshTokenExchange struct {
 	GrantType    string    `url:"grant_type,omitempty"`
 	RefreshToken string    `url:"refresh_token,omitempty"`
 }
-
-// TODO: can't find
 
 // Client Credentials Token Request
 // POST /oauth2/token

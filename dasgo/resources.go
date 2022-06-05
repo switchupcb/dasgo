@@ -5,8 +5,6 @@ import (
 	"time"
 )
 
-// TODO: I assumed type snowflake is nonzero
-
 // Application Command Structure
 // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
 type ApplicationCommand struct {
@@ -137,8 +135,6 @@ func (c TextInput) Type() Flag {
 	return FlagComponentTypeTextInput
 }
 
-// TODO: was unclear on optionality and nullablility so I dropped omitempty.
-
 // https://discord.com/developers/docs/interactions/message-components#component-object
 type ActionsRow struct {
 	Components []Component `json:"components"`
@@ -148,7 +144,7 @@ type ActionsRow struct {
 
 // Button Object
 
-// *The type field was not included
+// TODO: The type field was not included
 
 // https://discord.com/developers/docs/interactions/message-components#button-object
 type Button struct {
@@ -481,8 +477,6 @@ type AuditLogChange struct {
 // Audit Log Change Exceptions
 // https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-exceptions
 
-// TODO: not sure for last pin timestamp
-
 // Channel Object
 // https://discord.com/developers/docs/resources/channel
 type Channel struct {
@@ -503,7 +497,7 @@ type Channel struct {
 	OwnerID                    Snowflake             `json:"owner_id,omitempty"`
 	ApplicationID              Snowflake             `json:"application_id,omitempty"`
 	ParentID                   *Snowflake             `json:"parent_id"`
-	LastPinTimestamp           *time.Time             `json:"last_pin_timestamp"`
+	LastPinTimestamp           time.Time             `json:"last_pin_timestamp"`
 	RTCRegion                  *string                `json:"rtc_region"`
 	VideoQualityMode           Flag                  `json:"video_quality_mode,omitempty"`
 	MessageCount               *Flag                  `json:"message_count,omitempty"`
@@ -1005,8 +999,6 @@ type GuildWidget struct {
 }
 
 // Guild Member Object
-
-//GuildID not in api documentation
 
 // https://discord.com/developers/docs/resources/guild#guild-member-object
 type GuildMember struct {
