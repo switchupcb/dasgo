@@ -40,8 +40,10 @@ type CurrentAuthorizationInformationResponse struct {
 	Application *Application `json:"application"`
 	Scopes      []*int       `json:"scopes"`
 	Expires     *time.Time   `json:"expires"`
-	User        *User        `json:"user"`
+	User        *User        `json:"user,omitempty"`
 }
+
+// TODO: not in documentation not sure if should have omitempty
 
 // Get Gateway Response
 // https://discord.com/developers/docs/topics/gateway#get-gateway-example-response
@@ -52,10 +54,12 @@ type GetGatewayResponse struct {
 // Get Gateway Bot Response
 // https://discord.com/developers/docs/topics/gateway#get-gateway-example-response
 type GetGatewayBotResponse struct {
-	URL               string            `json:"url,omitempty"`
-	Shards            *int              `json:"shards,omitempty"`
+	URL               string            `json:"url"`
+	Shards            *int              `json:"shards"`
 	SessionStartLimit SessionStartLimit `json:"session_start_limit"`
 }
+
+// TODO: could not find
 
 // Redirect URL
 // https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-redirect-url-example
@@ -68,6 +72,8 @@ type RedirectURL struct {
 	Permissions BitFlag   `url:"permissions,omitempty"`
 }
 
+// TODO: could not find link does not follow I just left as was not sure if omitempty
+
 // Access Token Response
 // https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-access-token-response
 type AccessTokenResponse struct {
@@ -77,6 +83,8 @@ type AccessTokenResponse struct {
 	RefreshToken string        `json:"refresh_token,omitempty"`
 	Scope        string        `json:"scope,omitempty"`
 }
+
+// TODO: could not find link does not follow I just left as was not sure if omitempty
 
 // Redirect URI
 // https://discord.com/developers/docs/topics/oauth2#implicit-grant-redirect-url-example
@@ -88,6 +96,8 @@ type RedirectURI struct {
 	State       string        `url:"state,omitempty"`
 }
 
+// TODO: could not find link does not follow I just left as was not sure if omitempty
+
 // Client Credentials Access Token Response
 // https://discord.com/developers/docs/topics/oauth2#client-credentials-grant-client-credentials-access-token-response
 type ClientCredentialsAccessTokenResponse struct {
@@ -96,6 +106,8 @@ type ClientCredentialsAccessTokenResponse struct {
 	ExpiresIn   time.Duration `json:"expires_in,omitempty"`
 	Scope       string        `json:"scope,omitempty"`
 }
+
+// TODO: could not find link does not follow I just left as was not sure if omitempty
 
 // Webhook Token Response
 // https://discord.com/developers/docs/topics/oauth2#webhooks-webhook-token-response-example
@@ -107,6 +119,8 @@ type WebhookTokenResponse struct {
 	RefreshToken string        `json:"refresh_token,omitempty"`
 	Webhook      *Webhook      `json:"webhook,omitempty"`
 }
+
+// TODO: could not find link does not follow I just left as was not sure if omitempty
 
 // Extended Bot Authorization Access Token Response
 // https://discord.com/developers/docs/topics/oauth2#authorization-code-grant-access-token-response
