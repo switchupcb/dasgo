@@ -1080,8 +1080,6 @@ type GetGuildWidget struct {
 	GuildID Snowflake
 }
 
-// TODO: no table
-
 // Get Guild Vanity URL
 // GET /guilds/{guild.id}/vanity-url
 // https://discord.com/developers/docs/resources/guild#get-guild-vanity-url
