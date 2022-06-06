@@ -303,12 +303,13 @@ type ModifyChannelGuild struct {
 // https://discord.com/developers/docs/resources/channel#modify-channel-json-params-thread
 type ModifyChannelThread struct {
 	ChannelID           Snowflake
-	Name                string `json:"name"`
-	Archived            bool   `json:"archived"`
-	AutoArchiveDuration int    `json:"auto_archive_duration"`
-	Locked              bool   `json:"locked"`
-	Invitable           bool   `json:"invitable"`
-	RateLimitPerUser    *int   `json:"rate_limit_per_user"`
+	Name                string  `json:"name"`
+	Archived            bool    `json:"archived"`
+	AutoArchiveDuration int     `json:"auto_archive_duration"`
+	Locked              bool    `json:"locked"`
+	Invitable           bool    `json:"invitable"`
+	RateLimitPerUser    *int    `json:"rate_limit_per_user"`
+	Flags               BitFlag `json:"flags,omitempty"`
 }
 
 // Delete/Close Channel
@@ -802,13 +803,15 @@ type CreateGuildChannel struct {
 	Name                       string                 `json:"name"`
 	Type                       *Flag                  `json:"type"`
 	Topic                      *string                `json:"topic"`
-	Bitrate                    int                    `json:"bitrate"`
-	UserLimit                  int                    `json:"user_limit"`
-	RateLimitPerUser           int                    `json:"rate_limit_per_user"`
-	Position                   int                    `json:"position"`
+	Bitrate                    *int                   `json:"bitrate"`
+	UserLimit                  *int                   `json:"user_limit"`
+	RateLimitPerUser           *int                   `json:"rate_limit_per_user"`
+	Position                   *int                   `json:"position"`
 	PermissionOverwrites       []*PermissionOverwrite `json:"permission_overwrites"`
 	ParentID                   *Snowflake             `json:"parent_id"`
-	NSFW                       bool                   `json:"nsfw"`
+	NSFW                       *bool                  `json:"nsfw"`
+	RTCRegion                  string                 `json:"rtc_region"`
+	VideoQualityMode           *Flag                  `json:"video_quality_mode"`
 	DefaultAutoArchiveDuration int                    `json:"default_auto_archive_duration"`
 }
 
@@ -1530,16 +1533,17 @@ type ExecuteWebhook struct {
 	Wait            bool             `url:"wait"`
 	ThreadID        Snowflake        `url:"thread_id"`
 	Content         string           `json:"content"`
-	Username        string           `json:"username"`
-	AvatarURL       string           `json:"avatar_url"`
+	Username        string           `json:"username,omitempty"`
+	AvatarURL       string           `json:"avatar_url,omitempty"`
 	TTS             bool             `json:"tts"`
 	Embeds          []*Embed         `json:"embeds"`
-	AllowedMentions *AllowedMentions `json:"allowed_mentions"`
-	Components      []Component      `json:"components"`
+	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
+	Components      []Component      `json:"components,omitempty"`
 	Files           []byte           `dasgo:"files"`
 	PayloadJSON     string           `json:"payload_json"`
-	Attachments     []*Attachment    `json:"attachments"`
-	Flags           BitFlag          `json:"flags"`
+	Attachments     []*Attachment    `json:"attachments,omitempty"`
+	Flags           BitFlag          `json:"flags,omitempty"`
+	ThreadName      string           `json:"thread_name,omitempty"`
 }
 
 // Execute Slack-Compatible Webhook

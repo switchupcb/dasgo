@@ -425,6 +425,7 @@ var (
 		50097:  "This server needs monetization enabled in order to perform this action",
 		50101:  "This server needs more boosts to perform this action",
 		50109:  "The request body contains invalid JSON.",
+		50600:  "You do not have permission to send this sticker.",
 		60003:  "Two factor is required for this operation",
 		80004:  "No users with DiscordTag exist",
 		90001:  "Reaction was blocked",
