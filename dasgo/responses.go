@@ -40,7 +40,7 @@ type CurrentAuthorizationInformationResponse struct {
 	Application *Application `json:"application"`
 	Scopes      []*int       `json:"scopes"`
 	Expires     *time.Time   `json:"expires"`
-	User        *User        `json:"user"`
+	User        *User        `json:"user,omitempty"`
 }
 
 // Get Gateway Response
@@ -52,8 +52,8 @@ type GetGatewayResponse struct {
 // Get Gateway Bot Response
 // https://discord.com/developers/docs/topics/gateway#get-gateway-example-response
 type GetGatewayBotResponse struct {
-	URL               string            `json:"url,omitempty"`
-	Shards            *int              `json:"shards,omitempty"`
+	URL               string            `json:"url"`
+	Shards            *int              `json:"shards"`
 	SessionStartLimit SessionStartLimit `json:"session_start_limit"`
 }
 

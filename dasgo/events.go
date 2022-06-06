@@ -74,18 +74,18 @@ const (
 // Hello Structure
 // https://discord.com/developers/docs/topics/gateway#hello-hello-structure
 type Hello struct {
-	HeartbeatInterval time.Duration `json:"heartbeat_interval,omitempty"`
+	HeartbeatInterval time.Duration `json:"heartbeat_interval"`
 }
 
 // Ready Event Fields
 // https://discord.com/developers/docs/topics/gateway#ready-ready-event-fields
 type Ready struct {
-	Version     int          `json:"v,omitempty"`
-	User        *User        `json:"user,omitempty"`
-	Guilds      []*Guild     `json:"guilds,omitempty"`
-	SessionID   string       `json:"session_id,omitempty"`
+	Version     int          `json:"v"`
+	User        *User        `json:"user"`
+	Guilds      []*Guild     `json:"guilds"`
+	SessionID   string       `json:"session_id"`
 	Shard       *[2]int      `json:"shard,omitempty"`
-	Application *Application `json:"application,omitempty"`
+	Application *Application `json:"application"`
 }
 
 // Resumed
@@ -153,25 +153,25 @@ type ThreadDelete struct {
 // Thread List Sync Event Fields
 // https://discord.com/developers/docs/topics/gateway#thread-list-sync
 type ThreadListSync struct {
-	GuildID    Snowflake       `json:"guild_id,omitempty"`
+	GuildID    Snowflake       `json:"guild_id"`
 	ChannelIDs []Snowflake     `json:"channel_ids,omitempty"`
-	Threads    []*Channel      `json:"threads,omitempty"`
-	Members    []*ThreadMember `json:"members,omitempty"`
+	Threads    []*Channel      `json:"threads"`
+	Members    []*ThreadMember `json:"members"`
 }
 
 // Thread Member Update
 // https://discord.com/developers/docs/topics/gateway#thread-member-update
 type ThreadMemberUpdate struct {
 	*ThreadMember
-	GuildID Snowflake `json:"guild_id,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
 }
 
 // Thread Members Update
 // https://discord.com/developers/docs/topics/gateway#thread-members-update
 type ThreadMembersUpdate struct {
-	ID             Snowflake       `json:"id,omitempty"`
-	GuildID        Snowflake       `json:"guild_id,omitempty"`
-	MemberCount    int             `json:"member_count,omitempty"`
+	ID             Snowflake       `json:"id"`
+	GuildID        Snowflake       `json:"guild_id"`
+	MemberCount    int             `json:"member_count"`
 	AddedMembers   []*ThreadMember `json:"added_members,omitempty"`
 	RemovedMembers []Snowflake     `json:"removed_member_ids,omitempty"`
 }
@@ -180,7 +180,7 @@ type ThreadMembersUpdate struct {
 // https://discord.com/developers/docs/topics/gateway#channel-pins-update
 type ChannelPinsUpdate struct {
 	GuildID          Snowflake `json:"guild_id,omitempty"`
-	ChannelID        Snowflake `json:"channel_id,omitempty"`
+	ChannelID        Snowflake `json:"channel_id"`
 	LastPinTimestamp time.Time `json:"last_pin_timestamp,omitempty"`
 }
 
@@ -188,7 +188,7 @@ type ChannelPinsUpdate struct {
 // https://discord.com/developers/docs/topics/gateway#guild-create
 type GuildCreate struct {
 	*Guild
-
+	
 	// https://discord.com/developers/docs/topics/threads#gateway-events
 	Threads []*Channel `json:"threads,omitempty"`
 }
@@ -208,49 +208,49 @@ type GuildDelete struct {
 // Guild Ban Add
 // https://discord.com/developers/docs/topics/gateway#guild-ban-add
 type GuildBanAdd struct {
-	GuildID string `json:"guild_id,omitempty"`
-	User    *User  `json:"user,omitempty"`
+	GuildID string `json:"guild_id"`
+	User    *User  `json:"user"`
 }
 
 // Guild Ban Remove
 // https://discord.com/developers/docs/topics/gateway#guild-ban-remove
 type GuildBanRemove struct {
-	GuildID Snowflake `json:"guild_id,omitempty"`
-	User    *User     `json:"user,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
+	User    *User     `json:"user"`
 }
 
 // Guild Emojis Update
 // https://discord.com/developers/docs/topics/gateway#guild-emojis-update
 type GuildEmojisUpdate struct {
-	GuildID Snowflake `json:"guild_id,omitempty"`
-	Emojis  []*Emoji  `json:"emojis,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
+	Emojis  []*Emoji  `json:"emojis"`
 }
 
 // Guild Stickers Update
 // https://discord.com/developers/docs/topics/gateway#guild-stickers-update
 type GuildStickersUpdate struct {
-	GuildID  Snowflake  `json:"guild_id,omitempty"`
-	Stickers []*Sticker `json:"stickers,omitempty"`
+	GuildID  Snowflake  `json:"guild_id"`
+	Stickers []*Sticker `json:"stickers"`
 }
 
 // Guild Integrations Update
 // https://discord.com/developers/docs/topics/gateway#guild-integrations-update
 type GuildIntegrationsUpdate struct {
-	GuildID Snowflake `json:"guild_id,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
 }
 
 // Guild Member Add
 // https://discord.com/developers/docs/topics/gateway#guild-member-add
 type GuildMemberAdd struct {
-	GuildID Snowflake `json:"guild_id,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
 	*GuildMember
 }
 
 // Guild Member Remove
 // https://discord.com/developers/docs/topics/gateway#guild-member-remove
 type GuildMemberRemove struct {
-	GuildID Snowflake `json:"guild_id,omitempty"`
-	User    *User     `json:"user,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
+	User    *User     `json:"user"`
 }
 
 // Guild Member Update
@@ -262,34 +262,34 @@ type GuildMemberUpdate struct {
 // Guild Members Chunk
 // https://discord.com/developers/docs/topics/gateway#guild-members-chunk
 type GuildMembersChunk struct {
-	GuildID    Snowflake         `json:"guild_id,omitempty"`
-	Members    []*GuildMember    `json:"members,omitempty"`
-	ChunkIndex int               `json:"chunk_index,omitempty"`
-	ChunkCount int               `json:"chunk_count,omitempty"`
+	GuildID    Snowflake         `json:"guild_id"`
+	Members    []*GuildMember    `json:"members"`
+	ChunkIndex int               `json:"chunk_index"`
+	ChunkCount int               `json:"chunk_count"`
 	Presences  []*PresenceUpdate `json:"presences,omitempty"`
 	NotFound   []Snowflake       `json:"not_found,omitempty"`
-	Nonce      string            `json:"nonce,omitempty"`
+	Nonce      *string            `json:"nonce,omitempty"`
 }
 
 // Guild Role Create
 // https://discord.com/developers/docs/topics/gateway#guild-role-create
 type GuildRoleCreate struct {
-	GuildID Snowflake `json:"guild_id,omitempty"`
-	Role    *Role     `json:"role,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
+	Role    *Role     `json:"role"`
 }
 
 // Guild Role Update
 // https://discord.com/developers/docs/topics/gateway#guild-role-update
 type GuildRoleUpdate struct {
-	GuildID Snowflake `json:"guild_id,omitempty"`
-	Role    *Role     `json:"role,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
+	Role    *Role     `json:"role"`
 }
 
 // Guild Role Delete
 // https://discord.com/developers/docs/topics/gateway#guild-role-delete
 type GuildRoleDelete struct {
-	GuildID Snowflake `json:"guild_id,omitempty"`
-	RoleID  Snowflake `json:"role_id,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
+	RoleID  Snowflake `json:"role_id"`
 }
 
 // Guild Scheduled Event Create
@@ -313,38 +313,38 @@ type GuildScheduledEventDelete struct {
 // Guild Scheduled Event User Add
 // https://discord.com/developers/docs/topics/gateway#guild-scheduled-event-user-add
 type GuildScheduledEventUserAdd struct {
-	GuildScheduledEventID Snowflake `json:"guild_scheduled_event_id,omitempty"`
-	UserID                Snowflake `json:"user_id,omitempty"`
-	GuildID               Snowflake `json:"guild_id,omitempty"`
+	GuildScheduledEventID Snowflake `json:"guild_scheduled_event_id"`
+	UserID                Snowflake `json:"user_id"`
+	GuildID               Snowflake `json:"guild_id"`
 }
 
 // Guild Scheduled Event User Remove
 // https://discord.com/developers/docs/topics/gateway#guild-scheduled-event-user-remove
 type GuildScheduledEventUserRemove struct {
-	GuildScheduledEventID Snowflake `json:"guild_scheduled_event_id,omitempty"`
-	UserID                Snowflake `json:"user_id,omitempty"`
-	GuildID               Snowflake `json:"guild_id,omitempty"`
+	GuildScheduledEventID Snowflake `json:"guild_scheduled_event_id"`
+	UserID                Snowflake `json:"user_id"`
+	GuildID               Snowflake `json:"guild_id"`
 }
 
 // Integration Create
 // https://discord.com/developers/docs/topics/gateway#integration-create
 type IntegrationCreate struct {
 	*Integration
-	GuildID Snowflake `json:"guild_id,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
 }
 
 // Integration Update
 // https://discord.com/developers/docs/topics/gateway#integration-update
 type IntegrationUpdate struct {
 	*Integration
-	GuildID Snowflake `json:"guild_id,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
 }
 
 // Integration Delete
 // https://discord.com/developers/docs/topics/gateway#integration-delete
 type IntegrationDelete struct {
-	IntegrationID Snowflake `json:"id,omitempty"`
-	GuildID       Snowflake `json:"guild_id,omitempty"`
+	IntegrationID Snowflake `json:"id"`
+	GuildID       Snowflake `json:"guild_id"`
 	ApplicationID Snowflake `json:"application_id,omitempty"`
 }
 
@@ -357,26 +357,26 @@ type InteractionCreate struct {
 // Invite Create
 // https://discord.com/developers/docs/topics/gateway#invite-create
 type InviteCreate struct {
-	ChannelID         Snowflake    `json:"channel_id,omitempty"`
-	Code              string       `json:"code,omitempty"`
-	CreatedAt         time.Time    `json:"created_at,omitempty"`
+	ChannelID         Snowflake    `json:"channel_id"`
+	Code              string       `json:"code"`
+	CreatedAt         time.Time    `json:"created_at"`
 	GuildID           Snowflake    `json:"guild_id,omitempty"`
 	Inviter           *User        `json:"inviter,omitempty"`
-	MaxAge            int          `json:"max_age,omitempty"`
-	MaxUses           int          `json:"max_uses,omitempty"`
-	TargetType        int          `json:"target_user_type,omitempty"`
+	MaxAge            int          `json:"max_age"`
+	MaxUses           int          `json:"max_uses"`
+	TargetType        *int          `json:"target_user_type,omitempty"`
 	TargetUser        *User        `json:"target_user,omitempty"`
 	TargetApplication *Application `json:"target_application,omitempty"`
-	Temporary         bool         `json:"temporary,omitempty"`
-	Uses              int          `json:"uses,omitempty"`
+	Temporary         bool         `json:"temporary"`
+	Uses              int          `json:"uses"`
 }
 
 // Invite Delete
 // https://discord.com/developers/docs/topics/gateway#invite-delete
 type InviteDelete struct {
-	ChannelID Snowflake `json:"channel_id,omitempty"`
+	ChannelID Snowflake `json:"channel_id"`
 	GuildID   Snowflake `json:"guild_id,omitempty"`
-	Code      Snowflake `json:"code,omitempty"`
+	Code      Snowflake `json:"code"`
 }
 
 // Message Create
@@ -394,66 +394,65 @@ type MessageUpdate struct {
 // Message Delete
 // https://discord.com/developers/docs/topics/gateway#message-delete
 type MessageDelete struct {
-	MessageID Snowflake `json:"id,omitempty"`
-	ChannelID Snowflake `json:"channel_id,omitempty"`
+	MessageID Snowflake `json:"id"`
+	ChannelID Snowflake `json:"channel_id"`
 	GuildID   Snowflake `json:"guild_id,omitempty"`
 }
 
 // Message Delete Bulk
 // https://discord.com/developers/docs/topics/gateway#message-delete-bulk
 type MessageDeleteBulk struct {
-	MessageIDs []Snowflake `json:"ids,omitempty"`
-	ChannelID  Snowflake   `json:"channel_id,omitempty"`
+	MessageIDs []Snowflake `json:"ids"`
+	ChannelID  Snowflake   `json:"channel_id"`
 	GuildID    Snowflake   `json:"guild_id,omitempty"`
 }
 
 // Message Reaction Add
 // https://discord.com/developers/docs/topics/gateway#message-reaction-add
 type MessageReactionAdd struct {
-	UserID    Snowflake    `json:"user_id,omitempty"`
-	ChannelID Snowflake    `json:"channel_id,omitempty"`
-	MessageID Snowflake    `json:"message_id,omitempty"`
+	UserID    Snowflake    `json:"user_id"`
+	ChannelID Snowflake    `json:"channel_id"`
+	MessageID Snowflake    `json:"message_id"`
 	GuildID   Snowflake    `json:"guild_id,omitempty"`
 	Member    *GuildMember `json:"member,omitempty"`
-	Emoji     *Emoji       `json:"emoji,omitempty"`
+	Emoji     *Emoji       `json:"emoji"`
 }
 
 // Message Reaction Remove
 // https://discord.com/developers/docs/topics/gateway#message-reaction-remove
 type MessageReactionRemove struct {
-	UserID    Snowflake    `json:"user_id,omitempty"`
-	ChannelID Snowflake    `json:"channel_id,omitempty"`
-	MessageID Snowflake    `json:"message_id,omitempty"`
+	UserID    Snowflake    `json:"user_id"`
+	ChannelID Snowflake    `json:"channel_id"`
+	MessageID Snowflake    `json:"message_id"`
 	GuildID   Snowflake    `json:"guild_id,omitempty"`
-	Member    *GuildMember `json:"member,omitempty"`
-	Emoji     *Emoji       `json:"emoji,omitempty"`
+	Emoji     *Emoji       `json:"emoji"`
 }
 
 // Message Reaction Remove All
 // https://discord.com/developers/docs/topics/gateway#message-reaction-remove-all
 type MessageReactionRemoveAll struct {
-	ChannelID Snowflake `json:"channel_id,omitempty"`
-	MessageID Snowflake `json:"message_id,omitempty"`
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
 	GuildID   Snowflake `json:"guild_id,omitempty"`
 }
 
 // Message Reaction Remove Emoji
 // https://discord.com/developers/docs/topics/gateway#message-reaction-remove-emoji
 type MessageReactionRemoveEmoji struct {
-	ChannelID Snowflake `json:"channel_id,omitempty"`
+	ChannelID Snowflake `json:"channel_id"`
 	GuildID   Snowflake `json:"guild_id,omitempty"`
-	MessageID Snowflake `json:"message_id,omitempty"`
-	Emoji     *Emoji    `json:"emoji,omitempty"`
+	MessageID Snowflake `json:"message_id"`
+	Emoji     *Emoji    `json:"emoji"`
 }
 
 // Presence Update Event Fields
 // https://discord.com/developers/docs/topics/gateway#presence-update-presence-update-event-fields
 type PresenceUpdate struct {
-	User         *User         `json:"user,omitempty"`
-	GuildID      Snowflake     `json:"guild_id,omitempty"`
-	Status       string        `json:"status,omitempty"`
-	Activities   []*Activity   `json:"activities,omitempty"`
-	ClientStatus *ClientStatus `json:"client_status,omitempty"`
+	User         *User         `json:"user"`
+	GuildID      Snowflake     `json:"guild_id"`
+	Status       string        `json:"status"`
+	Activities   []*Activity   `json:"activities"`
+	ClientStatus *ClientStatus `json:"client_status"`
 }
 
 // Stage Instance Create
@@ -477,11 +476,11 @@ type StageInstanceDelete struct {
 // Typing Start
 // https://discord.com/developers/docs/topics/gateway#typing-start
 type TypingStart struct {
-	ChannelID Snowflake    `json:"channel_id,omitempty"`
+	ChannelID Snowflake    `json:"channel_id"`
 	GuildID   Snowflake    `json:"guild_id,omitempty"`
-	UserID    Snowflake    `json:"user_id,omitempty"`
+	UserID    Snowflake    `json:"user_id"`
 	Member    *GuildMember `json:"member,omitempty"`
-	Timestamp int          `json:"timestamp,omitempty"`
+	Timestamp int          `json:"timestamp"`
 }
 
 // User Update
@@ -499,14 +498,14 @@ type VoiceStateUpdate struct {
 // Voice Server Update
 // https://discord.com/developers/docs/topics/gateway#voice-server-update
 type VoiceServerUpdate struct {
-	Token    string    `json:"token,omitempty"`
-	GuildID  Snowflake `json:"guild_id,omitempty"`
-	Endpoint string    `json:"endpoint,omitempty"`
+	Token    string    `json:"token"`
+	GuildID  Snowflake `json:"guild_id"`
+	Endpoint string    `json:"endpoint"`
 }
 
 // Webhooks Update
 // https://discord.com/developers/docs/topics/gateway#webhooks-update
 type WebhooksUpdate struct {
-	GuildID   Snowflake `json:"guild_id,omitempty"`
-	ChannelID Snowflake `json:"channel_id,omitempty"`
+	GuildID   Snowflake `json:"guild_id"`
+	ChannelID Snowflake `json:"channel_id"`
 }

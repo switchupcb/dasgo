@@ -6,27 +6,27 @@ import "encoding/json"
 // Gateway Payload Structure
 // https://discord.com/developers/docs/topics/gateway#payloads-gateway-payload-structure
 type GatewayPayload struct {
-	Op             *Flag           `json:"op,omitempty"`
-	Data           json.RawMessage `json:"d,omitempty"`
-	SequenceNumber uint32          `json:"s,omitempty"`
-	EventName      string          `json:"t,omitempty"`
+	Op             *int           `json:"op,omitempty"`
+	Data           json.RawMessage `json:"d"`
+	SequenceNumber int	          `json:"s"`
+	EventName      string          `json:"t"`
 }
 
 // Gateway URL Query String Params
 // https://discord.com/developers/docs/topics/gateway#connecting-gateway-url-query-string-params
 type GatewayURLQueryString struct {
-	V        int    `url:"v,omitempty"`
-	Encoding string `url:"encoding,omitempty"`
-	Compress string `url:"compress,omitempty"`
+	V        int    `url:"v"`
+	Encoding string `url:"encoding"`
+	Compress *string `url:"compress,omitempty"`
 }
 
 // Session Start Limit Structure
 // https://discord.com/developers/docs/topics/gateway#session-start-limit-object-session-start-limit-structure
 type SessionStartLimit struct {
-	Total          int `json:"total,omitempty"`
-	Remaining      int `json:"remaining,omitempty"`
-	ResetAfter     int `json:"reset_after,omitempty"`
-	MaxConcurrency int `json:"max_concurrency,omitempty"`
+	Total          int `json:"total"`
+	Remaining      int `json:"remaining"`
+	ResetAfter     int `json:"reset_after"`
+	MaxConcurrency int `json:"max_concurrency"`
 }
 
 // List of Intents
@@ -132,65 +132,65 @@ type Command interface{}
 // Identify Structure
 // https://discord.com/developers/docs/topics/gateway#identify-identify-structure
 type Identify struct {
-	Token          string                       `json:"token,omitempty"`
-	Properties     IdentifyConnectionProperties `json:"properties,omitempty"`
-	Compress       bool                         `json:"compress,omitempty"`
+	Token          string                       `json:"token"`
+	Properties     IdentifyConnectionProperties `json:"properties"`
+	Compress       *bool                         `json:"compress,omitempty"`
 	LargeThreshold int                          `json:"large_threshold,omitempty"`
 	Shard          *[2]int                      `json:"shard,omitempty"`
 	Presence       GatewayPresenceUpdate        `json:"presence,omitempty"`
-	Intents        BitFlag                      `json:"intents,omitempty"`
+	Intents        BitFlag                      `json:"intents"`
 }
 
 // Identify Connection Properties
 // https://discord.com/developers/docs/topics/gateway#identify-identify-connection-properties
 type IdentifyConnectionProperties struct {
-	OS      string `json:"$os,omitempty"`
-	Browser string `json:"$browser,omitempty"`
-	Device  string `json:"$device,omitempty"`
+	OS      string `json:"$os"`
+	Browser string `json:"$browser"`
+	Device  string `json:"$device"`
 }
 
 // Resume Structure
 // https://discord.com/developers/docs/topics/gateway#resume-resume-structure
 type Resume struct {
-	Token     string `json:"token,omitempty"`
-	SessionID string `json:"session_id,omitempty"`
-	Seq       uint32 `json:"seq,omitempty"`
+	Token     string `json:"token"`
+	SessionID string `json:"session_id"`
+	Seq       uint32 `json:"seq"`
 }
 
 // Heartbeat
 // https://discord.com/developers/docs/topics/gateway#heartbeat
 type Heartbeat struct {
 	Op   int   `json:"op,omitempty"`
-	Data int64 `json:"d,omitempty"`
+	Data int `json:"d,omitempty"`
 }
 
 // Guild Request Members Structure
 // https://discord.com/developers/docs/topics/gateway#request-guild-members-guild-request-members-structure
 type GuildRequestMembers struct {
-	GuildID   Snowflake   `json:"guild_id,omitempty"`
-	Query     string      `json:"query,omitempty"`
-	Limit     uint        `json:"limit,omitempty"`
-	Presences bool        `json:"presences,omitempty"`
+	GuildID   Snowflake   `json:"guild_id"`
+	Query     *string      `json:"query,omitempty"`
+	Limit     uint        `json:"limit"`
+	Presences *bool        `json:"presences,omitempty"`
 	UserIDs   []Snowflake `json:"user_ids,omitempty"`
-	Nonce     string      `json:"nonce,omitempty"`
+	Nonce     *string      `json:"nonce,omitempty"`
 }
 
 // Gateway Voice State Update Structure
 // https://discord.com/developers/docs/topics/gateway#update-voice-state-gateway-voice-state-update-structure
 type GatewayVoiceStateUpdate struct {
-	GuildID   Snowflake `json:"guild_id,omitempty"`
-	ChannelID Snowflake `json:"channel_id,omitempty"`
-	SelfMute  bool      `json:"self_mute,omitempty"`
-	SelfDeaf  bool      `json:"self_deaf,omitempty"`
+	GuildID   Snowflake `json:"guild_id"`
+	ChannelID Snowflake `json:"channel_id"`
+	SelfMute  bool      `json:"self_mute"`
+	SelfDeaf  bool      `json:"self_deaf"`
 }
 
 // Gateway Presence Update Structure
 // https://discord.com/developers/docs/topics/gateway#update-presence-gateway-presence-update-structure
 type GatewayPresenceUpdate struct {
-	Since  int         `json:"since,omitempty"`
-	Game   []*Activity `json:"game,omitempty"`
-	Status string      `json:"status,omitempty"`
-	AFK    bool        `json:"afk,omitempty"`
+	Since  int         `json:"since"`
+	Game   []*Activity `json:"game"`
+	Status string      `json:"status"`
+	AFK    bool        `json:"afk"`
 }
 
 // Status Types
