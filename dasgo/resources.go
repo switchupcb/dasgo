@@ -144,8 +144,6 @@ type ActionsRow struct {
 
 // Button Object
 
-// TODO: The type field was not included
-
 // https://discord.com/developers/docs/interactions/message-components#button-object
 type Button struct {
 	Style    Flag    `json:"style"`
@@ -172,8 +170,6 @@ const (
 
 // Select Menu Structure
 
-// *
-
 // https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
 type SelectMenu struct {
 	CustomID    string             `json:"custom_id"`
@@ -195,8 +191,6 @@ type SelectMenuOption struct {
 }
 
 // Text Input Structure
-
-// *
 
 // https://discord.com/developers/docs/interactions/message-components#text-inputs-text-input-structure
 type TextInput struct {

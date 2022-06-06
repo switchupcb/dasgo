@@ -184,13 +184,11 @@ type ChannelPinsUpdate struct {
 	LastPinTimestamp time.Time `json:"last_pin_timestamp,omitempty"`
 }
 
-// TODO: more confusion for me lol
-
 // Guild Create
 // https://discord.com/developers/docs/topics/gateway#guild-create
 type GuildCreate struct {
 	*Guild
-
+	
 	// https://discord.com/developers/docs/topics/threads#gateway-events
 	Threads []*Channel `json:"threads,omitempty"`
 }
