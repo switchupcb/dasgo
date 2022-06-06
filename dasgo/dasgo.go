@@ -10,5 +10,5 @@ type Flag uint8
 // BitFlag represents an alias for a Discord API Bitwise Flag denoted by 1 << x.
 type BitFlag uint
 
-// CodeFlag represents an alias for a Discord API code ranging from 0 - 65535.
+// CodeFlag represents an alias for a Discord API Code ranging from 0 - 65535.
 type CodeFlag uint16

@@ -43,12 +43,12 @@ type EditGlobalApplicationCommand struct {
 	ApplicationID            Snowflake
 	CommandID                Snowflake
 	Name                     string                      `json:"name,omitempty"`
-	NameLocalizations        map[string]string             `json:"name_localizations"`
+	NameLocalizations        map[string]string           `json:"name_localizations"`
 	Description              string                      `json:"description,omitempty"`
-	DescriptionLocalizations map[string]string             `json:"description_localizations"`
+	DescriptionLocalizations map[string]string           `json:"description_localizations"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
-	DefaultMemberPermissions *string                      `json:"default_member_permissions,omitempty"`
-	DMPermission             *bool                        `json:"dm_permission,omitempty"`
+	DefaultMemberPermissions *string                     `json:"default_member_permissions,omitempty"`
+	DMPermission             *bool                       `json:"dm_permission,omitempty"`
 }
 
 // Delete Global Application Command
@@ -83,13 +83,13 @@ type CreateGuildApplicationCommand struct {
 	ApplicationID            Snowflake
 	GuildID                  Snowflake
 	Name                     string                      `json:"name"`
-	NameLocalizations        map[string]string             `json:"name_localization"`
+	NameLocalizations        map[string]string           `json:"name_localization"`
 	Description              string                      `json:"description"`
-	DescriptionLocalizations map[string]string             `json:"description_localizations"`
+	DescriptionLocalizations map[string]string           `json:"description_localizations"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
-	DefaultMemberPermissions *string                      `json:"default_member_permissions,omitempty"`
-	DMPermission             *bool                        `json:"dm_permission,omitempty"`
-	Type                     *Flag                        `json:"type,omitempty"`
+	DefaultMemberPermissions *string                     `json:"default_member_permissions,omitempty"`
+	DMPermission             *bool                       `json:"dm_permission,omitempty"`
+	Type                     *Flag                       `json:"type,omitempty"`
 }
 
 // Get Guild Application Command
@@ -109,12 +109,12 @@ type EditGuildApplicationCommand struct {
 	GuildID                  Snowflake
 	CommandID                Snowflake
 	Name                     string                      `json:"name,omitempty"`
-	NameLocalizations        map[string]string             `json:"name_localizations"`
+	NameLocalizations        map[string]string           `json:"name_localizations"`
 	Description              string                      `json:"description,omitempty"`
-	DescriptionLocalizations map[string]string             `json:"description_localizations"`
+	DescriptionLocalizations map[string]string           `json:"description_localizations"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
-	DefaultMemberPermissions *string                      `json:"default_member_permissions,omitempty"`
-	DMPermission             *bool                        `json:"dm_permission,omitempty"`
+	DefaultMemberPermissions *string                     `json:"default_member_permissions,omitempty"`
+	DMPermission             *bool                       `json:"dm_permission,omitempty"`
 }
 
 // Delete Guild Application Command
@@ -133,13 +133,13 @@ type BulkOverwriteGuildApplicationCommands struct {
 	ApplicationID            Snowflake
 	GuildID                  Snowflake
 	Name                     string                      `json:"name"`
-	NameLocalizations        map[string]string             `json:"name_localizations"`
+	NameLocalizations        map[string]string           `json:"name_localizations"`
 	Description              string                      `json:"description"`
-	DescriptionLocalizations map[string]string             `json:"description_localizations"`
+	DescriptionLocalizations map[string]string           `json:"description_localizations"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
-	DefaultMemberPermissions *string                      `json:"default_member_permissions,omitempty"`
-	DMPermission             *bool                        `json:"dm_permission,omitempty"`
-	Type                     *Flag                        `json:"type,omitempty"`
+	DefaultMemberPermissions *string                     `json:"default_member_permissions,omitempty"`
+	DMPermission             *bool                       `json:"dm_permission,omitempty"`
+	Type                     *Flag                       `json:"type,omitempty"`
 }
 
 // Get Guild Application Command Permissions
@@ -252,7 +252,7 @@ type GetGuildAuditLog struct {
 	UserID     Snowflake `url:"user_id"`
 	ActionType Flag      `url:"action_type"`
 	Before     Snowflake `url:"before"`
-	Limit      Flag      `url:"limit"`
+	Limit      int       `url:"limit"`
 }
 
 // Get Channel
@@ -288,14 +288,14 @@ type ModifyChannelGuild struct {
 	Position                   *uint                  `json:"position"`
 	Topic                      *string                `json:"topic"`
 	NSFW                       bool                   `json:"nsfw"`
-	RateLimitPerUser           *CodeFlag              `json:"rate_limit_per_user"`
+	RateLimitPerUser           *int                   `json:"rate_limit_per_user"`
 	Bitrate                    *int                   `json:"bitrate"`
 	UserLimit                  *int                   `json:"user_limit"`
 	PermissionOverwrites       *[]PermissionOverwrite `json:"permission_overwrites"`
 	ParentID                   *Snowflake             `json:"parent_id"`
 	RTCRegion                  *string                `json:"rtc_region"`
-	VideoQualityMode           Flag                   `json:"video_quality_mode"`
-	DefaultAutoArchiveDuration int                    `json:"default_auto_archive_duration"`
+	VideoQualityMode           *Flag                  `json:"video_quality_mode"`
+	DefaultAutoArchiveDuration *int                   `json:"default_auto_archive_duration"`
 }
 
 // Modify Channel
@@ -303,12 +303,12 @@ type ModifyChannelGuild struct {
 // https://discord.com/developers/docs/resources/channel#modify-channel-json-params-thread
 type ModifyChannelThread struct {
 	ChannelID           Snowflake
-	Name                string    `json:"name"`
-	Archived            bool      `json:"archived"`
-	AutoArchiveDuration CodeFlag  `json:"auto_archive_duration"`
-	Locked              bool      `json:"locked"`
-	Invitable           bool      `json:"invitable"`
-	RateLimitPerUser    *CodeFlag `json:"rate_limit_per_user"`
+	Name                string `json:"name"`
+	Archived            bool   `json:"archived"`
+	AutoArchiveDuration int    `json:"auto_archive_duration"`
+	Locked              bool   `json:"locked"`
+	Invitable           bool   `json:"invitable"`
+	RateLimitPerUser    *int   `json:"rate_limit_per_user"`
 }
 
 // Delete/Close Channel
@@ -342,8 +342,8 @@ type GetChannelMessage struct {
 // https://discord.com/developers/docs/resources/channel#create-message
 type CreateMessage struct {
 	ChannelID       Snowflake
-	Content         *string            `json:"content,omitempty"`
-	TTS             *bool              `json:"tts,omitempty"`
+	Content         *string           `json:"content,omitempty"`
+	TTS             *bool             `json:"tts,omitempty"`
 	Embeds          []*Embed          `json:"embeds,omitempty"`
 	Embed           *Embed            `json:"embed,omitempty"`
 	AllowedMentions *AllowedMentions  `json:"allowed_mentions,omitempty"`
@@ -353,7 +353,7 @@ type CreateMessage struct {
 	Files           []byte            `dasgo:"files,omitempty"`
 	PayloadJSON     *string           `json:"payload_json,omitempty"`
 	Attachments     []*Attachment     `json:"attachments,omitempty"`
-	Flags           *BitFlag           `json:"flags,omitempty"`
+	Flags           *BitFlag          `json:"flags,omitempty"`
 }
 
 // Crosspost Message
@@ -400,7 +400,7 @@ type GetReactions struct {
 	MessageID Snowflake
 	Emoji     string
 	After     Snowflake `url:"after,omitempty"`
-	Limit     Flag      `url:"limit,omitempty"`
+	Limit     int       `url:"limit,omitempty"`
 }
 
 // Delete All Reactions
@@ -460,7 +460,7 @@ type EditChannelPermissions struct {
 	OverwriteID Snowflake
 	Allow       *string `json:"allow,omitempty"`
 	Deny        *string `json:"deny,omitempty"`
-	Type        *Flag  `json:"type"`
+	Type        *Flag   `json:"type"`
 }
 
 // Get Channel Invites
@@ -476,7 +476,7 @@ type GetChannelInvites struct {
 type CreateChannelInvite struct {
 	ChannelID           Snowflake
 	MaxAge              *int      `json:"max_age"`
-	MaxUses             *Flag     `json:"max_uses"`
+	MaxUses             *int      `json:"max_uses"`
 	Temporary           bool      `json:"temporary"`
 	Unique              bool      `json:"unique"`
 	TargetType          Flag      `json:"target_type"`
@@ -725,8 +725,8 @@ type DeleteGuildEmoji struct {
 // https://discord.com/developers/docs/resources/guild#create-guild
 type CreateGuild struct {
 	Name                        string     `json:"name"`
-	Region                      *string     `json:"region,omitempty"`
-	Icon                        *string     `json:"icon,omitempty"`
+	Region                      *string    `json:"region,omitempty"`
+	Icon                        *string    `json:"icon,omitempty"`
 	VerificationLevel           *Flag      `json:"verification_level,omitempty"`
 	DefaultMessageNotifications *Flag      `json:"default_message_notifications,omitempty"`
 	ExplicitContentFilter       *Flag      `json:"explicit_content_filter,omitempty"`
@@ -992,7 +992,7 @@ type ModifyGuildRole struct {
 	GuildID      Snowflake
 	RoleID       Snowflake
 	Name         string  `json:"name"`
-	Permissions  BitFlag   `json:"permissions"`
+	Permissions  BitFlag `json:"permissions"`
 	Color        *int    `json:"color"`
 	Hoist        bool    `json:"hoist"`
 	Icon         *string `json:"icon"`
@@ -1210,7 +1210,7 @@ type GetGuildScheduledEventUsers struct {
 	GuildID               Snowflake
 	GuildScheduledEventID Snowflake
 	Limit                 *int       `url:"limit,omitempty"`
-	WithMember            *bool       `url:"with_member,omitempty"`
+	WithMember            *bool      `url:"with_member,omitempty"`
 	Before                *Snowflake `url:"before,omitempty"`
 	After                 *Snowflake `url:"after,omitempty"`
 }
@@ -1279,8 +1279,8 @@ type DeleteGuildTemplate struct {
 type GetInvite struct {
 	InviteCode            string
 	GuildScheduledEventID Snowflake `url:"guild_scheduled_event_id,omitempty"`
-	WithCounts            *bool      `url:"with_counts,omitempty"`
-	WithExpiration        *bool      `url:"with_expiration,omitempty"`
+	WithCounts            *bool     `url:"with_counts,omitempty"`
+	WithExpiration        *bool     `url:"with_expiration,omitempty"`
 }
 
 // Delete Invite
