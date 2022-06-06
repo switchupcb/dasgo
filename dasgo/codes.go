@@ -257,7 +257,7 @@ var (
 
 // HTTP Response Codes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#http-http-response-codes
-var (
+const (
 	FlagHTTPResponseCodeOK                 = 200
 	FlagHTTPResponseCodeCREATED            = 201
 	FlagHTTPResponseCodeNOCONTENT          = 204
@@ -270,7 +270,9 @@ var (
 	FlagHTTPResponseCodeTOOMANYREQUESTS    = 429
 	FlagHTTPResponseCodeGATEWAYUNAVAILABLE = 502
 	FlagHTTPResponseCodeSERVERERROR        = 500 // 5xx (500 Not Guaranteed)
+)
 
+var (
 	HTTPResponseCodes = map[int]string{
 		FlagHTTPResponseCodeOK:                 "The request completed successfully.",
 		FlagHTTPResponseCodeCREATED:            "The entity was created successfully.",
