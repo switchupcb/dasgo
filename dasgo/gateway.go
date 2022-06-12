@@ -6,17 +6,17 @@ import "encoding/json"
 // Gateway Payload Structure
 // https://discord.com/developers/docs/topics/gateway#payloads-gateway-payload-structure
 type GatewayPayload struct {
-	Op             *int           `json:"op,omitempty"`
+	Op             *int            `json:"op,omitempty"`
 	Data           json.RawMessage `json:"d"`
-	SequenceNumber int	          `json:"s"`
+	SequenceNumber int             `json:"s"`
 	EventName      string          `json:"t"`
 }
 
 // Gateway URL Query String Params
 // https://discord.com/developers/docs/topics/gateway#connecting-gateway-url-query-string-params
 type GatewayURLQueryString struct {
-	V        int    `url:"v"`
-	Encoding string `url:"encoding"`
+	V        int     `url:"v"`
+	Encoding string  `url:"encoding"`
 	Compress *string `url:"compress,omitempty"`
 }
 
@@ -99,8 +99,8 @@ const (
 	FlagIntentGUILD_MESSAGE_REACTIONS = 1 << 10
 
 	// TYPING_START
-
-	FlagIntentGUILD_MESSAGE_TYPING = 1 << 11
+	FlagIntentGUILD_MESSAGE_TYPING  = 1 << 11
+	FlagIntentDIRECT_MESSAGE_TYPING = 1 << 14
 
 	// MESSAGE_CREATE
 	// MESSAGE_UPDATE
@@ -113,9 +113,6 @@ const (
 	// MESSAGE_REACTION_REMOVE_ALL
 	// MESSAGE_REACTION_REMOVE_EMOJI
 	FlagIntentDIRECT_MESSAGE_REACTIONS = 1 << 13
-
-	// TYPING_START
-	FlagIntentDIRECT_MESSAGE_TYPING = 1 << 14
 
 	// GUILD_SCHEDULED_EVENT_CREATE
 	// GUILD_SCHEDULED_EVENT_UPDATE
@@ -132,9 +129,10 @@ type Command interface{}
 // Identify Structure
 // https://discord.com/developers/docs/topics/gateway#identify-identify-structure
 type Identify struct {
+	Op             int                          `json:"op,omitempty"`
 	Token          string                       `json:"token"`
 	Properties     IdentifyConnectionProperties `json:"properties"`
-	Compress       *bool                         `json:"compress,omitempty"`
+	Compress       *bool                        `json:"compress,omitempty"`
 	LargeThreshold int                          `json:"large_threshold,omitempty"`
 	Shard          *[2]int                      `json:"shard,omitempty"`
 	Presence       GatewayPresenceUpdate        `json:"presence,omitempty"`
@@ -152,6 +150,7 @@ type IdentifyConnectionProperties struct {
 // Resume Structure
 // https://discord.com/developers/docs/topics/gateway#resume-resume-structure
 type Resume struct {
+	Op        int    `json:"op,omitempty"`
 	Token     string `json:"token"`
 	SessionID string `json:"session_id"`
 	Seq       uint32 `json:"seq"`
@@ -160,7 +159,7 @@ type Resume struct {
 // Heartbeat
 // https://discord.com/developers/docs/topics/gateway#heartbeat
 type Heartbeat struct {
-	Op   int   `json:"op,omitempty"`
+	Op   int `json:"op,omitempty"`
 	Data int `json:"d,omitempty"`
 }
 
@@ -168,11 +167,11 @@ type Heartbeat struct {
 // https://discord.com/developers/docs/topics/gateway#request-guild-members-guild-request-members-structure
 type GuildRequestMembers struct {
 	GuildID   Snowflake   `json:"guild_id"`
-	Query     *string      `json:"query,omitempty"`
+	Query     *string     `json:"query,omitempty"`
 	Limit     uint        `json:"limit"`
-	Presences *bool        `json:"presences,omitempty"`
+	Presences *bool       `json:"presences,omitempty"`
 	UserIDs   []Snowflake `json:"user_ids,omitempty"`
-	Nonce     *string      `json:"nonce,omitempty"`
+	Nonce     *string     `json:"nonce,omitempty"`
 }
 
 // Gateway Voice State Update Structure
