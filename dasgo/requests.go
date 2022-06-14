@@ -1003,6 +1003,14 @@ type ModifyGuildRole struct {
 	Mentionable  bool    `json:"mentionable"`
 }
 
+// Modify Guild MFA Level
+// POST /guilds/{guild.id}/mfa
+// https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level
+type ModifyGuildMFALevel struct {
+	GuildID Snowflake
+	Level   Flag `json:"level"`
+}
+
 // Delete Guild Role
 // DELETE /guilds/{guild.id}/roles/{role.id}
 // https://discord.com/developers/docs/resources/guild#delete-guild-role

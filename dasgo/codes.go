@@ -344,6 +344,7 @@ var (
 		10069:  "Unknown Guild Welcome Screen",
 		10070:  "Unknown Guild Scheduled Event",
 		10071:  "Unknown Guild Scheduled Event User",
+		10087:  "Unknown Tag",
 		20001:  "Bots cannot use this endpoint",
 		20002:  "Only bots can use this endpoint",
 		20009:  "Explicit content cannot be sent to the desired recipient(s)",
@@ -378,6 +379,9 @@ var (
 		30040:  "Maximum number of prune requests has been reached. Try again later",
 		30042:  "Maximum number of guild widget settings updates has been reached. Try again later",
 		30046:  "Maximum number of edits to messages older than 1 hour reached. Try again later",
+		30047:  "Maximum number of pinned threads in a forum channel has been reached",
+		30048:  "Maximum number of tags in a forum channel has been reached",
+		30052:  "Bitrate is too high for channel of this type",
 		40001:  "Unauthorized. Provide a valid token and try again",
 		40002:  "You need to verify your account in order to perform this action",
 		40003:  "You are opening direct messages too fast",
@@ -405,6 +409,7 @@ var (
 		50014:  "Invalid authentication token provided",
 		50015:  "Note was too long",
 		50016:  "Provided too few or too many messages to delete. Must provide at least 2 and fewer than 100 messages to delete",
+		50017:  "Invalid MFA Level",
 		50019:  "A message can only be pinned to the channel it was sent in",
 		50020:  "Invite code was either invalid or taken",
 		50021:  "Cannot execute action on a system message",
@@ -454,6 +459,7 @@ var (
 		170007: "Sticker animation duration exceeds maximum of 5 seconds",
 		180000: "Cannot update a finished event",
 		180002: "Failed to create stage needed for stage event",
+		220003: "Webhooks can only create threads in forum channels",
 	}
 )
 

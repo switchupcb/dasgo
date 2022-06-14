@@ -107,7 +107,7 @@ const (
 
 // Component Object
 type Component interface {
-	Type()
+	ComponentType() Flag
 }
 
 // Component Types
@@ -119,19 +119,19 @@ const (
 	FlagComponentTypeTextInput  = 4
 )
 
-func (c ActionsRow) Type() Flag {
+func (c ActionsRow) ComponentType() Flag {
 	return FlagComponentTypeActionRow
 }
 
-func (c Button) Type() Flag {
+func (c Button) ComponentType() Flag {
 	return FlagComponentTypeButton
 }
 
-func (c SelectMenu) Type() Flag {
+func (c SelectMenu) ComponentType() Flag {
 	return FlagComponentTypeSelectMenu
 }
 
-func (c TextInput) Type() Flag {
+func (c TextInput) ComponentType() Flag {
 	return FlagComponentTypeTextInput
 }
 
@@ -236,20 +236,48 @@ const (
 	FlagInteractionTypeMODAL_SUBMIT                     = 5
 )
 
-// Interaction Data Structure
-// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data-structure
-type InteractionData struct {
-	ID            Snowflake                                  `json:"id"`
-	Name          string                                     `json:"name"`
-	Type          Flag                                       `json:"type"`
-	Resolved      *ResolvedData                              `json:"resolved,omitempty"`
-	Options       []*ApplicationCommandInteractionDataOption `json:"options,omitempty"`
-	GuildID       Snowflake                                  `json:"guild_id,omitempty"`
-	CustomID      *string                                    `json:"custom_id,omitempty"`
-	ComponentType Flag                                       `json:"component_type,omitempty"`
-	Values        []*string                                  `json:"values,omitempty"`
-	TargetID      Snowflake                                  `json:"target_id,omitempty"`
-	Components    []*Component                               `json:"components,omitempty"`
+// Interaction Data
+type InteractionData interface {
+	InteractionDataType() Flag
+}
+
+func (d ApplicationCommandData) InteractionDataType() Flag {
+	return FlagInteractionTypeAPPLICATION_COMMAND
+}
+
+func (d MessageComponentData) InteractionDataType() Flag {
+	return FlagInteractionTypeMESSAGE_COMPONENT
+}
+
+func (d ModalSubmitData) InteractionDataType() Flag {
+	return FlagInteractionTypeMODAL_SUBMIT
+}
+
+// Application Command Data Structure
+// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-data-structure
+type ApplicationCommandData struct {
+	ID       Snowflake                                  `json:"id"`
+	Name     string                                     `json:"name"`
+	Type     Flag                                       `json:"type"`
+	Resolved *ResolvedData                              `json:"resolved,omitempty"`
+	Options  []*ApplicationCommandInteractionDataOption `json:"options,omitempty"`
+	GuildID  Snowflake                                  `json:"guild_id,omitempty"`
+	TargetID Snowflake                                  `json:"target_id,omitempty"`
+}
+
+// Message Component Data Structure
+// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-message-component-data-structure
+type MessageComponentData struct {
+	CustomID      string              `json:"custom_id"`
+	ComponentType Flag                `json:"component_type"`
+	Values        []*SelectMenuOption `json:"values,omitempty"`
+}
+
+// Modal Submit Data Structure
+// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-modal-submit-data-structure
+type ModalSubmitData struct {
+	CustomID   string       `json:"custom_id"`
+	Components []*Component `json:"components"`
 }
 
 // Resolved Data Structure
@@ -294,7 +322,21 @@ const (
 
 // Interaction Callback Data Structure
 // https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure
-type InteractionCallbackData interface{}
+type InteractionCallbackData interface {
+	InteractionCallbackDataType() Flag
+}
+
+func (d Messages) InteractionCallbackDataType() Flag {
+	return FlagInteractionCallbackTypeCHANNEL_MESSAGE_WITH_SOURCE
+}
+
+func (d Autocomplete) InteractionCallbackDataType() Flag {
+	return FlagInteractionCallbackTypeAPPLICATION_COMMAND_AUTOCOMPLETE_RESULT
+}
+
+func (d Modal) InteractionCallbackDataType() Flag {
+	return FlagInteractionCallbackTypeMODAL
+}
 
 // Messages
 // https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-messages
@@ -316,7 +358,7 @@ type Autocomplete struct {
 
 // Modal
 // https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-modal
-type ModalSubmitInteractionData struct {
+type Modal struct {
 	CustomID   *string     `json:"custom_id"`
 	Title      string      `json:"title"`
 	Components []Component `json:"components"`
@@ -534,13 +576,11 @@ const (
 // https://discord.com/developers/docs/resources/channel#message-object
 type Message struct {
 	ID                Snowflake         `json:"id"`
-	ChannelID         *Snowflake        `json:"channel_id"`
-	GuildID           *Snowflake        `json:"guild_id,omitempty"`
+	ChannelID         Snowflake         `json:"channel_id"`
 	Author            *User             `json:"author"`
-	Member            *GuildMember      `json:"member,omitempty"`
 	Content           string            `json:"content"`
 	Timestamp         time.Time         `json:"timestamp"`
-	EditedTimestamp   time.Time         `json:"edited_timestamp"`
+	EditedTimestamp   *time.Time        `json:"edited_timestamp"`
 	TTS               bool              `json:"tts"`
 	MentionEveryone   bool              `json:"mention_everyone"`
 	Mentions          []*User           `json:"mentions"`
@@ -551,18 +591,24 @@ type Message struct {
 	Reactions         []*Reaction       `json:"reactions,omitempty"`
 	Nonce             interface{}       `json:"nonce,omitempty"`
 	Pinned            bool              `json:"pinned"`
-	WebhookID         *Snowflake        `json:"webhook_id,omitempty"`
-	Type              *Flag             `json:"type"`
-	Activity          MessageActivity   `json:"activity,omitempty"`
+	WebhookID         Snowflake         `json:"webhook_id,omitempty"`
+	Type              Flag              `json:"type"`
+	Activity          *MessageActivity  `json:"activity,omitempty"`
 	Application       *Application      `json:"application,omitempty"`
 	ApplicationID     Snowflake         `json:"application_id,omitempty"`
 	MessageReference  *MessageReference `json:"message_reference,omitempty"`
 	Flags             *BitFlag          `json:"flags,omitempty"`
-	ReferencedMessage *Message          `json:"referenced_message,omitempty"`
-	Interaction       *Interaction      `json:"interaction,omitempty"`
-	Thread            *Channel          `json:"thread,omitempty"`
-	Components        []*Component      `json:"components,omitempty"`
-	StickerItems      []*StickerItem    `json:"sticker_items,omitempty"`
+	ReferencedMessage *Message          `json:"referenced_message"`
+	Interaction       *Interaction      `json:"interaction"`
+	Thread            *Channel          `json:"thread"`
+	Components        []*Component      `json:"components"`
+	StickerItems      []*StickerItem    `json:"sticker_items"`
+	Stickers          []*Sticker        `json:"stickers"`
+
+	// MessageCreate Event Extra Fields
+	// https://discord.com/developers/docs/topics/gateway#message-create-message-create-extra-fields
+	GuildID Snowflake    `json:"guild_id,omitempty"`
+	Member  *GuildMember `json:"member,omitempty"`
 }
 
 // Message Types
