@@ -112,6 +112,7 @@ const (
 	EndpointCreateGuildRole                        = "guilds/{guild.id}/roles"
 	EndpointModifyGuildRolePositions               = "guilds/{guild.id}/roles"
 	EndpointModifyGuildRole                        = "guilds/{guild.id}/roles/{role.id}"
+	EndpointModifyGuildMFALevel                    = "guilds/{guild.id}/mfa"
 	EndpointDeleteGuildRole                        = "guilds/{guild.id}/roles/{role.id}"
 	EndpointGetGuildPruneCount                     = "guilds/{guild.id}/prune"
 	EndpointBeginGuildPrune                        = "guilds/{guild.id}/prune"
