@@ -142,6 +142,15 @@ var (
 	}
 )
 
+// Client Close Event Codes
+// https://discord.com/developers/docs/topics/gateway#disconnections
+var (
+	FlagClientCloseEventCodeNormal    = 1000
+	FlagClientCloseEventCodeAway      = 1001
+	FlagClientCloseEventCodeTimeout   = 2000
+	FlagClientCloseEventCodeReconnect = FlagClientCloseEventCodeTimeout
+)
+
 // Voice Opcodes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-opcodes
 const (

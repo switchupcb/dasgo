@@ -285,7 +285,7 @@ type ModifyChannelGuild struct {
 	ChannelID                  Snowflake
 	Name                       *string                `json:"name"`
 	Type                       *Flag                  `json:"type"`
-	Position                   *uint                  `json:"position"`
+	Position                   *int                   `json:"position"`
 	Topic                      *string                `json:"topic"`
 	NSFW                       bool                   `json:"nsfw"`
 	RateLimitPerUser           *int                   `json:"rate_limit_per_user"`

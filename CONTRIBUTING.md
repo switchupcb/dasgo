@@ -72,6 +72,10 @@ type Embed struct {
 
 _An exception is provided to slices, channels, and maps, which — 99% of the time — should **NEVER** be pointers, but may contain pointers to types._
 
+### Events
+
+Discord sends events through Gateway Payloads represented by the `GatewayPayload` struct. This object contains `Op` and `Data` fields that should be used to marshal and unmarshal Gateway Payloads into Events (via `json.RawMessage`). As a result, **events should NOT contain `Op` fields**.
+
 ### Comments
 
 Add comments to structs in the following format.

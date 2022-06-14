@@ -74,7 +74,7 @@ const (
 // Hello Structure
 // https://discord.com/developers/docs/topics/gateway#hello-hello-structure
 type Hello struct {
-	HeartbeatInterval time.Duration `json:"heartbeat_interval"`
+	HeartbeatInterval int `json:"heartbeat_interval"`
 }
 
 // Ready Event Fields
@@ -90,21 +90,16 @@ type Ready struct {
 
 // Resumed
 // https://discord.com/developers/docs/topics/gateway#resumed
-type Resumed struct {
-	Op int `json:"op,omitempty"`
-}
+type Resumed struct{}
 
 // Reconnect
 // https://discord.com/developers/docs/topics/gateway#reconnect
-type Reconnect struct {
-	Op int `json:"op,omitempty"`
-}
+type Reconnect struct{}
 
 // Invalid Session
 // https://discord.com/developers/docs/topics/gateway#invalid-session
 type InvalidSession struct {
-	Op   int  `json:"op,omitempty"`
-	Data bool `json:"d,omitempty"`
+	Data bool `json:"d"`
 }
 
 // Application Command Permissions Update
@@ -188,7 +183,7 @@ type ChannelPinsUpdate struct {
 // https://discord.com/developers/docs/topics/gateway#guild-create
 type GuildCreate struct {
 	*Guild
-	
+
 	// https://discord.com/developers/docs/topics/threads#gateway-events
 	Threads []*Channel `json:"threads,omitempty"`
 }
@@ -268,7 +263,7 @@ type GuildMembersChunk struct {
 	ChunkCount int               `json:"chunk_count"`
 	Presences  []*PresenceUpdate `json:"presences,omitempty"`
 	NotFound   []Snowflake       `json:"not_found,omitempty"`
-	Nonce      *string            `json:"nonce,omitempty"`
+	Nonce      *string           `json:"nonce,omitempty"`
 }
 
 // Guild Role Create
@@ -364,7 +359,7 @@ type InviteCreate struct {
 	Inviter           *User        `json:"inviter,omitempty"`
 	MaxAge            int          `json:"max_age"`
 	MaxUses           int          `json:"max_uses"`
-	TargetType        *int          `json:"target_user_type,omitempty"`
+	TargetType        *int         `json:"target_user_type,omitempty"`
 	TargetUser        *User        `json:"target_user,omitempty"`
 	TargetApplication *Application `json:"target_application,omitempty"`
 	Temporary         bool         `json:"temporary"`
@@ -421,11 +416,11 @@ type MessageReactionAdd struct {
 // Message Reaction Remove
 // https://discord.com/developers/docs/topics/gateway#message-reaction-remove
 type MessageReactionRemove struct {
-	UserID    Snowflake    `json:"user_id"`
-	ChannelID Snowflake    `json:"channel_id"`
-	MessageID Snowflake    `json:"message_id"`
-	GuildID   Snowflake    `json:"guild_id,omitempty"`
-	Emoji     *Emoji       `json:"emoji"`
+	UserID    Snowflake `json:"user_id"`
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+	GuildID   Snowflake `json:"guild_id,omitempty"`
+	Emoji     *Emoji    `json:"emoji"`
 }
 
 // Message Reaction Remove All
