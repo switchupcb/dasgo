@@ -1,5 +1,7 @@
 # Dasgo
-Dasgo provides a direct representation of [Discord API Objects](https://discord.com/developers/docs/reference) in **Go**.
+Dasgo provides a direct representation of [Discord API Objects](https://discord.com/developers/docs/reference) in **Go**. 
+
+_Dasgo is mentioned in the [Official Discord Developer Documentation](https://discord.com/developers/docs/topics/community-resources#api-types)._
 
 ## Using Dasgo
 
