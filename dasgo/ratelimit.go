@@ -11,6 +11,7 @@ const (
 	FlagRateLimitHeaderBucket     = "X-RateLimit-Bucket"
 	FlagRateLimitHeaderGlobal     = "X-RateLimit-Global"
 	FlagRateLimitHeaderScope      = "X-RateLimit-Scope"
+	FlagRateLimitHeaderRetryAfter = "RetryAfter"
 )
 
 // Rate Limit Header
@@ -24,6 +25,14 @@ type RateLimitHeader struct {
 	Global     bool    `http:"X-RateLimit-Global,omitempty"`
 	Scope      string  `http:"X-RateLimit-Scope,omitempty"`
 }
+
+// Rate Limit Scope Values
+// https://discord.com/developers/docs/topics/rate-limits#header-format-rate-limit-header-examples
+const (
+	RateLimitScopeValueUser   = "user"
+	RateLimitScopeValueGlobal = "global"
+	RateLimitScopeValueShared = "shared"
+)
 
 // Rate Limit Response Structure
 // https://discord.com/developers/docs/topics/rate-limits#exceeding-a-rate-limit-rate-limit-response-structure
