@@ -16,6 +16,10 @@ const (
 	FlagGatewayEventNameReconnect                           = "RECONNECT"
 	FlagGatewayEventNameInvalidSession                      = "INVALID_SESSION"
 	FlagGatewayEventNameApplicationCommandPermissionsUpdate = "APPLICATION_COMMAND_PERMISSIONS_UPDATE"
+	FlagGatewayEventNameAutoModerationRuleCreate            = "AUTO_MODERATION_RULE_CREATE"
+	FlagGatewayEventNameAutoModerationRuleUpdate            = "AUTO_MODERATION_RULE_UPDATE"
+	FlagGatewayEventNameAutoModerationRuleDelete            = "AUTO_MODERATION_RULE_DELETE"
+	FlagGatewayEventNameAutoModerationActionExecution       = "AUTO_MODERATION_ACTION_EXECUTION"
 	FlagGatewayEventNameChannelCreate                       = "CHANNEL_CREATE"
 	FlagGatewayEventNameChannelUpdate                       = "CHANNEL_UPDATE"
 	FlagGatewayEventNameChannelDelete                       = "CHANNEL_DELETE"
@@ -106,6 +110,40 @@ type InvalidSession struct {
 // https://discord.com/developers/docs/topics/gateway#application-command-permissions-update
 type ApplicationCommandPermissionsUpdate struct {
 	*GuildApplicationCommandPermissions
+}
+
+// Auto Moderation Rule Create
+// https://discord.com/developers/docs/topics/gateway#auto-moderation-rule-create
+type AutoModerationRuleCreate struct {
+	*AutoModerationRule
+}
+
+// Auto Moderation Rule Update
+// https://discord.com/developers/docs/topics/gateway#auto-moderation-rule-update
+type AutoModerationRuleUpdate struct {
+	*AutoModerationRule
+}
+
+// Auto Moderation Rule Delete
+// https://discord.com/developers/docs/topics/gateway#auto-moderation-rule-delete
+type AutoModerationRuleDelete struct {
+	*AutoModerationRule
+}
+
+// Auto Moderation Action Execution
+// https://discord.com/developers/docs/topics/gateway#auto-moderation-action-execution
+type AutoModerationActionExecution struct {
+	GuildID              Snowflake            `json:"guild_id"`
+	Action               AutoModerationAction `json:"action"`
+	RuleID               Snowflake            `json:"rule_id"`
+	RuleTriggerType      Flag                 `json:"rule_trigger_type"`
+	UserID               Snowflake            `json:"user_id"`
+	ChannelID            Snowflake            `json:"channel_id"`
+	MessageID            Snowflake            `json:"message_id"`
+	AlertSystemMessageID Snowflake            `json:"alert_system_message_id"`
+	Content              string               `json:"content"`
+	MatchedKeyword       *string              `json:"matched_keyword"`
+	MatchedContent       *string              `json:"matched_content"`
 }
 
 // Channel Create

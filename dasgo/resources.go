@@ -141,7 +141,6 @@ type ActionsRow struct {
 }
 
 // Button Object
-
 // https://discord.com/developers/docs/interactions/message-components#button-object
 type Button struct {
 	Style    Flag    `json:"style"`
@@ -167,7 +166,6 @@ const (
 )
 
 // Select Menu Structure
-
 // https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
 type SelectMenu struct {
 	CustomID    string             `json:"custom_id"`
@@ -509,6 +507,75 @@ type AuditLogChange struct {
 
 // Audit Log Change Exceptions
 // https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-exceptions
+
+// Auto Moderation Rule Structure
+// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-auto-moderation-rule-structure
+type AutoModerationRule struct {
+	ID              Snowflake               `json:"id"`
+	GuildID         Snowflake               `json:"guild_id"`
+	Name            string                  `json:"name"`
+	CreatorID       Snowflake               `json:"creator_id"`
+	EventType       Flag                    `json:"event_type"`
+	TriggerType     Flag                    `json:"trigger_type"`
+	TriggerMetadata interface{}             `json:"trigger_metadata"`
+	Actions         []*AutoModerationAction `json:"actions"`
+	Enabled         bool                    `json:"enabled"`
+	ExemptRoles     []Snowflake             `json:"exempt_roles"`
+	ExemptChannels  []Snowflake             `json:"exempt_channels"`
+}
+
+// Trigger Types
+// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-types
+const (
+	FlagTriggerTypeKEYWORD        = 1
+	FlagTriggerTypeHARMFUL_LINK   = 2
+	FlagTriggerTypeSPAM           = 3
+	FlagTriggerTypeKEYWORD_PRESET = 4
+)
+
+// Trigger Metadata
+// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-metadata
+type TriggerMetadata struct {
+	// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-matching-strategies
+	KeywordFilter []string `json:"keyword_filter"`
+	Presets       []Flag   `json:"presets"`
+}
+
+// Keyword Preset Types
+// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-preset-types
+const (
+	FlagKeywordPresetTypePROFANITY      = 1
+	FlagKeywordPresetTypeSEXUAL_CONTENT = 2
+	FlagKeywordPresetTypeSLURS          = 3
+)
+
+// Event Types
+// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-event-types
+const (
+	FlagEventTypeMESSAGE_SEND = 1
+)
+
+// Auto Moderation Action Structure
+// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-action-object
+type AutoModerationAction struct {
+	Type     Flag            `json:"type"`
+	Metadata *ActionMetadata `json:"metadata,omitempty"`
+}
+
+// Action Types
+// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-action-object-action-types
+const (
+	FlagActionTypeBLOCK_MESSAGE      = 1
+	FlagActionTypeSEND_ALERT_MESSAGE = 2
+	FlagActionTypeTIMEOUT            = 3
+)
+
+// Action Metadata
+// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-action-object-action-metadata
+type ActionMetadata struct {
+	ChannelID       Snowflake `json:"channel_id"`
+	DurationSeconds int       `json:"duration_seconds"`
+}
 
 // Channel Object
 // https://discord.com/developers/docs/resources/channel

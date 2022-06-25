@@ -255,6 +255,46 @@ type GetGuildAuditLog struct {
 	Limit      int       `url:"limit"`
 }
 
+// List Auto Moderation Rules for Guild
+// GET /guilds/{guild.id}/auto-moderation/rules
+// https://discord.com/developers/docs/resources/auto-moderation#list-auto-moderation-rules-for-guild
+type ListAutoModerationRulesForGuild struct {
+	GuildID Snowflake
+}
+
+// Get Auto Moderation Rule
+// GET /guilds/{guild.id}/auto-moderation/rules/{auto_moderation_rule.id}
+// https://discord.com/developers/docs/resources/auto-moderation#get-auto-moderation-rule
+type GetAutoModerationRule struct {
+	GuildID              Snowflake
+	AutoModerationRuleID Snowflake
+}
+
+// Create Auto Moderation Rule
+// POST /guilds/{guild.id}/auto-moderation/rules
+// https://discord.com/developers/docs/resources/auto-moderation#create-auto-moderation-rule
+type CreateAutoModerationRule struct {
+	GuildID Snowflake
+	*AutoModerationRule
+}
+
+// Modify Auto Moderation Rule
+// PATCH /guilds/{guild.id}/auto-moderation/rules/{auto_moderation_rule.id}
+// https://discord.com/developers/docs/resources/auto-moderation#modify-auto-moderation-rule
+type ModifyAutoModerationRule struct {
+	GuildID              Snowflake
+	AutoModerationRuleID Snowflake
+	*AutoModerationRule
+}
+
+// Delete Auto Moderation Rule
+// DELETE /guilds/{guild.id}/auto-moderation/rules/{auto_moderation_rule.id}
+// https://discord.com/developers/docs/resources/auto-moderation#delete-auto-moderation-rule
+type DeleteAutoModerationRule struct {
+	GuildID              Snowflake
+	AutoModerationRuleID Snowflake
+}
+
 // Get Channel
 // GET /channels/{channel.id}
 // https://discord.com/developers/docs/resources/channel#get-channel
