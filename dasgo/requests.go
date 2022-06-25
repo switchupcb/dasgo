@@ -274,8 +274,15 @@ type GetAutoModerationRule struct {
 // POST /guilds/{guild.id}/auto-moderation/rules
 // https://discord.com/developers/docs/resources/auto-moderation#create-auto-moderation-rule
 type CreateAutoModerationRule struct {
-	GuildID Snowflake
-	*AutoModerationRule
+	GuildID         Snowflake
+	Name            string                  `json:"name"`
+	EventType       Flag                    `json:"event_type"`
+	TriggerType     Flag                    `json:"trigger_type"`
+	TriggerMetadata TriggerMetadata         `json:"trigger_metadata"`
+	Actions         []*AutoModerationAction `json:"actions"`
+	Enabled         bool                    `json:"enabled"`
+	ExemptRoles     []Snowflake             `json:"exempt_roles,omitempty"`
+	ExemptChannels  []Snowflake             `json:"exempt_channels,omitempty"`
 }
 
 // Modify Auto Moderation Rule
@@ -284,7 +291,14 @@ type CreateAutoModerationRule struct {
 type ModifyAutoModerationRule struct {
 	GuildID              Snowflake
 	AutoModerationRuleID Snowflake
-	*AutoModerationRule
+	Name                 string                  `json:"name"`
+	EventType            Flag                    `json:"event_type"`
+	TriggerType          Flag                    `json:"trigger_type"`
+	TriggerMetadata      TriggerMetadata         `json:"trigger_metadata"`
+	Actions              []*AutoModerationAction `json:"actions"`
+	Enabled              bool                    `json:"enabled"`
+	ExemptRoles          []Snowflake             `json:"exempt_roles"`
+	ExemptChannels       []Snowflake             `json:"exempt_channels"`
 }
 
 // Delete Auto Moderation Rule

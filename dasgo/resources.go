@@ -517,7 +517,7 @@ type AutoModerationRule struct {
 	CreatorID       Snowflake               `json:"creator_id"`
 	EventType       Flag                    `json:"event_type"`
 	TriggerType     Flag                    `json:"trigger_type"`
-	TriggerMetadata interface{}             `json:"trigger_metadata"`
+	TriggerMetadata TriggerMetadata         `json:"trigger_metadata"`
 	Actions         []*AutoModerationAction `json:"actions"`
 	Enabled         bool                    `json:"enabled"`
 	ExemptRoles     []Snowflake             `json:"exempt_roles"`
