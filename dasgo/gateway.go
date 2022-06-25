@@ -133,15 +133,26 @@ const (
 )
 
 // Gateway Commands
-// https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-commands
+// https://discord.com/developers/docs/topics/gateway#commands-and-events
 type Command interface{}
+
+// Gateway Command Names
+// https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-commands
+const (
+	FlagGatewayCommandNameIdentify            = "Identify"
+	FlagGatewayCommandNameResume              = "Resume"
+	FlagGatewayCommandNameHeartbeat           = "Heartbeat"
+	FlagGatewayCommandNameRequestGuildMembers = "RequestGuildMembers"
+	FlagGatewayCommandNameUpdateVoiceState    = "UpdateVoiceState"
+	FlagGatewayCommandNameUpdatePresence      = "UpdatePresence"
+)
 
 // Identify Structure
 // https://discord.com/developers/docs/topics/gateway#identify-identify-structure
 type Identify struct {
 	Token          string                       `json:"token"`
 	Properties     IdentifyConnectionProperties `json:"properties"`
-	Compress       *bool                        `json:"compress,omitempty"`
+	Compress       bool                         `json:"compress"`
 	LargeThreshold int                          `json:"large_threshold,omitempty"`
 	Shard          *[2]int                      `json:"shard,omitempty"`
 	Presence       GatewayPresenceUpdate        `json:"presence,omitempty"`
@@ -151,9 +162,9 @@ type Identify struct {
 // Identify Connection Properties
 // https://discord.com/developers/docs/topics/gateway#identify-identify-connection-properties
 type IdentifyConnectionProperties struct {
-	OS      string `json:"$os"`
-	Browser string `json:"$browser"`
-	Device  string `json:"$device"`
+	OS      string `json:"os"`
+	Browser string `json:"browser"`
+	Device  string `json:"device"`
 }
 
 // Resume Structure
