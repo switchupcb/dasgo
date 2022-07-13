@@ -396,19 +396,18 @@ type GetChannelMessage struct {
 // POST /channels/{channel.id}/messages
 // https://discord.com/developers/docs/resources/channel#create-message
 type CreateMessage struct {
-	ChannelID       Snowflake
-	Content         *string           `json:"content,omitempty"`
-	TTS             *bool             `json:"tts,omitempty"`
-	Embeds          []*Embed          `json:"embeds,omitempty"`
-	Embed           *Embed            `json:"embed,omitempty"`
-	AllowedMentions *AllowedMentions  `json:"allowed_mentions,omitempty"`
-	Reference       *MessageReference `json:"message_reference,omitempty"`
-	StickerID       []*Snowflake      `json:"sticker_ids,omitempty"`
-	Components      []*Component      `json:"components,omitempty"`
-	Files           []byte            `dasgo:"files,omitempty"`
-	PayloadJSON     *string           `json:"payload_json,omitempty"`
-	Attachments     []*Attachment     `json:"attachments,omitempty"`
-	Flags           *BitFlag          `json:"flags,omitempty"`
+	ChannelID        Snowflake
+	Content          *string           `json:"content,omitempty"`
+	TTS              *bool             `json:"tts,omitempty"`
+	Embeds           []*Embed          `json:"embeds,omitempty"`
+	AllowedMentions  *AllowedMentions  `json:"allowed_mentions,omitempty"`
+	MessageReference *MessageReference `json:"message_reference,omitempty"`
+	Components       []*Component      `json:"components,omitempty"`
+	StickerIDS       []*Snowflake      `json:"sticker_ids,omitempty"`
+	Files            []byte            `dasgo:"files,omitempty"`
+	PayloadJSON      *string           `json:"payload_json,omitempty"`
+	Attachments      []*Attachment     `json:"attachments,omitempty"`
+	Flags            *BitFlag          `json:"flags,omitempty"`
 }
 
 // Crosspost Message

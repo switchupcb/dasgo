@@ -4,6 +4,7 @@ package dasgo
 // Rate Limit Headers
 // https://discord.com/developers/docs/topics/rate-limits#header-format-rate-limit-header-examples
 const (
+	FlagRateLimitHeaderDate       = "Date"
 	FlagRateLimitHeaderLimit      = "X-RateLimit-Limit"
 	FlagRateLimitHeaderRemaining  = "X-RateLimit-Remaining"
 	FlagRateLimitHeaderReset      = "X-RateLimit-Reset"
@@ -11,7 +12,7 @@ const (
 	FlagRateLimitHeaderBucket     = "X-RateLimit-Bucket"
 	FlagRateLimitHeaderGlobal     = "X-RateLimit-Global"
 	FlagRateLimitHeaderScope      = "X-RateLimit-Scope"
-	FlagRateLimitHeaderRetryAfter = "RetryAfter"
+	FlagRateLimitHeaderRetryAfter = "Retry-After"
 )
 
 // Rate Limit Header

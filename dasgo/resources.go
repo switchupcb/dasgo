@@ -209,19 +209,20 @@ const (
 // Interaction Object
 // https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
 type Interaction struct {
-	ID            Snowflake       `json:"id"`
-	ApplicationID Snowflake       `json:"application_id"`
-	Type          Flag            `json:"type"`
-	Data          InteractionData `json:"data,omitempty"`
-	GuildID       Snowflake       `json:"guild_id,omitempty"`
-	ChannelID     Snowflake       `json:"channel_id,omitempty"`
-	Member        *GuildMember    `json:"member,omitempty"`
-	User          *User           `json:"user,omitempty"`
-	Token         string          `json:"token"`
-	Version       Flag            `json:"version"`
-	Message       *Message        `json:"message,omitempty"`
-	Locale        *string         `json:"locale,omitempty"`
-	GuildLocale   *string         `json:"guild_locale,omitempty"`
+	ID             Snowflake       `json:"id"`
+	ApplicationID  Snowflake       `json:"application_id"`
+	Type           Flag            `json:"type"`
+	Data           InteractionData `json:"data,omitempty"`
+	GuildID        Snowflake       `json:"guild_id,omitempty"`
+	ChannelID      Snowflake       `json:"channel_id,omitempty"`
+	Member         *GuildMember    `json:"member,omitempty"`
+	User           *User           `json:"user,omitempty"`
+	Token          string          `json:"token"`
+	Version        Flag            `json:"version"`
+	Message        *Message        `json:"message,omitempty"`
+	AppPermissions *BitFlag        `json:"app_permissions,omitempty"`
+	Locale         *string         `json:"locale,omitempty"`
+	GuildLocale    *string         `json:"guild_locale,omitempty"`
 }
 
 // Interaction Type
@@ -539,6 +540,7 @@ type TriggerMetadata struct {
 	// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-matching-strategies
 	KeywordFilter []string `json:"keyword_filter"`
 	Presets       []Flag   `json:"presets"`
+	AllowList     []string `json:"allow_list"`
 }
 
 // Keyword Preset Types
@@ -688,11 +690,11 @@ const (
 	FlagMessageTypeCHANNEL_NAME_CHANGE                          = 4
 	FlagMessageTypeCHANNEL_ICON_CHANGE                          = 5
 	FlagMessageTypeCHANNEL_PINNED_MESSAGE                       = 6
-	FlagMessageTypeGUILD_MEMBER_JOIN                            = 7
-	FlagMessageTypeUSER_PREMIUM_GUILD_SUBSCRIPTION              = 8
-	FlagMessageTypeUSER_PREMIUM_GUILD_SUBSCRIPTION_TIER_ONE     = 9
-	FlagMessageTypeUSER_PREMIUM_GUILD_SUBSCRIPTION_TIER_TWO     = 10
-	FlagMessageTypeUSER_PREMIUM_GUILD_SUBSCRIPTION_TIER_THREE   = 11
+	FlagMessageTypeUSER_JOIN                                    = 7
+	FlagMessageTypeGUILD_BOOST                                  = 8
+	FlagMessageTypeGUILD_BOOST_TIER_1                           = 9
+	FlagMessageTypeGUILD_BOOST_TIER_2                           = 10
+	FlagMessageTypeGUILD_BOOST_TIER_3                           = 11
 	FlagMessageTypeCHANNEL_FOLLOW_ADD                           = 12
 	FlagMessageTypeGUILD_DISCOVERY_DISQUALIFIED                 = 14
 	FlagMessageTypeGUILD_DISCOVERY_REQUALIFIED                  = 15
@@ -1117,7 +1119,7 @@ type GuildMember struct {
 	Mute                       bool         `json:"mute"`
 	Pending                    *bool        `json:"pending,omitempty"`
 	Permissions                *string      `json:"permissions,omitempty"`
-	CommunicationDisabledUntil *time.Time   `json:"communication_disabled_until,omitempty"`
+	CommunicationDisabledUntil time.Time    `json:"communication_disabled_until"`
 }
 
 // Integration Object
