@@ -139,12 +139,12 @@ type Command interface{}
 // Gateway Command Names
 // https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-commands
 const (
-	FlagGatewayCommandNameIdentify            = "Identify"
-	FlagGatewayCommandNameResume              = "Resume"
 	FlagGatewayCommandNameHeartbeat           = "Heartbeat"
+	FlagGatewayCommandNameIdentify            = "Identify"
+	FlagGatewayCommandNamePresenceUpdate      = "PresenceUpdate"
+	FlagGatewayCommandNameVoiceStateUpdate    = "VoiceStateUpdate"
+	FlagGatewayCommandNameResume              = "Resume"
 	FlagGatewayCommandNameRequestGuildMembers = "RequestGuildMembers"
-	FlagGatewayCommandNameUpdateVoiceState    = "UpdateVoiceState"
-	FlagGatewayCommandNameUpdatePresence      = "UpdatePresence"
 )
 
 // Identify Structure
@@ -181,9 +181,9 @@ type Heartbeat struct {
 	Data int64 `json:"d"`
 }
 
-// Guild Request Members Structure
+// Request Guild Members Structure
 // https://discord.com/developers/docs/topics/gateway#request-guild-members-guild-request-members-structure
-type GuildRequestMembers struct {
+type RequestGuildMembers struct {
 	GuildID   Snowflake   `json:"guild_id"`
 	Query     *string     `json:"query,omitempty"`
 	Limit     int         `json:"limit"`
