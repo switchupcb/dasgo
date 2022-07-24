@@ -20,7 +20,7 @@ const (
 type RateLimitHeader struct {
 	Limit      int     `http:"X-RateLimit-Limit,omitempty"`
 	Remaining  int     `http:"X-RateLimit-Remaining,omitempty"`
-	Reset      int64   `http:"X-RateLimit-Reset,omitempty"`
+	Reset      float64 `http:"X-RateLimit-Reset,omitempty"`
 	ResetAfter float64 `http:"X-RateLimit-Reset-After,omitempty"`
 	Bucket     string  `http:"X-RateLimit-Bucket,omitempty"`
 	Global     bool    `http:"X-RateLimit-Global,omitempty"`
@@ -43,11 +43,20 @@ type RateLimitResponse struct {
 	Global     bool    `json:"global"`
 }
 
-// Global Rate Limit
+// Global Rate Limits
 // https://discord.com/developers/docs/topics/rate-limits#global-rate-limit
 const (
-	// 50 requests per second.
-	FlagGlobalRequestRateLimit = 50
+	// Global Rate Limit (Requests): 50 requests per second.
+	FlagGlobalRateLimitRequest = 50
+
+	// Global Rate Limit (Gateway): 120 commands per minute.
+	FlagGlobalRateLimitGateway = 120
+
+	// Global Rate Limit (Identify Command): 1 per 5 seconds.
+	FlagGlobalRateLimitIdentify = 1
+
+	// Global Rate Limit (Identify Command): 1000 per day.
+	FlagGlobalRateLimitIdentifyDaily = 1000
 )
 
 // Invalid Request Limit (CloudFlare Bans)

@@ -609,6 +609,7 @@ type Channel struct {
 	DefaultAutoArchiveDuration int                   `json:"default_auto_archive_duration,omitempty"`
 	Permissions                *string               `json:"permissions,omitempty"`
 	Flags                      BitFlag               `json:"flags,omitempty"`
+	TotalMessageSent           int                   `json:"total_message_sent,omitempty"`
 }
 
 // Channel Types
@@ -673,6 +674,7 @@ type Message struct {
 	Components        []*Component      `json:"components"`
 	StickerItems      []*StickerItem    `json:"sticker_items"`
 	Stickers          []*Sticker        `json:"stickers"`
+	Position          int               `json:"position,omitempty"`
 
 	// MessageCreate Event Extra Fields
 	// https://discord.com/developers/docs/topics/gateway#message-create-message-create-extra-fields

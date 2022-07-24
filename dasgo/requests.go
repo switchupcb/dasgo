@@ -132,6 +132,7 @@ type DeleteGuildApplicationCommand struct {
 type BulkOverwriteGuildApplicationCommands struct {
 	ApplicationID            Snowflake
 	GuildID                  Snowflake
+	ID                       Snowflake                   `json:"id,omitempty"`
 	Name                     string                      `json:"name"`
 	NameLocalizations        map[string]string           `json:"name_localizations"`
 	Description              string                      `json:"description"`
