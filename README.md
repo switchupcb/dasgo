@@ -1,7 +1,11 @@
 # Dasgo
+
+[![Go Doc](https://img.shields.io/badge/godoc-reference-5272B4.svg?style=for-the-badge&logo=appveyor&logo=appveyor)](https://pkg.go.dev/github.com/switchupcb/dasgo)
+[![License](https://img.shields.io/github/license/switchupcb/dasgo.svg?style=for-the-badge)](https://github.com/switchupcb/dasgo/blob/main/LICENSE)
+
 Dasgo provides a direct representation of [Discord API Objects](https://discord.com/developers/docs/reference) in **Go**. 
 
-_Dasgo is mentioned in the [Official Discord Developer Documentation](https://discord.com/developers/docs/topics/community-resources#api-types)._
+**Dasgo is mentioned in the [Official Discord Developer Documentation](https://discord.com/developers/docs/topics/community-resources#api-types).**
 
 ## Using Dasgo
 
