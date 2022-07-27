@@ -1461,8 +1461,8 @@ type GetUser struct {
 // PATCH /users/@me
 // https://discord.com/developers/docs/resources/user#modify-current-user
 type ModifyCurrentUser struct {
-	Username string  `json:"username"`
-	Avatar   *string `json:"avatar"`
+	Username string  `json:"username,omitempty"`
+	Avatar   *string `json:"avatar,omitempty"`
 }
 
 // Get Current User Guilds
