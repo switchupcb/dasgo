@@ -148,7 +148,7 @@ var (
 	FlagClientCloseEventCodeNormal = 1000
 	FlagClientCloseEventCodeAway   = 1001
 
-	//  https://www.rfc-editor.org/rfc/rfc6455#section-7.4.1
+	// https://www.rfc-editor.org/rfc/rfc6455#section-7.4.1
 	FlagClientCloseEventCodeReconnect = 3000
 )
 

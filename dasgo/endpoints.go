@@ -2,7 +2,7 @@
 package dasgo
 
 const (
-	EndpointBaseURL                                = "https://discord.com/api/v10/"
+	EndpointBaseURL                                = "https://discord.com/api/v" + VersionDiscordAPI + "/"
 	EndpointGetGlobalApplicationCommands           = "applications/{application.id}/commands"
 	EndpointCreateGlobalApplicationCommand         = "applications/{application.id}/commands"
 	EndpointGetGlobalApplicationCommand            = "applications/{application.id}/commands/{command.id}"
@@ -179,4 +179,29 @@ const (
 	EndpointTokenRevocationURL                     = "oauth2/token/revoke"
 	EndpointGetCurrentBotApplicationInformation    = "oauth2/applications/@me"
 	EndpointGetCurrentAuthorizationInformation     = "oauth2/@me"
+)
+
+// CDN Endpoints
+// https://discord.com/developers/docs/reference#image-formatting-cdn-endpoints
+const (
+	CDNEndpointBaseURL                  = "https://cdn.discordapp.com/"
+	CDNEndpointCustomEmoji              = "emojis/{emoji.id}"
+	CDNEndpointGuildIcon                = "icons/{guild.id}/{guild_icon}"
+	CDNEndpointGuildSplash              = "splashes/{guild.id}/{guild_splash}"
+	CDNEndpointGuildDiscoverySplash     = "discovery-splashes/{guild.id}/{guild_discovery_splash}"
+	CDNEndpointGuildBanner              = "banners/{guild.id}/{guild_banner}"
+	CDNEndpointUserBanner               = "banners/{user.id}/{user_banner}"
+	CDNEndpointDefaultUserAvatar        = "embed/avatars/{user_discriminator}"
+	CDNEndpointUserAvatar               = "avatars/{user.id}/{user_avatar}"
+	CDNEndpointGuildMemberAvatar        = "guilds/{guild.id}/users/{user.id}/avatars/{member_avatar}"
+	CDNEndpointApplicationIcon          = "app-icons/{application.id}/{icon}"
+	CDNEndpointApplicationCover         = "app-icons/{application.id}/{cover_image}"
+	CDNEndpointApplicationAsset         = "app-assets/{application.id}/{asset.id}"
+	CDNEndpointAchievementIcon          = "app-assets/{application.id}/achievements/{achievement.id}/icons/{icon_hash}"
+	CDNEndpointStickerPackBanner        = "app-assets/{application.id}/store/{sticker_pack_banner_asset.id}"
+	CDNEndpointTeamIcon                 = "team-icons/{team.id}/{team_icon}"
+	CDNEndpointSticker                  = "stickers/{sticker.id}"
+	CDNEndpointRoleIcon                 = "role-icons/{role.id}/{role_icon}"
+	CDNEndpointGuildScheduledEventCover = "guild-events/{scheduled_event.id}/{scheduled_event_cover_image}"
+	CDNEndpointGuildMemberBanner        = "guilds/{guild.id}/users/{user.id}/banners/{member_banner}"
 )

@@ -7,6 +7,23 @@ const (
 	VersionDiscordAPI = "10"
 )
 
+// Image Formats
+// https://discord.com/developers/docs/reference#image-formatting-image-formats
+const (
+	ImageFormatJPEG   = "JPEG"
+	ImageFormatPNG    = "PNG"
+	ImageFormatWebP   = "WebP"
+	ImageFormatGIF    = "GIF"
+	ImageFormatLottie = "Lottie"
+)
+
+// CDN Endpoint Exceptions
+// https://discord.com/developers/docs/reference#image-formatting-cdn-endpoints
+const (
+	CDNEndpointAnimatedHashPrefix       = "a_"
+	CDNEndpointUserDiscriminatorDivisor = 5
+)
+
 // Locales
 // https://discord.com/developers/docs/reference#locales
 const (
