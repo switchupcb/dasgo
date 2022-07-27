@@ -15,12 +15,13 @@ There are two ways to use `dasgo`.
 
 #### Import
 
-Get a specific version of the `dasgo` dependency by specifying a branch or tag.
+Get a specific version of the `dasgo` dependency by specifying a tag or branch.
+
 ```
-go get github.com/switchupcb/dasgo@latest
+go get github.com/switchupcb/dasgo@v10.0
 ```
 
-_Dasgo branches are referenced by API version (i.e v8, v9)._
+_Dasgo branches are referenced by API version (i.e `v10`)._
 
 #### Definition
 
@@ -33,7 +34,7 @@ type DiscordUser dasgo.User
 
 ### Generation
 
-Use copy/paste or code generation to add `dasgo` types to your repository.
+Use copy-paste or code generation to add `dasgo` types to your repository.
 
 ## Specification
 
@@ -53,4 +54,4 @@ Libraries that use Dasgo.
 
 | Library                                      | Description                                    |
 | :------------------------------------------- | :--------------------------------------------- |
-| [Disgo](https://github.com/switchupcb/disgo) | Discord API Wrapper, Cache, and Shard Manager. |
+| [Disgo](https://github.com/switchupcb/disgo) | Discord API Wrapper, Shard Manager, and Cache. |
