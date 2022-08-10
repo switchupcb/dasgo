@@ -12,9 +12,9 @@ type ApplicationCommand struct {
 	ApplicationID            Snowflake                   `json:"application_id"`
 	GuildID                  Snowflake                   `json:"guild_id,omitempty"`
 	Name                     string                      `json:"name"`
-	NameLocalizations        map[Flag]string             `json:"name_localizations"`
+	NameLocalizations        map[string]string           `json:"name_localizations"`
 	Description              string                      `json:"description"`
-	DescriptionLocalizations map[Flag]string             `json:"description_localizations"`
+	DescriptionLocalizations map[string]string           `json:"description_localizations"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions *string                     `json:"default_member_permissions"`
 	DMPermission             *bool                       `json:"dm_permission,omitempty"`
@@ -34,9 +34,9 @@ const (
 type ApplicationCommandOption struct {
 	Type                     Flag                              `json:"type"`
 	Name                     string                            `json:"name"`
-	NameLocalizations        map[Flag]string                   `json:"name_localizations"`
+	NameLocalizations        map[string]string                 `json:"name_localizations"`
 	Description              string                            `json:"description"`
-	DescriptionLocalizations map[Flag]string                   `json:"description_localizations"`
+	DescriptionLocalizations map[string]string                 `json:"description_localizations"`
 	Required                 *bool                             `json:"required,omitempty"`
 	Choices                  []*ApplicationCommandOptionChoice `json:"choices,omitempty"`
 	Options                  []*ApplicationCommandOption       `json:"options,omitempty"`
@@ -302,8 +302,8 @@ type MessageInteraction struct {
 // Interaction Response Structure
 // https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
 type InteractionResponse struct {
-	Type Flag                     `json:"type"`
-	Data *InteractionCallbackData `json:"data,omitempty"`
+	Type Flag                    `json:"type"`
+	Data InteractionCallbackData `json:"data,omitempty"`
 }
 
 // Interaction Callback Type
@@ -531,15 +531,17 @@ const (
 	FlagTriggerTypeHARMFUL_LINK   = 2
 	FlagTriggerTypeSPAM           = 3
 	FlagTriggerTypeKEYWORD_PRESET = 4
+	FlagTriggerTypeMENTION_SPAM   = 5
 )
 
 // Trigger Metadata
 // https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-metadata
 type TriggerMetadata struct {
 	// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-matching-strategies
-	KeywordFilter []string `json:"keyword_filter"`
-	Presets       []Flag   `json:"presets"`
-	AllowList     []string `json:"allow_list"`
+	KeywordFilter     []string `json:"keyword_filter"`
+	Presets           []Flag   `json:"presets"`
+	AllowList         []string `json:"allow_list"`
+	MentionTotalLimit int      `json:"mention_total_limit"`
 }
 
 // Keyword Preset Types

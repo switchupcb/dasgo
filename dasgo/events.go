@@ -83,12 +83,13 @@ type Hello struct {
 // Ready Event Fields
 // https://discord.com/developers/docs/topics/gateway#ready-ready-event-fields
 type Ready struct {
-	Version     int          `json:"v"`
-	User        *User        `json:"user"`
-	Guilds      []*Guild     `json:"guilds"`
-	SessionID   string       `json:"session_id"`
-	Shard       *[2]int      `json:"shard,omitempty"`
-	Application *Application `json:"application"`
+	Version          int          `json:"v"`
+	User             *User        `json:"user"`
+	Guilds           []*Guild     `json:"guilds"`
+	SessionID        string       `json:"session_id"`
+	ResumeGatewayURL string       `json:"resume_gateway_url"`
+	Shard            *[2]int      `json:"shard,omitempty"`
+	Application      *Application `json:"application"`
 }
 
 // Resumed
