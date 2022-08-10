@@ -12,9 +12,9 @@ type ApplicationCommand struct {
 	ApplicationID            Snowflake                   `json:"application_id"`
 	GuildID                  Snowflake                   `json:"guild_id,omitempty"`
 	Name                     string                      `json:"name"`
-	NameLocalizations        map[Flag]string             `json:"name_localizations"`
+	NameLocalizations        map[string]string           `json:"name_localizations"`
 	Description              string                      `json:"description"`
-	DescriptionLocalizations map[Flag]string             `json:"description_localizations"`
+	DescriptionLocalizations map[string]string           `json:"description_localizations"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions *string                     `json:"default_member_permissions"`
 	DMPermission             *bool                       `json:"dm_permission,omitempty"`
@@ -34,9 +34,9 @@ const (
 type ApplicationCommandOption struct {
 	Type                     Flag                              `json:"type"`
 	Name                     string                            `json:"name"`
-	NameLocalizations        map[Flag]string                   `json:"name_localizations"`
+	NameLocalizations        map[string]string                 `json:"name_localizations"`
 	Description              string                            `json:"description"`
-	DescriptionLocalizations map[Flag]string                   `json:"description_localizations"`
+	DescriptionLocalizations map[string]string                 `json:"description_localizations"`
 	Required                 *bool                             `json:"required,omitempty"`
 	Choices                  []*ApplicationCommandOptionChoice `json:"choices,omitempty"`
 	Options                  []*ApplicationCommandOption       `json:"options,omitempty"`

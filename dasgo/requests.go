@@ -18,9 +18,9 @@ type GetGlobalApplicationCommands struct {
 type CreateGlobalApplicationCommand struct {
 	ApplicationID            Snowflake
 	Name                     string                      `json:"name,omitempty"`
-	NameLocalizations        map[Flag]string             `json:"name_localizations,omitempty"`
+	NameLocalizations        map[string]string           `json:"name_localizations,omitempty"`
 	Description              string                      `json:"description,omitempty"`
-	DescriptionLocalizations map[Flag]string             `json:"description_localizations,omitempty"`
+	DescriptionLocalizations map[string]string           `json:"description_localizations,omitempty"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions string                      `json:"default_member_permissions,omitempty"`
 	DMPermission             bool                        `json:"dm_permission,omitempty"`
