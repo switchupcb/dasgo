@@ -302,8 +302,8 @@ type MessageInteraction struct {
 // Interaction Response Structure
 // https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
 type InteractionResponse struct {
-	Type Flag                     `json:"type"`
-	Data *InteractionCallbackData `json:"data,omitempty"`
+	Type Flag                    `json:"type"`
+	Data InteractionCallbackData `json:"data,omitempty"`
 }
 
 // Interaction Callback Type
