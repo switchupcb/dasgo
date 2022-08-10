@@ -531,15 +531,17 @@ const (
 	FlagTriggerTypeHARMFUL_LINK   = 2
 	FlagTriggerTypeSPAM           = 3
 	FlagTriggerTypeKEYWORD_PRESET = 4
+	FlagTriggerTypeMENTION_SPAM   = 5
 )
 
 // Trigger Metadata
 // https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-metadata
 type TriggerMetadata struct {
 	// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-matching-strategies
-	KeywordFilter []string `json:"keyword_filter"`
-	Presets       []Flag   `json:"presets"`
-	AllowList     []string `json:"allow_list"`
+	KeywordFilter     []string `json:"keyword_filter"`
+	Presets           []Flag   `json:"presets"`
+	AllowList         []string `json:"allow_list"`
+	MentionTotalLimit int      `json:"mention_total_limit"`
 }
 
 // Keyword Preset Types
