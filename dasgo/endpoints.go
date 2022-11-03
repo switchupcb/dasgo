@@ -52,7 +52,7 @@ const (
 	EndpointGetChannelInvites                      = "channels/{channel.id}/invites"
 	EndpointCreateChannelInvite                    = "channels/{channel.id}/invites"
 	EndpointDeleteChannelPermission                = "channels/{channel.id}/permissions/{overwrite.id}"
-	EndpointFollowNewsChannel                      = "channels/{channel.id}/followers"
+	EndpointFollowAnnouncementChannel              = "channels/{channel.id}/followers"
 	EndpointTriggerTypingIndicator                 = "channels/{channel.id}/typing"
 	EndpointGetPinnedMessages                      = "channels/{channel.id}/pins"
 	EndpointPinMessage                             = "channels/{channel.id}/pins/{message.id}"
