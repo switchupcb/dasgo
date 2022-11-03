@@ -397,7 +397,11 @@ var (
 		40033:  "This message has already been crossposted",
 		40041:  "An application command with that name already exists",
 		40043:  "Application interaction failed to send",
+		40058:  "Cannot send a message in a forum channel",
 		40060:  "Interaction has already been acknowledged",
+		40061:  "Tag names must be unique",
+		40066:  "There are no tags available that can be set by non-moderators",
+		40067:  "A tag is required to create a forum post in this channel",
 		50001:  "Missing access",
 		50002:  "Invalid account type",
 		50003:  "Cannot execute action on a DM channel",
@@ -427,6 +431,7 @@ var (
 		50034:  "A message provided was too old to bulk delete",
 		50035:  "Invalid form body (returned for both application/json and multipart/form-data bodies), or invalid Content-Type provided",
 		50036:  "An invite was accepted to a guild the application's bot is not in",
+		50039:  "Invalid Activity Action",
 		50041:  "Invalid API version provided",
 		50045:  "File uploaded exceeds the maximum size",
 		50046:  "Invalid file uploaded",
@@ -434,6 +439,7 @@ var (
 		50055:  "Invalid Guild",
 		50068:  "Invalid message type",
 		50070:  "Payment source required to redeem gift",
+		50073:  "Cannot modify a system webhook",
 		50074:  "Cannot delete a channel required for Community guilds",
 		50081:  "Invalid sticker sent",
 		50083:  "Tried to perform an operation on an archived thread, such as editing a message or adding a user to the thread",
@@ -470,7 +476,10 @@ var (
 		180002: "Failed to create stage needed for stage event",
 		200000: "Message was blocked by automatic moderation",
 		200001: "Title was blocked by automatic moderation",
+		220001: "Webhooks posted to forum channels must have a thread_name or thread_id",
+		220002: " Webhooks posted to forum channels cannot have both a thread_name and thread_id",
 		220003: "Webhooks can only create threads in forum channels",
+		240000: "Message blocked by harmful links filter",
 	}
 )
 

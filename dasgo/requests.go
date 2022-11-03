@@ -83,7 +83,7 @@ type CreateGuildApplicationCommand struct {
 	GuildID                  Snowflake
 	Name                     string                      `json:"name"`
 	NameLocalizations        map[string]string           `json:"name_localization"`
-	Description              string                      `json:"description"`
+	Description              string                      `json:"description,omitempty"`
 	DescriptionLocalizations map[string]string           `json:"description_localizations"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions *string                     `json:"default_member_permissions,omitempty"`
@@ -179,7 +179,7 @@ type BatchEditApplicationCommandPermissions struct {
 
 // Create Interaction Response
 // POST /interactions/{interaction.id}/{interaction.token}/callback
-// https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
+// https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response-object
 type CreateInteractionResponse struct {
 	InteractionID    Snowflake
 	InteractionToken string
@@ -249,10 +249,10 @@ type DeleteFollowupMessage struct {
 // https://discord.com/developers/docs/resources/audit-log#get-guild-audit-log
 type GetGuildAuditLog struct {
 	GuildID    Snowflake
-	UserID     Snowflake `url:"user_id"`
-	ActionType Flag      `url:"action_type"`
-	Before     Snowflake `url:"before"`
-	Limit      int       `url:"limit"`
+	UserID     Snowflake `url:"user_id,omitempty"`
+	ActionType Flag      `url:"action_type,omitempty"`
+	Before     Snowflake `url:"before,omitempty"`
+	Limit      int       `url:"limit,omitempty"`
 }
 
 // List Auto Moderation Rules for Guild
@@ -336,20 +336,25 @@ type ModifyChannelGroupDM struct {
 // PATCH /channels/{channel.id}
 // https://discord.com/developers/docs/resources/channel#modify-channel-json-params-guild-channel
 type ModifyChannelGuild struct {
-	ChannelID                  Snowflake
-	Name                       *string                `json:"name"`
-	Type                       *Flag                  `json:"type"`
-	Position                   *int                   `json:"position"`
-	Topic                      *string                `json:"topic"`
-	NSFW                       bool                   `json:"nsfw"`
-	RateLimitPerUser           *int                   `json:"rate_limit_per_user"`
-	Bitrate                    *int                   `json:"bitrate"`
-	UserLimit                  *int                   `json:"user_limit"`
-	PermissionOverwrites       *[]PermissionOverwrite `json:"permission_overwrites"`
-	ParentID                   *Snowflake             `json:"parent_id"`
-	RTCRegion                  *string                `json:"rtc_region"`
-	VideoQualityMode           *Flag                  `json:"video_quality_mode"`
-	DefaultAutoArchiveDuration *int                   `json:"default_auto_archive_duration"`
+	ChannelID                     Snowflake
+	Name                          *string                `json:"name"`
+	Type                          *Flag                  `json:"type"`
+	Position                      *int                   `json:"position"`
+	Topic                         *string                `json:"topic"`
+	NSFW                          bool                   `json:"nsfw"`
+	RateLimitPerUser              *int                   `json:"rate_limit_per_user"`
+	Bitrate                       *int                   `json:"bitrate"`
+	UserLimit                     *int                   `json:"user_limit"`
+	PermissionOverwrites          *[]PermissionOverwrite `json:"permission_overwrites"`
+	ParentID                      *Snowflake             `json:"parent_id"`
+	RTCRegion                     *string                `json:"rtc_region"`
+	VideoQualityMode              *Flag                  `json:"video_quality_mode"`
+	DefaultAutoArchiveDuration    *int                   `json:"default_auto_archive_duration"`
+	Flags                         BitFlag                `json:"flags,omitempty"`
+	AvailableTags                 []*ForumTag            `json:"available_tags,omitempty"`
+	DefaultReactionEmoji          *DefaultReaction       `json:"default_reaction_emoji"`
+	DefaultThreadRateLimitPerUser int                    `json:"default_thread_rate_limit_per_user,omitempty"`
+	DefaultSortOrder              *int                   `json:"default_sort_order"`
 }
 
 // Modify Channel
@@ -398,6 +403,7 @@ type GetChannelMessage struct {
 type CreateMessage struct {
 	ChannelID        Snowflake
 	Content          *string           `json:"content,omitempty"`
+	Nonce            interface{}       `json:"nonce,omitempty"`
 	TTS              *bool             `json:"tts,omitempty"`
 	Embeds           []*Embed          `json:"embeds,omitempty"`
 	AllowedMentions  *AllowedMentions  `json:"allowed_mentions,omitempty"`
@@ -546,10 +552,10 @@ type DeleteChannelPermission struct {
 	OverwriteID Snowflake
 }
 
-// Follow News Channel
+// Follow Announcement Channel
 // POST /channels/{channel.id}/followers
-// https://discord.com/developers/docs/resources/channel#follow-news-channel
-type FollowNewsChannel struct {
+// https://discord.com/developers/docs/resources/channel#follow-announcement-channel
+type FollowAnnouncementChannel struct {
 	ChannelID        Snowflake
 	WebhookChannelID Snowflake `json:"webhook_channel_id"`
 }
@@ -866,6 +872,9 @@ type CreateGuildChannel struct {
 	RTCRegion                  string                 `json:"rtc_region"`
 	VideoQualityMode           *Flag                  `json:"video_quality_mode"`
 	DefaultAutoArchiveDuration int                    `json:"default_auto_archive_duration"`
+	DefaultReactionEmoji       *DefaultReaction       `json:"default_reaction_emoji"`
+	AvailableTags              []*ForumTag            `json:"available_tags"`
+	DefaultSortOrder           *int                   `json:"default_sort_order"`
 }
 
 // Modify Guild Channel Positions
@@ -997,10 +1006,9 @@ type GetGuildBan struct {
 // PUT /guilds/{guild.id}/bans/{user.id}
 // https://discord.com/developers/docs/resources/guild#create-guild-ban
 type CreateGuildBan struct {
-	GuildID           Snowflake
-	UserID            Snowflake
-	DeleteMessageDays *int    `json:"delete_message_days,omitempty"`
-	Reason            *string `json:"reason,omitempty"`
+	GuildID              Snowflake
+	UserID               Snowflake
+	DeleteMessageSeconds *int `json:"delete_message_seconds,omitempty"`
 }
 
 // Remove Guild Ban
@@ -1193,6 +1201,7 @@ type ModifyGuildWelcomeScreen struct {
 // https://discord.com/developers/docs/resources/guild#modify-current-user-voice-state
 type ModifyCurrentUserVoiceState struct {
 	GuildID                 Snowflake
+	ChannelID               Snowflake  `json:"channel_id,omitempty"`
 	Suppress                bool       `json:"suppress,omitempty"`
 	RequestToSpeakTimestamp *time.Time `json:"request_to_speak_timestamp,omitempty"`
 }
@@ -1201,9 +1210,10 @@ type ModifyCurrentUserVoiceState struct {
 // PATCH /guilds/{guild.id}/voice-states/{user.id}
 // https://discord.com/developers/docs/resources/guild#modify-user-voice-state
 type ModifyUserVoiceState struct {
-	GuildID  Snowflake
-	UserID   Snowflake
-	Suppress *bool `json:"suppress,omitempty"`
+	GuildID   Snowflake
+	UserID    Snowflake
+	ChannelID Snowflake `json:"channel_id,omitempty"`
+	Suppress  *bool     `json:"suppress,omitempty"`
 }
 
 // List Scheduled Events for Guild

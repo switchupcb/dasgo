@@ -40,7 +40,7 @@ type ApplicationCommandOption struct {
 	Required                 *bool                             `json:"required,omitempty"`
 	Choices                  []*ApplicationCommandOptionChoice `json:"choices,omitempty"`
 	Options                  []*ApplicationCommandOption       `json:"options,omitempty"`
-	ChannelTypes             []*Flag                           `json:"channel_types,omitempty"`
+	ChannelTypes             []Flag                            `json:"channel_types,omitempty"`
 	MinValue                 *float64                          `json:"min_value,omitempty"`
 	MaxValue                 *float64                          `json:"max_value,omitempty"`
 	Autocomplete             *bool                             `json:"autocomplete,omitempty"`
@@ -68,16 +68,6 @@ type ApplicationCommandOptionChoice struct {
 	Name              string          `json:"name"`
 	NameLocalizations map[Flag]string `json:"name_localizations"`
 	Value             interface{}     `json:"value"`
-}
-
-// Application Command Interaction Data Option Structure
-// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-interaction-data-option-structure
-type ApplicationCommandInteractionDataOption struct {
-	Name    string                                     `json:"name"`
-	Type    Flag                                       `json:"type"`
-	Value   *interface{}                               `json:"value,omitempty"`
-	Options []*ApplicationCommandInteractionDataOption `json:"options,omitempty"`
-	Focused *bool                                      `json:"focused,omitempty"`
 }
 
 // Guild Application Command Permissions Object
@@ -112,10 +102,14 @@ type Component interface {
 // Component Types
 // https://discord.com/developers/docs/interactions/message-components#component-object-component-types
 const (
-	FlagComponentTypeActionRow  = 1
-	FlagComponentTypeButton     = 2
-	FlagComponentTypeSelectMenu = 3
-	FlagComponentTypeTextInput  = 4
+	FlagComponentTypeActionRow         = 1
+	FlagComponentTypeButton            = 2
+	FlagComponentTypeSelectMenu        = 3
+	FlagComponentTypeTextInput         = 4
+	FlagComponentTypeUserSelect        = 5
+	FlagComponentTypeRoleSelect        = 6
+	FlagComponentTypeMentionableSelect = 7
+	FlagComponentTypeChannelSelect     = 8
 )
 
 func (c ActionsRow) ComponentType() Flag {
@@ -167,12 +161,14 @@ const (
 // Select Menu Structure
 // https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
 type SelectMenu struct {
-	CustomID    string             `json:"custom_id"`
-	Options     []SelectMenuOption `json:"options"`
-	Placeholder *string            `json:"placeholder,omitempty"`
-	MinValues   *Flag              `json:"min_values,omitempty"`
-	MaxValues   *Flag              `json:"max_values,omitempty"`
-	Disabled    *bool              `json:"disabled,omitempty"`
+	Type         int                `json:"type"`
+	CustomID     string             `json:"custom_id"`
+	Options      []SelectMenuOption `json:"options"`
+	ChannelTypes []Flag             `json:"channel_types,omitempty"`
+	Placeholder  *string            `json:"placeholder,omitempty"`
+	MinValues    *Flag              `json:"min_values,omitempty"`
+	MaxValues    *Flag              `json:"max_values,omitempty"`
+	Disabled     *bool              `json:"disabled,omitempty"`
 }
 
 // Select Menu Option Structure
@@ -289,6 +285,16 @@ type ResolvedData struct {
 	Attachments map[Snowflake]*Attachment  `json:"attachments"`
 }
 
+// Application Command Interaction Data Option Structure
+// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-interaction-data-option-structure
+type ApplicationCommandInteractionDataOption struct {
+	Name    string                                     `json:"name"`
+	Type    Flag                                       `json:"type"`
+	Value   *interface{}                               `json:"value,omitempty"`
+	Options []*ApplicationCommandInteractionDataOption `json:"options,omitempty"`
+	Focused *bool                                      `json:"focused,omitempty"`
+}
+
 // Message Interaction Structure
 // https://discord.com/developers/docs/interactions/receiving-and-responding#message-interaction-object-message-interaction-structure
 type MessageInteraction struct {
@@ -398,6 +404,7 @@ const (
 	FlagApplicationEMBEDDED                         = 1 << 17
 	FlagApplicationGATEWAY_MESSAGE_CONTENT          = 1 << 18
 	FlagApplicationGATEWAY_MESSAGE_CONTENT_LIMITED  = 1 << 19
+	FlagApplicationAPPLICATION_COMMAND_BADGE        = 1 << 23
 )
 
 // Install Params Object
@@ -410,6 +417,7 @@ type InstallParams struct {
 // Audit Log Object
 // https://discord.com/developers/docs/resources/audit-log
 type AuditLog struct {
+	ApplicationCommands  []*ApplicationCommand  `json:"application_commands,omitempty"`
 	AuditLogEntries      []*AuditLogEntry       `json:"audit_log_entries"`
 	GuildScheduledEvents []*GuildScheduledEvent `json:"guild_scheduled_events"`
 	Integration          []*Integration         `json:"integrations"`
@@ -433,68 +441,76 @@ type AuditLogEntry struct {
 // Audit Log Events
 // https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events
 const (
-	FlagAuditLogEventGUILD_UPDATE                          = 1
-	FlagAuditLogEventCHANNEL_CREATE                        = 10
-	FlagAuditLogEventCHANNEL_UPDATE                        = 11
-	FlagAuditLogEventCHANNEL_DELETE                        = 12
-	FlagAuditLogEventCHANNEL_OVERWRITE_CREATE              = 13
-	FlagAuditLogEventCHANNEL_OVERWRITE_UPDATE              = 14
-	FlagAuditLogEventCHANNEL_OVERWRITE_DELETE              = 15
-	FlagAuditLogEventMEMBER_KICK                           = 20
-	FlagAuditLogEventMEMBER_PRUNE                          = 21
-	FlagAuditLogEventMEMBER_BAN_ADD                        = 22
-	FlagAuditLogEventMEMBER_BAN_REMOVE                     = 23
-	FlagAuditLogEventMEMBER_UPDATE                         = 24
-	FlagAuditLogEventMEMBER_ROLE_UPDATE                    = 25
-	FlagAuditLogEventMEMBER_MOVE                           = 26
-	FlagAuditLogEventMEMBER_DISCONNECT                     = 27
-	FlagAuditLogEventBOT_ADD                               = 28
-	FlagAuditLogEventROLE_CREATE                           = 30
-	FlagAuditLogEventROLE_UPDATE                           = 31
-	FlagAuditLogEventROLE_DELETE                           = 32
-	FlagAuditLogEventINVITE_CREATE                         = 40
-	FlagAuditLogEventINVITE_UPDATE                         = 41
-	FlagAuditLogEventINVITE_DELETE                         = 42
-	FlagAuditLogEventWEBHOOK_CREATE                        = 50
-	FlagAuditLogEventWEBHOOK_UPDATE                        = 51
-	FlagAuditLogEventWEBHOOK_DELETE                        = 52
-	FlagAuditLogEventEMOJI_CREATE                          = 60
-	FlagAuditLogEventEMOJI_UPDATE                          = 61
-	FlagAuditLogEventEMOJI_DELETE                          = 62
-	FlagAuditLogEventMESSAGE_DELETE                        = 72
-	FlagAuditLogEventMESSAGE_BULK_DELETE                   = 73
-	FlagAuditLogEventMESSAGE_PIN                           = 74
-	FlagAuditLogEventMESSAGE_UNPIN                         = 75
-	FlagAuditLogEventINTEGRATION_CREATE                    = 80
-	FlagAuditLogEventINTEGRATION_UPDATE                    = 81
-	FlagAuditLogEventINTEGRATION_DELETE                    = 82
-	FlagAuditLogEventSTAGE_INSTANCE_CREATE                 = 83
-	FlagAuditLogEventSTAGE_INSTANCE_UPDATE                 = 84
-	FlagAuditLogEventSTAGE_INSTANCE_DELETE                 = 85
-	FlagAuditLogEventSTICKER_CREATE                        = 90
-	FlagAuditLogEventSTICKER_UPDATE                        = 91
-	FlagAuditLogEventSTICKER_DELETE                        = 92
-	FlagAuditLogEventGUILD_SCHEDULED_EVENT_CREATE          = 100
-	FlagAuditLogEventGUILD_SCHEDULED_EVENT_UPDATE          = 101
-	FlagAuditLogEventGUILD_SCHEDULED_EVENT_DELETE          = 102
-	FlagAuditLogEventTHREAD_CREATE                         = 110
-	FlagAuditLogEventTHREAD_UPDATE                         = 111
-	FlagAuditLogEventTHREAD_DELETE                         = 112
-	FlagAuditLogEventAPPLICATION_COMMAND_PERMISSION_UPDATE = 121
+	FlagAuditLogEventGUILD_UPDATE                                = 1
+	FlagAuditLogEventCHANNEL_CREATE                              = 10
+	FlagAuditLogEventCHANNEL_UPDATE                              = 11
+	FlagAuditLogEventCHANNEL_DELETE                              = 12
+	FlagAuditLogEventCHANNEL_OVERWRITE_CREATE                    = 13
+	FlagAuditLogEventCHANNEL_OVERWRITE_UPDATE                    = 14
+	FlagAuditLogEventCHANNEL_OVERWRITE_DELETE                    = 15
+	FlagAuditLogEventMEMBER_KICK                                 = 20
+	FlagAuditLogEventMEMBER_PRUNE                                = 21
+	FlagAuditLogEventMEMBER_BAN_ADD                              = 22
+	FlagAuditLogEventMEMBER_BAN_REMOVE                           = 23
+	FlagAuditLogEventMEMBER_UPDATE                               = 24
+	FlagAuditLogEventMEMBER_ROLE_UPDATE                          = 25
+	FlagAuditLogEventMEMBER_MOVE                                 = 26
+	FlagAuditLogEventMEMBER_DISCONNECT                           = 27
+	FlagAuditLogEventBOT_ADD                                     = 28
+	FlagAuditLogEventROLE_CREATE                                 = 30
+	FlagAuditLogEventROLE_UPDATE                                 = 31
+	FlagAuditLogEventROLE_DELETE                                 = 32
+	FlagAuditLogEventINVITE_CREATE                               = 40
+	FlagAuditLogEventINVITE_UPDATE                               = 41
+	FlagAuditLogEventINVITE_DELETE                               = 42
+	FlagAuditLogEventWEBHOOK_CREATE                              = 50
+	FlagAuditLogEventWEBHOOK_UPDATE                              = 51
+	FlagAuditLogEventWEBHOOK_DELETE                              = 52
+	FlagAuditLogEventEMOJI_CREATE                                = 60
+	FlagAuditLogEventEMOJI_UPDATE                                = 61
+	FlagAuditLogEventEMOJI_DELETE                                = 62
+	FlagAuditLogEventMESSAGE_DELETE                              = 72
+	FlagAuditLogEventMESSAGE_BULK_DELETE                         = 73
+	FlagAuditLogEventMESSAGE_PIN                                 = 74
+	FlagAuditLogEventMESSAGE_UNPIN                               = 75
+	FlagAuditLogEventINTEGRATION_CREATE                          = 80
+	FlagAuditLogEventINTEGRATION_UPDATE                          = 81
+	FlagAuditLogEventINTEGRATION_DELETE                          = 82
+	FlagAuditLogEventSTAGE_INSTANCE_CREATE                       = 83
+	FlagAuditLogEventSTAGE_INSTANCE_UPDATE                       = 84
+	FlagAuditLogEventSTAGE_INSTANCE_DELETE                       = 85
+	FlagAuditLogEventSTICKER_CREATE                              = 90
+	FlagAuditLogEventSTICKER_UPDATE                              = 91
+	FlagAuditLogEventSTICKER_DELETE                              = 92
+	FlagAuditLogEventGUILD_SCHEDULED_EVENT_CREATE                = 100
+	FlagAuditLogEventGUILD_SCHEDULED_EVENT_UPDATE                = 101
+	FlagAuditLogEventGUILD_SCHEDULED_EVENT_DELETE                = 102
+	FlagAuditLogEventTHREAD_CREATE                               = 110
+	FlagAuditLogEventTHREAD_UPDATE                               = 111
+	FlagAuditLogEventTHREAD_DELETE                               = 112
+	FlagAuditLogEventAPPLICATION_COMMAND_PERMISSION_UPDATE       = 121
+	FlagAuditLogEventAUTO_MODERATION_RULE_CREATE                 = 140
+	FlagAuditLogEventAUTO_MODERATION_RULE_UPDATE                 = 141
+	FlagAuditLogEventAUTO_MODERATION_RULE_DELETE                 = 142
+	FlagAuditLogEventAUTO_MODERATION_BLOCK_MESSAGE               = 143
+	FlagAuditLogEventAUTO_MODERATION_FLAG_TO_CHANNEL             = 144
+	FlagAuditLogEventAUTO_MODERATION_USER_COMMUNICATION_DISABLED = 145
 )
 
 // Optional Audit Entry Info
 // https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-optional-audit-entry-info
 type AuditLogOptions struct {
-	ApplicationID    Snowflake `json:"application_id"`
-	ChannelID        Snowflake `json:"channel_id"`
-	Count            string    `json:"count"`
-	DeleteMemberDays string    `json:"delete_member_days"`
-	ID               Snowflake `json:"id"`
-	MembersRemoved   string    `json:"members_removed"`
-	MessageID        Snowflake `json:"message_id"`
-	RoleName         string    `json:"role_name"`
-	Type             string    `json:"type"`
+	ApplicationID                 Snowflake `json:"application_id"`
+	AutoModerationRuleName        string    `json:"auto_moderation_rule_name"`
+	AutoModerationRuleTriggerType string    `json:"auto_moderation_rule_trigger_type"`
+	ChannelID                     Snowflake `json:"channel_id"`
+	Count                         string    `json:"count"`
+	DeleteMemberDays              string    `json:"delete_member_days"`
+	ID                            Snowflake `json:"id"`
+	MembersRemoved                string    `json:"members_removed"`
+	MessageID                     Snowflake `json:"message_id"`
+	RoleName                      string    `json:"role_name"`
+	Type                          string    `json:"type"`
 }
 
 // Audit Log Change Object
@@ -583,51 +599,56 @@ type ActionMetadata struct {
 // Channel Object
 // https://discord.com/developers/docs/resources/channel
 type Channel struct {
-	ID                         Snowflake             `json:"id"`
-	Type                       *Flag                 `json:"type"`
-	GuildID                    Snowflake             `json:"guild_id,omitempty"`
-	Position                   *int                  `json:"position,omitempty"`
-	PermissionOverwrites       []PermissionOverwrite `json:"permission_overwrites,omitempty"`
-	Name                       string                `json:"name,omitempty"`
-	Topic                      *string               `json:"topic,omitempty"`
-	NSFW                       *bool                 `json:"nsfw,omitempty"`
-	LastMessageID              *Snowflake            `json:"last_message_id"`
-	Bitrate                    *Flag                 `json:"bitrate,omitempty"`
-	UserLimit                  *Flag                 `json:"user_limit,omitempty"`
-	RateLimitPerUser           *int                  `json:"rate_limit_per_user,omitempty"`
-	Recipients                 []*User               `json:"recipients,omitempty"`
-	Icon                       *string               `json:"icon"`
-	OwnerID                    Snowflake             `json:"owner_id,omitempty"`
-	ApplicationID              Snowflake             `json:"application_id,omitempty"`
-	ParentID                   *Snowflake            `json:"parent_id"`
-	LastPinTimestamp           time.Time             `json:"last_pin_timestamp"`
-	RTCRegion                  *string               `json:"rtc_region"`
-	VideoQualityMode           Flag                  `json:"video_quality_mode,omitempty"`
-	MessageCount               *int                  `json:"message_count,omitempty"`
-	MemberCount                *int                  `json:"member_count,omitempty"`
-	ThreadMetadata             *ThreadMetadata       `json:"thread_metadata,omitempty"`
-	Member                     *ThreadMember         `json:"member,omitempty"`
-	DefaultAutoArchiveDuration int                   `json:"default_auto_archive_duration,omitempty"`
-	Permissions                *string               `json:"permissions,omitempty"`
-	Flags                      BitFlag               `json:"flags,omitempty"`
-	TotalMessageSent           int                   `json:"total_message_sent,omitempty"`
+	ID                            Snowflake             `json:"id"`
+	Type                          *Flag                 `json:"type"`
+	GuildID                       Snowflake             `json:"guild_id,omitempty"`
+	Position                      *int                  `json:"position,omitempty"`
+	PermissionOverwrites          []PermissionOverwrite `json:"permission_overwrites,omitempty"`
+	Name                          string                `json:"name,omitempty"`
+	Topic                         *string               `json:"topic,omitempty"`
+	NSFW                          *bool                 `json:"nsfw,omitempty"`
+	LastMessageID                 *Snowflake            `json:"last_message_id"`
+	Bitrate                       *Flag                 `json:"bitrate,omitempty"`
+	UserLimit                     *Flag                 `json:"user_limit,omitempty"`
+	RateLimitPerUser              *int                  `json:"rate_limit_per_user,omitempty"`
+	Recipients                    []*User               `json:"recipients,omitempty"`
+	Icon                          *string               `json:"icon"`
+	OwnerID                       Snowflake             `json:"owner_id,omitempty"`
+	ApplicationID                 Snowflake             `json:"application_id,omitempty"`
+	ParentID                      *Snowflake            `json:"parent_id"`
+	LastPinTimestamp              time.Time             `json:"last_pin_timestamp"`
+	RTCRegion                     *string               `json:"rtc_region"`
+	VideoQualityMode              Flag                  `json:"video_quality_mode,omitempty"`
+	MessageCount                  *int                  `json:"message_count,omitempty"`
+	MemberCount                   *int                  `json:"member_count,omitempty"`
+	ThreadMetadata                *ThreadMetadata       `json:"thread_metadata,omitempty"`
+	Member                        *ThreadMember         `json:"member,omitempty"`
+	DefaultAutoArchiveDuration    int                   `json:"default_auto_archive_duration,omitempty"`
+	Permissions                   *string               `json:"permissions,omitempty"`
+	Flags                         BitFlag               `json:"flags,omitempty"`
+	TotalMessageSent              int                   `json:"total_message_sent,omitempty"`
+	AvailableTags                 []*ForumTag           `json:"available_tags,omitempty"`
+	AppliedTags                   []Snowflake           `json:"applied_tags,omitempty"`
+	DefaultReactionEmoji          *DefaultReaction      `json:"default_reaction_emoji"`
+	DefaultThreadRateLimitPerUser int                   `json:"default_thread_rate_limit_per_user,omitempty"`
+	DefaultSortOrder              *int                  `json:"default_sort_order"`
 }
 
 // Channel Types
 // https://discord.com/developers/docs/resources/channel#channel-object-channel-types
 const (
-	FlagChannelTypeGUILD_TEXT           = 0
-	FlagChannelTypeDM                   = 1
-	FlagChannelTypeGUILD_VOICE          = 2
-	FlagChannelTypeGROUP_DM             = 3
-	FlagChannelTypeGUILD_CATEGORY       = 4
-	FlagChannelTypeGUILD_NEWS           = 5
-	FlagChannelTypeGUILD_NEWS_THREAD    = 10
-	FlagChannelTypeGUILD_PUBLIC_THREAD  = 11
-	FlagChannelTypeGUILD_PRIVATE_THREAD = 12
-	FlagChannelTypeGUILD_STAGE_VOICE    = 13
-	FlagChannelTypeGUILD_DIRECTORY      = 14
-	FlagChannelTypeGUILD_FORUM          = 15
+	FlagChannelTypeGUILD_TEXT          = 0
+	FlagChannelTypeDM                  = 1
+	FlagChannelTypeGUILD_VOICE         = 2
+	FlagChannelTypeGROUP_DM            = 3
+	FlagChannelTypeGUILD_CATEGORY      = 4
+	FlagChannelTypeGUILD_ANNOUNCEMENT  = 5
+	FlagChannelTypeANNOUNCEMENT_THREAD = 10
+	FlagChannelTypePUBLIC_THREAD       = 11
+	FlagChannelTypePRIVATE_THREAD      = 12
+	FlagChannelTypeGUILD_STAGE_VOICE   = 13
+	FlagChannelTypeGUILD_DIRECTORY     = 14
+	FlagChannelTypeGUILD_FORUM         = 15
 )
 
 // Video Quality Modes
@@ -640,7 +661,15 @@ const (
 // Channel Flags
 // https://discord.com/developers/docs/resources/channel#channel-object-channel-flags
 const (
-	FlagChannelPINNED = 1 << 1
+	FlagChannelPINNED      = 1 << 1
+	FlagChannelREQUIRE_TAG = 1 << 4
+)
+
+// Sort Order Types
+// https://discord.com/developers/docs/resources/channel#channel-object-sort-order-types
+const (
+	FlagSortOrderTypeLATEST_ACTIVITY = 0
+	FlagSortOrderTypeCREATION_DATE   = 1
 )
 
 // Message Object
@@ -709,6 +738,7 @@ const (
 	FlagMessageTypeTHREAD_STARTER_MESSAGE                       = 21
 	FlagMessageTypeGUILD_INVITE_REMINDER                        = 22
 	FlagMessageTypeCONTEXT_MENU_COMMAND                         = 23
+	FlagMessageTypeAUTO_MODERATION_ACTION                       = 24
 )
 
 // Message Activity Structure
@@ -791,6 +821,23 @@ type ThreadMember struct {
 	UserID        Snowflake `json:"user_id,omitempty"`
 	JoinTimestamp time.Time `json:"join_timestamp"`
 	Flags         Flag      `json:"flags"`
+}
+
+// Default Reaction Structure
+// https://discord.com/developers/docs/resources/channel#default-reaction-object-default-reaction-structure
+type DefaultReaction struct {
+	EmojiID   *Snowflake `json:"emoji_id"`
+	EmojiName *string    `json:"emoji_name"`
+}
+
+// Forum Tag Structure
+// https://discord.com/developers/docs/resources/channel#forum-tag-object-forum-tag-structure
+type ForumTag struct {
+	ID        Snowflake `json:"id"`
+	Name      string    `json:"name"`
+	Moderated bool      `json:"moderated"`
+	EmojiID   Snowflake `json:"emoji_id"`
+	EmojiName *string   `json:"emoji_name"`
 }
 
 // Embed Object
@@ -1053,8 +1100,10 @@ const (
 	FlagGuildFeatureBANNER                           = "BANNER"
 	FlagGuildFeatureCOMMERCE                         = "COMMERCE"
 	FlagGuildFeatureCOMMUNITY                        = "COMMUNITY"
+	FlagGuildFeatureDEVELOPER_SUPPORT_SERVER         = "DEVELOPER_SUPPORT_SERVER"
 	FlagGuildFeatureDISCOVERABLE                     = "DISCOVERABLE"
 	FlagGuildFeatureFEATURABLE                       = "FEATURABLE"
+	FlagGuildFeatureINVITES_DISABLED                 = "INVITES_DISABLED"
 	FlagGuildFeatureINVITE_SPLASH                    = "INVITE_SPLASH"
 	FlagGuildFeatureMEMBER_VERIFICATION_GATE_ENABLED = "MEMBER_VERIFICATION_GATE_ENABLED"
 	FlagGuildFeatureMONETIZATION_ENABLED             = "MONETIZATION_ENABLED"
@@ -1071,6 +1120,16 @@ const (
 	FlagGuildFeatureVERIFIED                         = "VERIFIED"
 	FlagGuildFeatureVIP_REGIONS                      = "VIP_REGIONS"
 	FlagGuildFeatureWELCOME_SCREEN_ENABLED           = "WELCOME_SCREEN_ENABLED"
+)
+
+// Mutable Guild Features
+// https://discord.com/developers/docs/resources/guild#guild-object-mutable-guild-features
+var (
+	MutableGuildFeatures = map[string]bool{
+		FlagGuildFeatureCOMMUNITY:        true,
+		FlagGuildFeatureINVITES_DISABLED: true,
+		FlagGuildFeatureDISCOVERABLE:     true,
+	}
 )
 
 // Guild Preview Object
@@ -1143,6 +1202,7 @@ type Integration struct {
 	SubscriberCount   *int               `json:"subscriber_count,omitempty"`
 	Revoked           *bool              `json:"revoked,omitempty"`
 	Application       *Application       `json:"application,omitempty"`
+	Scopes            []string           `json:"scopes,omitempty"`
 }
 
 // Integration Expire Behaviors
@@ -1417,6 +1477,7 @@ const (
 	FlagPremiumTypeNONE         = 0
 	FlagPremiumTypeNITROCLASSIC = 1
 	FlagPremiumTypeNITRO        = 2
+	FlagPremiumTypeNITROBASIC   = 3
 )
 
 // User Connection Object
@@ -1430,6 +1491,7 @@ type Connection struct {
 	Verified     bool           `json:"verified"`
 	FriendSync   bool           `json:"friend_sync"`
 	ShowActivity bool           `json:"show_activity"`
+	TwoWayLink   bool           `json:"two_way_link"`
 	Visibility   Flag           `json:"visibility"`
 }
 
