@@ -13,6 +13,13 @@ type BitFlag uint
 // CodeFlag represents an alias for a Discord API Code ranging from 0 - 65535.
 type CodeFlag uint16
 
+// File represents a file attachment.
+type File struct {
+	Name        string
+	ContentType string
+	Data        []byte
+}
+
 // Pointer returns a pointer to the given value.
 func Pointer[T any](v T) *T {
 	return &v
