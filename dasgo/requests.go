@@ -1432,7 +1432,7 @@ type CreateGuildSticker struct {
 	Name        string  `json:"name"`
 	Description string  `json:"description"`
 	Tags        *string `json:"tags"`
-	File        []byte  `dasgo:"file"`
+	File        File    `dasgo:"file"`
 }
 
 // Modify Guild Sticker
