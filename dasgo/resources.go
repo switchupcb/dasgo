@@ -555,6 +555,7 @@ const (
 type TriggerMetadata struct {
 	// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-matching-strategies
 	KeywordFilter     []string `json:"keyword_filter"`
+	RegexPatterns     []Flag   `json:"regex_patterns"`
 	Presets           []Flag   `json:"presets"`
 	AllowList         []string `json:"allow_list"`
 	MentionTotalLimit int      `json:"mention_total_limit"`
@@ -1469,6 +1470,7 @@ const (
 	FlagUserVERIFIED_DEVELOPER           = 1 << 17
 	FlagUserCERTIFIED_MODERATOR          = 1 << 18
 	FlagUserBOT_HTTP_INTERACTIONS        = 1 << 19
+	FlagUserACTIVE_DEVELOPER             = 1 << 22
 )
 
 // Premium Types
