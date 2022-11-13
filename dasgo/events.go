@@ -421,7 +421,7 @@ type MessageCreate struct {
 // Message Update
 // https://discord.com/developers/docs/topics/gateway-events#message-update
 type MessageUpdate struct {
-	Message *Message
+	*Message
 }
 
 // Message Delete
