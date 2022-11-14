@@ -3,7 +3,7 @@ package dasgo
 import "encoding/json"
 
 // Gateway Payload Structure
-// https://discord.com/developers/docs/topics/gateway#payloads-gateway-payload-structure
+// https://discord.com/developers/docs/topics/gateway-events#payload-structure
 type GatewayPayload struct {
 	Op             int             `json:"op"`
 	Data           json.RawMessage `json:"d"`
@@ -147,7 +147,7 @@ const (
 )
 
 // Identify Structure
-// https://discord.com/developers/docs/topics/gateway#identify-identify-structure
+// https://discord.com/developers/docs/topics/gateway-events#identify-identify-structure
 type Identify struct {
 	Token          string                       `json:"token"`
 	Properties     IdentifyConnectionProperties `json:"properties"`
@@ -159,7 +159,7 @@ type Identify struct {
 }
 
 // Identify Connection Properties
-// https://discord.com/developers/docs/topics/gateway#identify-identify-connection-properties
+// https://discord.com/developers/docs/topics/gateway-events#identify-identify-connection-properties
 type IdentifyConnectionProperties struct {
 	OS      string `json:"os"`
 	Browser string `json:"browser"`
@@ -167,7 +167,7 @@ type IdentifyConnectionProperties struct {
 }
 
 // Resume Structure
-// https://discord.com/developers/docs/topics/gateway#resume-resume-structure
+// https://discord.com/developers/docs/topics/gateway-events#resume-resume-structure
 type Resume struct {
 	Token     string `json:"token"`
 	SessionID string `json:"session_id"`
@@ -175,13 +175,13 @@ type Resume struct {
 }
 
 // Heartbeat
-// https://discord.com/developers/docs/topics/gateway#heartbeat
+// https://discord.com/developers/docs/topics/gateway-events#heartbeat
 type Heartbeat struct {
 	Data int64 `json:"d"`
 }
 
 // Request Guild Members Structure
-// https://discord.com/developers/docs/topics/gateway#request-guild-members-guild-request-members-structure
+// https://discord.com/developers/docs/topics/gateway-events#request-guild-members-guild-request-members-structure
 type RequestGuildMembers struct {
 	GuildID   Snowflake   `json:"guild_id"`
 	Query     *string     `json:"query,omitempty"`
@@ -192,7 +192,7 @@ type RequestGuildMembers struct {
 }
 
 // Gateway Voice State Update Structure
-// https://discord.com/developers/docs/topics/gateway#update-voice-state-gateway-voice-state-update-structure
+// https://discord.com/developers/docs/topics/gateway-events#update-voice-state-gateway-voice-state-update-structure
 type GatewayVoiceStateUpdate struct {
 	GuildID   Snowflake `json:"guild_id"`
 	ChannelID Snowflake `json:"channel_id"`
@@ -201,7 +201,7 @@ type GatewayVoiceStateUpdate struct {
 }
 
 // Gateway Presence Update Structure
-// https://discord.com/developers/docs/topics/gateway#update-presence-gateway-presence-update-structure
+// https://discord.com/developers/docs/topics/gateway-events#update-presence-gateway-presence-update-structure
 type GatewayPresenceUpdate struct {
 	Since  int         `json:"since"`
 	Game   []*Activity `json:"game"`
