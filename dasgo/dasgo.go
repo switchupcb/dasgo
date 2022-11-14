@@ -20,6 +20,12 @@ type File struct {
 	Data        []byte
 }
 
+// Nonce represents a Discord Nonce (integer or string).
+type Nonce interface{}
+
+// Value represents a value (string, integer, or double).
+type Value interface{}
+
 // Pointer returns a pointer to the given value.
 func Pointer[T any](v T) *T {
 	return &v

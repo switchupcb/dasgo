@@ -1,6 +1,7 @@
 package dasgo
 
 import (
+	"encoding/json"
 	"time"
 )
 
@@ -67,7 +68,7 @@ const (
 type ApplicationCommandOptionChoice struct {
 	Name              string          `json:"name"`
 	NameLocalizations map[Flag]string `json:"name_localizations"`
-	Value             interface{}     `json:"value"`
+	Value             Value           `json:"value"`
 }
 
 // Guild Application Command Permissions Object
@@ -286,11 +287,11 @@ type ResolvedData struct {
 }
 
 // Application Command Interaction Data Option Structure
-// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-interaction-data-option-structure
+// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-application-command-interaction-data-option-structure
 type ApplicationCommandInteractionDataOption struct {
 	Name    string                                     `json:"name"`
 	Type    Flag                                       `json:"type"`
-	Value   *interface{}                               `json:"value,omitempty"`
+	Value   *Value                                     `json:"value,omitempty"`
 	Options []*ApplicationCommandInteractionDataOption `json:"options,omitempty"`
 	Focused *bool                                      `json:"focused,omitempty"`
 }
@@ -516,9 +517,9 @@ type AuditLogOptions struct {
 // Audit Log Change Object
 // https://discord.com/developers/docs/resources/audit-log#audit-log-change-object
 type AuditLogChange struct {
-	NewValue interface{} `json:"new_value,omitempty"`
-	OldValue interface{} `json:"old_value,omitempty"`
-	Key      string      `json:"key"`
+	NewValue json.RawMessage `json:"new_value,omitempty"`
+	OldValue json.RawMessage `json:"old_value,omitempty"`
+	Key      string          `json:"key"`
 }
 
 // Audit Log Change Exceptions
@@ -690,7 +691,7 @@ type Message struct {
 	Attachments       []*Attachment     `json:"attachments"`
 	Embeds            []*Embed          `json:"embeds"`
 	Reactions         []*Reaction       `json:"reactions,omitempty"`
-	Nonce             interface{}       `json:"nonce,omitempty"`
+	Nonce             Nonce             `json:"nonce,omitempty"`
 	Pinned            bool              `json:"pinned"`
 	WebhookID         Snowflake         `json:"webhook_id,omitempty"`
 	Type              Flag              `json:"type"`

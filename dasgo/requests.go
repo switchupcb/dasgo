@@ -437,7 +437,7 @@ type GetChannelMessage struct {
 type CreateMessage struct {
 	ChannelID        Snowflake
 	Content          *string           `json:"content,omitempty"`
-	Nonce            interface{}       `json:"nonce,omitempty"`
+	Nonce            Nonce             `json:"nonce,omitempty"`
 	TTS              *bool             `json:"tts,omitempty"`
 	Embeds           []*Embed          `json:"embeds,omitempty"`
 	AllowedMentions  *AllowedMentions  `json:"allowed_mentions,omitempty"`
