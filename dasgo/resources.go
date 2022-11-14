@@ -387,7 +387,7 @@ type Application struct {
 	PrimarySKUID        Snowflake      `json:"primary_sku_id,omitempty"`
 	Slug                *string        `json:"slug,omitempty"`
 	CoverImage          *string        `json:"cover_image,omitempty"`
-	Flags               *Flag          `json:"flags,omitempty"`
+	Flags               *BitFlag       `json:"flags,omitempty"`
 	Tags                []string       `json:"tags,omitempty"`
 	InstallParams       *InstallParams `json:"install_params,omitempty"`
 	CustomInstallURL    string         `json:"custom_install_url,omitempty"`

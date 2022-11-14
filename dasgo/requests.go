@@ -280,8 +280,10 @@ type DeleteFollowupMessage struct {
 // GET /guilds/{guild.id}/audit-logs
 // https://discord.com/developers/docs/resources/audit-log#get-guild-audit-log
 type GetGuildAuditLog struct {
-	GuildID    Snowflake
-	UserID     Snowflake `url:"user_id,omitempty"`
+	GuildID Snowflake
+	UserID  Snowflake `url:"user_id,omitempty"`
+
+	// https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events
 	ActionType Flag      `url:"action_type,omitempty"`
 	Before     Snowflake `url:"before,omitempty"`
 	Limit      int       `url:"limit,omitempty"`
