@@ -271,8 +271,8 @@ type MessageComponentData struct {
 // Modal Submit Data Structure
 // https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-modal-submit-data-structure
 type ModalSubmitData struct {
-	CustomID   string       `json:"custom_id"`
-	Components []*Component `json:"components"`
+	CustomID   string      `json:"custom_id"`
+	Components []Component `json:"components"`
 }
 
 // Resolved Data Structure
@@ -291,7 +291,7 @@ type ResolvedData struct {
 type ApplicationCommandInteractionDataOption struct {
 	Name    string                                     `json:"name"`
 	Type    Flag                                       `json:"type"`
-	Value   *Value                                     `json:"value,omitempty"`
+	Value   Value                                      `json:"value,omitempty"`
 	Options []*ApplicationCommandInteractionDataOption `json:"options,omitempty"`
 	Focused *bool                                      `json:"focused,omitempty"`
 }
@@ -703,7 +703,7 @@ type Message struct {
 	ReferencedMessage *Message          `json:"referenced_message"`
 	Interaction       *Interaction      `json:"interaction"`
 	Thread            *Channel          `json:"thread"`
-	Components        []*Component      `json:"components"`
+	Components        []Component       `json:"components"`
 	StickerItems      []*StickerItem    `json:"sticker_items"`
 	Stickers          []*Sticker        `json:"stickers"`
 	Position          int               `json:"position,omitempty"`

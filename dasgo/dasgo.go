@@ -20,7 +20,7 @@ type File struct {
 	Data        []byte
 }
 
-// Nonce represents a Discord Nonce (integer or string).
+// Nonce represents a Discord nonce (integer or string).
 type Nonce interface{}
 
 // Value represents a value (string, integer, or double).

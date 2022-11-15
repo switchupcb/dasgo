@@ -90,7 +90,7 @@ type Embed struct {
 }
 ```
 
-_An exception is provided to slices, channels, and maps, which — 99% of the time — should **NEVER** be pointers, but may contain pointers to types._
+_An exception is provided to slices, channels, maps, and interfaces which — 99% of the time — should **NEVER** be pointers, but may contain pointers to types._
 
 ## Requests
 

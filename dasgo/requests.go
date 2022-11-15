@@ -204,7 +204,7 @@ type EditOriginalInteractionResponse struct {
 	ThreadID         Snowflake        `url:"thread_id"`
 	Content          *string          `json:"content"`
 	Embeds           []*Embed         `json:"embeds"`
-	Components       []*Component     `json:"components"`
+	Components       []Component      `json:"components"`
 	Files            []*File          `dasgo:"files"`
 	AllowedMentions  *AllowedMentions `json:"allowed_mentions"`
 	PayloadJSON      string           `multipart:"payload_json"`
@@ -260,7 +260,7 @@ type EditFollowupMessage struct {
 	ThreadID         Snowflake        `url:"thread_id"`
 	Content          *string          `json:"content"`
 	Embeds           []*Embed         `json:"embeds"`
-	Components       []*Component     `json:"components"`
+	Components       []Component      `json:"components"`
 	Files            []*File          `dasgo:"files"`
 	AllowedMentions  *AllowedMentions `json:"allowed_mentions"`
 	PayloadJSON      string           `multipart:"payload_json"`
@@ -442,7 +442,7 @@ type CreateMessage struct {
 	Embeds           []*Embed          `json:"embeds,omitempty"`
 	AllowedMentions  *AllowedMentions  `json:"allowed_mentions,omitempty"`
 	MessageReference *MessageReference `json:"message_reference,omitempty"`
-	Components       []*Component      `json:"components,omitempty"`
+	Components       []Component       `json:"components,omitempty"`
 	StickerIDS       []*Snowflake      `json:"sticker_ids,omitempty"`
 	Files            []*File           `dasgo:"files,omitempty"`
 	PayloadJSON      *string           `multipart:"payload_json,omitempty"`
@@ -524,7 +524,7 @@ type EditMessage struct {
 	Embeds          []*Embed         `json:"embeds"`
 	Flags           *BitFlag         `json:"flags"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions"`
-	Components      []*Component     `json:"components"`
+	Components      []Component      `json:"components"`
 	Files           []*File          `dasgo:"files"`
 	PayloadJSON     *string          `multipart:"payload_json"`
 	Attachments     []*Attachment    `json:"attachments"`
@@ -682,7 +682,7 @@ type ForumThreadMessageParams struct {
 	Content         *string          `json:"content,omitempty"`
 	Embeds          []*Embed         `json:"embeds,omitempty"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
-	Components      []*Component     `json:"components,omitempty"`
+	Components      []Component      `json:"components,omitempty"`
 	StickerIDS      []*Snowflake     `json:"sticker_ids,omitempty"`
 	Attachments     []*Attachment    `json:"attachments,omitempty"`
 	Files           []*File          `dasgo:"files"`
@@ -1689,7 +1689,7 @@ type EditWebhookMessage struct {
 	ThreadID        Snowflake        `url:"thread_id"`
 	Content         *string          `json:"content"`
 	Embeds          []*Embed         `json:"embeds"`
-	Components      []*Component     `json:"components"`
+	Components      []Component      `json:"components"`
 	Files           []*File          `dasgo:"files"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions"`
 	PayloadJSON     string           `multipart:"payload_json"`
