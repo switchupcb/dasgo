@@ -48,7 +48,7 @@ Option fields are defined as a `Flag`, `BitFlag`, or [`CodeFlag`](https://discor
 
 ### Tags and Pointers
 
-Tags are applied to struct fields in order to marshal and unmarshal data. A `json` tag is applied to a field that pertains to a JSON key. A `url` tag is applied to a field that pertains to a URL Query String Parameter. `omitempty` and pointers are used to maintain correctness: A field with `omitempty` will **NOT** be included when it contains a zero value _(`nil` for pointers)_.
+Tags are applied to struct fields in order to marshal and unmarshal data. A `json` tag is applied to a field that pertains to a JSON key. A `url` tag is applied to a field that pertains to a URL Query String Parameter. Tag options _(`-`, `omitempty`)_ and pointers are used to maintain correctness. A field with `omitempty` will **NOT** be marshalled when it contains a zero value _(`nil` for pointers)_. A field with `-` will **NOT** be marshalled or unmarshalled: `-` is **ONLY** required when a respective tag _(i.e `json`, `url`)_ is included in a struct.
 
 [Discord Nullable and Optional Resource Fields Documentation](https://discord.com/developers/docs/reference#nullable-and-optional-resource-fields) outlines the conditions when a field is optional or null. Optional fields are **NOT** required to be included in marshalled data _(i.e JSON/Query String)_. As a result, **optional fields should include an `omitempty` tag**. As a corollary do **NOT** include an `omitempty` tag when a field is required.
 

@@ -96,6 +96,7 @@ const (
 )
 
 // Component Object
+// https://discord.com/developers/docs/interactions/message-components#component-object
 type Component interface {
 	ComponentType() Flag
 }
@@ -232,6 +233,7 @@ const (
 )
 
 // Interaction Data
+// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data
 type InteractionData interface {
 	InteractionDataType() Flag
 }
