@@ -233,7 +233,7 @@ type CreateFollowupMessage struct {
 	Embeds           []*Embed         `json:"embeds" url:"-"`
 	AllowedMentions  *AllowedMentions `json:"allowed_mentions,omitempty" url:"-"`
 	Components       []Component      `json:"components,omitempty" url:"-"`
-	Files            []*File          `json:"-" url:"-" dasgo:"files" url:"-"`
+	Files            []*File          `json:"-" url:"-" dasgo:"files"`
 	PayloadJSON      string           `json:"-" url:"-" multipart:"payload_json"`
 	Attachments      []*Attachment    `json:"attachments,omitempty" url:"-"`
 	Flags            BitFlag          `json:"flags,omitempty" url:"-"`
