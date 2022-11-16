@@ -8,7 +8,7 @@ type Snowflake uint64
 type Flag uint8
 
 // BitFlag represents an alias for a Discord API Bitwise Flag denoted by 1 << x.
-type BitFlag uint32
+type BitFlag uint64
 
 // CodeFlag represents an alias for a Discord API Code ranging from 0 - 65535.
 type CodeFlag uint16
