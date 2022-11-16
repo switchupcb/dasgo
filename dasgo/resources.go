@@ -217,7 +217,7 @@ type Interaction struct {
 	Token          string          `json:"token"`
 	Version        Flag            `json:"version"`
 	Message        *Message        `json:"message,omitempty"`
-	AppPermissions *BitFlag        `json:"app_permissions,omitempty"`
+	AppPermissions *BitFlag        `json:"app_permissions,omitempty,string"`
 	Locale         *string         `json:"locale,omitempty"`
 	GuildLocale    *string         `json:"guild_locale,omitempty"`
 }
