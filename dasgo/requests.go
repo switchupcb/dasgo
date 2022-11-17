@@ -192,7 +192,7 @@ type CreateInteractionResponse struct {
 type GetOriginalInteractionResponse struct {
 	ApplicationID    Snowflake `url:"-"`
 	InteractionToken string    `url:"-"`
-	ThreadID         Snowflake `url:"thread_id"`
+	ThreadID         Snowflake `url:"thread_id,omitempty"`
 }
 
 // Edit Original Interaction Response
@@ -201,7 +201,7 @@ type GetOriginalInteractionResponse struct {
 type EditOriginalInteractionResponse struct {
 	ApplicationID    Snowflake        `json:"-" url:"-"`
 	InteractionToken string           `json:"-" url:"-"`
-	ThreadID         Snowflake        `json:"-" url:"thread_id"`
+	ThreadID         Snowflake        `json:"-" url:"thread_id,omitempty"`
 	Content          *string          `json:"content" url:"-"`
 	Embeds           []*Embed         `json:"embeds" url:"-"`
 	Components       []Component      `json:"components" url:"-"`
@@ -225,7 +225,7 @@ type DeleteOriginalInteractionResponse struct {
 type CreateFollowupMessage struct {
 	ApplicationID    Snowflake        `json:"-" url:"-"`
 	InteractionToken string           `json:"-" url:"-"`
-	ThreadID         Snowflake        `json:"-" url:"thread_id"`
+	ThreadID         Snowflake        `json:"-" url:"thread_id,omitempty"`
 	Content          string           `json:"content" url:"-"`
 	Username         string           `json:"username,omitempty" url:"-"`
 	AvatarURL        string           `json:"avatar_url,omitempty" url:"-"`
@@ -247,7 +247,7 @@ type GetFollowupMessage struct {
 	ApplicationID    Snowflake `url:"-"`
 	InteractionToken string    `url:"-"`
 	MessageID        Snowflake `url:"-"`
-	ThreadID         Snowflake `url:"thread_id"`
+	ThreadID         Snowflake `url:"thread_id,omitempty"`
 }
 
 // Edit Followup Message
@@ -257,7 +257,7 @@ type EditFollowupMessage struct {
 	ApplicationID    Snowflake        `json:"-" url:"-"`
 	InteractionToken string           `json:"-" url:"-"`
 	MessageID        Snowflake        `json:"-" url:"-"`
-	ThreadID         Snowflake        `json:"-" url:"thread_id"`
+	ThreadID         Snowflake        `json:"-" url:"thread_id,omitempty"`
 	Content          *string          `json:"content" url:"-"`
 	Embeds           []*Embed         `json:"embeds" url:"-"`
 	Components       []Component      `json:"components" url:"-"`
@@ -944,8 +944,8 @@ type GetGuildMember struct {
 // https://discord.com/developers/docs/resources/guild#list-guild-members
 type ListGuildMembers struct {
 	GuildID Snowflake  `url:"-"`
-	Limit   *int       `url:"limit"`
-	After   *Snowflake `url:"after"`
+	Limit   *int       `url:"limit,omitempty"`
+	After   *Snowflake `url:"after,omitempty"`
 }
 
 // Search Guild Members
@@ -954,7 +954,7 @@ type ListGuildMembers struct {
 type SearchGuildMembers struct {
 	GuildID Snowflake `url:"-"`
 	Query   *string   `url:"query"`
-	Limit   *int      `url:"limit"`
+	Limit   *int      `url:"limit,omitempty"`
 }
 
 // Add Guild Member
@@ -1119,8 +1119,8 @@ type DeleteGuildRole struct {
 // https://discord.com/developers/docs/resources/guild#get-guild-prune-count
 type GetGuildPruneCount struct {
 	GuildID      Snowflake   `url:"-"`
-	Days         int         `url:"days"`
-	IncludeRoles []Snowflake `url:"include_roles"`
+	Days         int         `url:"days,omitempty"`
+	IncludeRoles []Snowflake `url:"include_roles,omitempty"`
 }
 
 // Begin Guild Prune
@@ -1332,7 +1332,7 @@ type GetGuildTemplate struct {
 // POST /guilds/templates/{template.code}
 // https://discord.com/developers/docs/resources/guild-template#create-guild-from-guild-template
 type CreateGuildfromGuildTemplate struct {
-	TemplateCode string `url:"-"`
+	TemplateCode string `json:"-"`
 	Name         string `json:"name"`
 	Icon         string `json:"icon,omitempty"`
 }
@@ -1634,7 +1634,7 @@ type ExecuteWebhook struct {
 	WebhookID       Snowflake        `json:"-" url:"-"`
 	WebhookToken    string           `json:"-" url:"-"`
 	Wait            bool             `json:"-" url:"wait"`
-	ThreadID        Snowflake        `json:"-" url:"thread_id"`
+	ThreadID        Snowflake        `json:"-" url:"thread_id,omitempty"`
 	Content         string           `json:"content" url:"-"`
 	Username        string           `json:"username,omitempty" url:"-"`
 	AvatarURL       string           `json:"avatar_url,omitempty" url:"-"`
@@ -1655,8 +1655,8 @@ type ExecuteWebhook struct {
 type ExecuteSlackCompatibleWebhook struct {
 	WebhookID    Snowflake `url:"-"`
 	WebhookToken string    `url:"-"`
-	ThreadID     Snowflake `url:"thread_id"`
-	Wait         bool      `url:"wait"`
+	ThreadID     Snowflake `url:"thread_id,omitempty"`
+	Wait         bool      `url:"wait,omitempty"`
 }
 
 // Execute GitHub-Compatible Webhook
@@ -1665,8 +1665,8 @@ type ExecuteSlackCompatibleWebhook struct {
 type ExecuteGitHubCompatibleWebhook struct {
 	WebhookID    Snowflake `url:"-"`
 	WebhookToken string    `url:"-"`
-	ThreadID     Snowflake `url:"thread_id"`
-	Wait         bool      `url:"wait"`
+	ThreadID     Snowflake `url:"thread_id,omitempty"`
+	Wait         bool      `url:"wait,omitempty"`
 }
 
 // Get Webhook Message
@@ -1676,7 +1676,7 @@ type GetWebhookMessage struct {
 	WebhookID    Snowflake `url:"-"`
 	WebhookToken string    `url:"-"`
 	MessageID    Snowflake `url:"-"`
-	ThreadID     Snowflake `url:"thread_id"`
+	ThreadID     Snowflake `url:"thread_id,omitempty"`
 }
 
 // Edit Webhook Message
@@ -1686,7 +1686,7 @@ type EditWebhookMessage struct {
 	WebhookID       Snowflake        `json:"-" url:"-"`
 	WebhookToken    string           `json:"-" url:"-"`
 	MessageID       Snowflake        `json:"-" url:"-"`
-	ThreadID        Snowflake        `json:"-" url:"thread_id"`
+	ThreadID        Snowflake        `json:"-" url:"thread_id,omitempty"`
 	Content         *string          `json:"content" url:"-"`
 	Embeds          []*Embed         `json:"embeds" url:"-"`
 	Components      []Component      `json:"components" url:"-"`
@@ -1703,7 +1703,7 @@ type DeleteWebhookMessage struct {
 	WebhookID    Snowflake  `url:"-"`
 	WebhookToken string     `url:"-"`
 	MessageID    Snowflake  `url:"-"`
-	ThreadID     *Snowflake `url:"thread_id"`
+	ThreadID     *Snowflake `url:"thread_id,omitempty"`
 }
 
 // Get Current Bot Application Information
