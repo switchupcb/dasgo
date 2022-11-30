@@ -15,10 +15,10 @@ There are two ways to use `dasgo`.
 
 #### Import
 
-Get a specific version of the `dasgo` dependency by specifying a tag or branch.
+Get a specific version of the `dasgo` library by specifying a tag or branch.
 
 ```
-go get github.com/switchupcb/dasgo@v10.0
+go get github.com/switchupcb/dasgo@v10
 ```
 
 _Dasgo branches are referenced by API version (i.e `v10`)._
