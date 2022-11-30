@@ -612,8 +612,8 @@ type Channel struct {
 	Topic                         *string               `json:"topic,omitempty"`
 	NSFW                          *bool                 `json:"nsfw,omitempty"`
 	LastMessageID                 *Snowflake            `json:"last_message_id"`
-	Bitrate                       *Flag                 `json:"bitrate,omitempty"`
-	UserLimit                     *Flag                 `json:"user_limit,omitempty"`
+	Bitrate                       int                   `json:"bitrate,omitempty"`
+	UserLimit                     *int                  `json:"user_limit,omitempty"`
 	RateLimitPerUser              *int                  `json:"rate_limit_per_user,omitempty"`
 	Recipients                    []*User               `json:"recipients,omitempty"`
 	Icon                          *string               `json:"icon"`
