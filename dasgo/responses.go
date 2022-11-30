@@ -2,12 +2,6 @@ package dasgo
 
 import "time"
 
-// Modify Guild MFA Level Response
-// https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level
-type ModifyGuildMFALevelResponse struct {
-	Level Flag `json:"level"`
-}
-
 // List Public Archived Threads Response Body
 // https://discord.com/developers/docs/resources/channel#list-public-archived-threads-response-body
 type ListPublicArchivedThreadsResponse struct {
@@ -37,6 +31,18 @@ type ListJoinedPrivateArchivedThreadsResponse struct {
 type ListActiveGuildThreadsResponse struct {
 	Threads []*Channel      `json:"threads"`
 	Members []*ThreadMember `json:"members"`
+}
+
+// Get Guild Prune Count Response Body
+// https://discord.com/developers/docs/resources/guild#get-guild-prune-count
+type GetGuildPruneCountResponse struct {
+	Pruned int `json:"pruned"`
+}
+
+// Modify Guild MFA Level Response
+// https://discord.com/developers/docs/resources/guild#modify-guild-mfa-level
+type ModifyGuildMFALevelResponse struct {
+	Level Flag `json:"level"`
 }
 
 // Current Authorization Information Response Structure
