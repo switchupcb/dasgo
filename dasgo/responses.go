@@ -45,6 +45,12 @@ type ModifyGuildMFALevelResponse struct {
 	Level Flag `json:"level"`
 }
 
+// List Nitro Sticker Packs Response
+// https://discord.com/developers/docs/resources/sticker#list-nitro-sticker-packs
+type ListNitroStickerPacksResponse struct {
+	StickerPacks []*StickerPack `json:"sticker_packs"`
+}
+
 // Current Authorization Information Response Structure
 // https://discord.com/developers/docs/topics/oauth2#get-current-authorization-information
 type CurrentAuthorizationInformationResponse struct {

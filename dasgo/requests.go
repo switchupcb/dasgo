@@ -1437,9 +1437,7 @@ type GetSticker struct {
 // List Nitro Sticker Packs
 // GET /sticker-packs
 // https://discord.com/developers/docs/resources/sticker#list-nitro-sticker-packs
-type ListNitroStickerPacks struct {
-	StickerPacks []*StickerPack `json:"sticker_packs"`
-}
+type ListNitroStickerPacks struct{}
 
 // List Guild Stickers
 // GET /guilds/{guild.id}/stickers
