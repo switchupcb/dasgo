@@ -1,9 +1,17 @@
 package dasgo
 
+import "time"
+
 // Version
 // https://discord.com/developers/docs/reference#api-versioning
 const (
 	VersionDiscordAPI = "10"
+)
+
+// Timestamp Format
+// https://discord.com/developers/docs/reference#iso8601-datetime
+const (
+	TimestampFormatISO8601 = time.RFC3339
 )
 
 // Image Formats
