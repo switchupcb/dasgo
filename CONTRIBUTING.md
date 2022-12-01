@@ -16,7 +16,13 @@ All types are named as defined by the source of truth; which is currently the co
 
 ## Flags
 
-A flag is a [flag](https://discord.com/developers/docs/resources/application#application-object-application-flags), [type](https://discord.com/developers/docs/resources/channel#embed-object-embed-types), [key](https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-key), [level](https://discord.com/developers/docs/resources/guild#guild-object-verification-level) or any other option that Discord provides. All flags are denoted by `Flag` followed by their option name _(in singular form)_, then the option value. For example, `FlagUserSTAFF`, `FlagVerificationLevelHIGH`, `FlagMessageTypeDEFAULT`, etc.
+A flag is a [flag](https://discord.com/developers/docs/resources/application#application-object-application-flags), [type](https://discord.com/developers/docs/resources/channel#embed-object-embed-types), [key](https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-key), [level](https://discord.com/developers/docs/resources/guild#guild-object-verification-level) or any other option that Discord provides. All flags are denoted by `Flag` followed by their option name _(in singular form)_, then the option value, and typed with the respective Flag (`Flag`, `BitFlag`): Each flag type is defined in [`dasgo.go`](dasgo/dasgo.go). Flags that cannot be represented by these definitions remain untyped.
+
+```go
+FlagVerificationLevelHIGH Flag = 3 
+FlagMessageTypeDEFAULT Flag = 0
+FlagUserSTAFF BitFlag = 1 << 0
+``` 
 
 _Flags that end in `Flags` should not include `Flags` (i.e `FlagMessageLOADING`)._
 
