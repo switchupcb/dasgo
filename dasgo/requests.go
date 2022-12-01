@@ -370,25 +370,25 @@ type ModifyChannelGroupDM struct {
 // PATCH /channels/{channel.id}
 // https://discord.com/developers/docs/resources/channel#modify-channel-json-params-guild-channel
 type ModifyChannelGuild struct {
-	ChannelID                     Snowflake             `json:"-"`
-	Name                          string                `json:"name,omitempty"`
-	Type                          *Flag                 `json:"type,omitempty"`
-	Position                      *int                  `json:"position"`
-	Topic                         *string               `json:"topic"`
-	NSFW                          bool                  `json:"nsfw"`
-	RateLimitPerUser              *int                  `json:"rate_limit_per_user"`
-	Bitrate                       *int                  `json:"bitrate"`
-	UserLimit                     *int                  `json:"user_limit"`
-	PermissionOverwrites          []PermissionOverwrite `json:"permission_overwrites"`
-	ParentID                      *Snowflake            `json:"parent_id"`
-	RTCRegion                     *string               `json:"rtc_region"`
-	VideoQualityMode              *Flag                 `json:"video_quality_mode"`
-	DefaultAutoArchiveDuration    *int                  `json:"default_auto_archive_duration"`
-	Flags                         BitFlag               `json:"flags,omitempty"`
-	AvailableTags                 []*ForumTag           `json:"available_tags,omitempty"`
-	DefaultReactionEmoji          *DefaultReaction      `json:"default_reaction_emoji"`
-	DefaultThreadRateLimitPerUser int                   `json:"default_thread_rate_limit_per_user,omitempty"`
-	DefaultSortOrder              *int                  `json:"default_sort_order"`
+	ChannelID                     Snowflake              `json:"-"`
+	Name                          string                 `json:"name,omitempty"`
+	Type                          *Flag                  `json:"type,omitempty"`
+	Position                      *int                   `json:"position"`
+	Topic                         *string                `json:"topic"`
+	NSFW                          bool                   `json:"nsfw"`
+	RateLimitPerUser              *int                   `json:"rate_limit_per_user"`
+	Bitrate                       *int                   `json:"bitrate"`
+	UserLimit                     *int                   `json:"user_limit"`
+	PermissionOverwrites          []*PermissionOverwrite `json:"permission_overwrites"`
+	ParentID                      *Snowflake             `json:"parent_id"`
+	RTCRegion                     *string                `json:"rtc_region"`
+	VideoQualityMode              *Flag                  `json:"video_quality_mode"`
+	DefaultAutoArchiveDuration    *int                   `json:"default_auto_archive_duration"`
+	Flags                         BitFlag                `json:"flags,omitempty"`
+	AvailableTags                 []*ForumTag            `json:"available_tags,omitempty"`
+	DefaultReactionEmoji          *DefaultReaction       `json:"default_reaction_emoji"`
+	DefaultThreadRateLimitPerUser int                    `json:"default_thread_rate_limit_per_user,omitempty"`
+	DefaultSortOrder              *int                   `json:"default_sort_order"`
 }
 
 // Modify Channel
