@@ -723,15 +723,6 @@ type ListThreadMembers struct {
 	ChannelID Snowflake
 }
 
-// List Active Channel Threads
-// GET /channels/{channel.id}/threads/active
-// https://discord.com/developers/docs/resources/channel#list-active-threads
-type ListActiveChannelThreads struct {
-	ChannelID Snowflake  `json:"-"`
-	Before    *Timestamp `url:"before,omitempty"`
-	Limit     *int       `url:"limit,omitempty"`
-}
-
 // List Public Archived Threads
 // GET /channels/{channel.id}/threads/archived/public
 // https://discord.com/developers/docs/resources/channel#list-public-archived-threads
