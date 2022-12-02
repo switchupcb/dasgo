@@ -66,7 +66,10 @@ _[Discord Nullable and Optional Resource Fields Documentation](https://discord.c
 - Normal fields are tagged with no options.
 - Nullable fields must be defined with a pointer (`*`).
 - Optional fields are defined with a pointer and tagged with `omitempty`.
+  - _Exception:  `oauth2`, `ratelimit`_
 - Nullable and Optional fields must be defined with a double pointer (`**`).
+
+_Slices, channels, maps, and interfaces are pointers. Structs are always defined with pointers._
 
 #### Example
 
@@ -99,8 +102,6 @@ type Embed struct {
 	Author *EmbedAuthor `json:"author,omitempty"`
 }
 ```
-
-_An exception is provided to slices, channels, maps, and interfaces which — 99% of the time — should **NEVER** be pointers, but may contain pointers to types._
 
 ## Requests
 

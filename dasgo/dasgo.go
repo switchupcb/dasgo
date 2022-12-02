@@ -17,6 +17,9 @@ type File struct {
 	Data        []byte
 }
 
+// Timestamp represents an ISO8601 timestamp.
+type Timestamp string
+
 // Nonce represents a Discord nonce (integer or string).
 type Nonce interface{}
 
