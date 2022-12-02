@@ -14,9 +14,9 @@ type GatewayPayload struct {
 // Gateway URL Query String Params
 // https://discord.com/developers/docs/topics/gateway#connecting-gateway-url-query-string-params
 type GatewayURLQueryString struct {
-	V        int    `url:"v"`
-	Encoding string `url:"encoding"`
-	Compress string `url:"compress,omitempty"`
+	V        int     `url:"v"`
+	Encoding string  `url:"encoding"`
+	Compress *string `url:"compress,omitempty"`
 }
 
 // Session Start Limit Structure
@@ -131,19 +131,19 @@ const (
 	FlagIntentAUTO_MODERATION_EXECUTION BitFlag = 1 << 21
 )
 
-// Gateway Commands
-// https://discord.com/developers/docs/topics/gateway#commands-and-events
-type Command interface{}
+// Gateway SendEvent
+// https://discord.com/developers/docs/topics/gateway-events#send-events
+type SendEvent interface{}
 
-// Gateway Command Names
-// https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-commands
+// Gateway SendEvent Names
+// https://discord.com/developers/docs/topics/gateway-events#send-events
 const (
-	FlagGatewayCommandNameHeartbeat           = "Heartbeat"
-	FlagGatewayCommandNameIdentify            = "Identify"
-	FlagGatewayCommandNamePresenceUpdate      = "PresenceUpdate"
-	FlagGatewayCommandNameVoiceStateUpdate    = "VoiceStateUpdate"
-	FlagGatewayCommandNameResume              = "Resume"
-	FlagGatewayCommandNameRequestGuildMembers = "RequestGuildMembers"
+	FlagGatewaySendEventNameHeartbeat           = "Heartbeat"
+	FlagGatewaySendEventNameIdentify            = "Identify"
+	FlagGatewaySendEventNameUpdatePresence      = "UpdatePresence"
+	FlagGatewaySendEventNameUpdateVoiceState    = "UpdateVoiceState "
+	FlagGatewaySendEventNameResume              = "Resume"
+	FlagGatewaySendEventNameRequestGuildMembers = "RequestGuildMembers"
 )
 
 // Identify Structure
@@ -151,10 +151,10 @@ const (
 type Identify struct {
 	Token          string                       `json:"token"`
 	Properties     IdentifyConnectionProperties `json:"properties"`
-	Compress       bool                         `json:"compress"`
-	LargeThreshold int                          `json:"large_threshold,omitempty"`
+	Compress       *bool                        `json:"compress,omitempty"`
+	LargeThreshold *int                         `json:"large_threshold,omitempty"`
 	Shard          *[2]int                      `json:"shard,omitempty"`
-	Presence       GatewayPresenceUpdate        `json:"presence,omitempty"`
+	Presence       *GatewayPresenceUpdate       `json:"presence,omitempty"`
 	Intents        BitFlag                      `json:"intents"`
 }
 
@@ -194,16 +194,16 @@ type RequestGuildMembers struct {
 // Gateway Voice State Update Structure
 // https://discord.com/developers/docs/topics/gateway-events#update-voice-state-gateway-voice-state-update-structure
 type GatewayVoiceStateUpdate struct {
-	GuildID   Snowflake `json:"guild_id"`
-	ChannelID Snowflake `json:"channel_id"`
-	SelfMute  bool      `json:"self_mute"`
-	SelfDeaf  bool      `json:"self_deaf"`
+	GuildID   Snowflake  `json:"guild_id"`
+	ChannelID *Snowflake `json:"channel_id"`
+	SelfMute  bool       `json:"self_mute"`
+	SelfDeaf  bool       `json:"self_deaf"`
 }
 
 // Gateway Presence Update Structure
 // https://discord.com/developers/docs/topics/gateway-events#update-presence-gateway-presence-update-structure
 type GatewayPresenceUpdate struct {
-	Since  int         `json:"since"`
+	Since  *int        `json:"since"`
 	Game   []*Activity `json:"game"`
 	Status string      `json:"status"`
 	AFK    bool        `json:"afk"`

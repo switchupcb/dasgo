@@ -16,7 +16,13 @@ All types are named as defined by the source of truth; which is currently the co
 
 ## Flags
 
-A flag is a [flag](https://discord.com/developers/docs/resources/application#application-object-application-flags), [type](https://discord.com/developers/docs/resources/channel#embed-object-embed-types), [key](https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-key), [level](https://discord.com/developers/docs/resources/guild#guild-object-verification-level) or any other option that Discord provides. All flags are denoted by `Flag` followed by their option name _(in singular form)_, then the option value. For example, `FlagUserSTAFF`, `FlagVerificationLevelHIGH`, `FlagMessageTypeDEFAULT`, etc.
+A flag is a [flag](https://discord.com/developers/docs/resources/application#application-object-application-flags), [type](https://discord.com/developers/docs/resources/channel#embed-object-embed-types), [key](https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-key), [level](https://discord.com/developers/docs/resources/guild#guild-object-verification-level) or any other option that Discord provides. All flags are denoted by `Flag` followed by their option name _(in singular form)_, then the option value, and typed with the respective Flag (`Flag`, `BitFlag`): Each flag type is defined in [`dasgo.go`](dasgo/dasgo.go). Flags that cannot be represented by these definitions remain untyped.
+
+```go
+FlagVerificationLevelHIGH Flag = 3 
+FlagMessageTypeDEFAULT Flag = 0
+FlagUserSTAFF BitFlag = 1 << 0
+``` 
 
 _Flags that end in `Flags` should not include `Flags` (i.e `FlagMessageLOADING`)._
 
@@ -48,15 +54,22 @@ Option fields are defined as a `Flag`, `BitFlag`, or [`CodeFlag`](https://discor
 
 ### Tags and Pointers
 
-Tags are applied to struct fields in order to marshal and unmarshal data. A `json` tag is applied to a field that pertains to a JSON key. A `url` tag is applied to a field that pertains to a URL Query String Parameter. Tag options _(`-`, `omitempty`)_ and pointers are used to maintain correctness. A field with `omitempty` will **NOT** be marshalled when it contains a zero value _(`nil` for pointers)_. A field with `-` will **NOT** be marshalled or unmarshalled: `-` is **ONLY** required when a respective tag _(i.e `json`, `url`)_ is included in a struct.
+**Field Tags** are applied to struct fields in order to marshal and unmarshal data. A `json` tag is applied to a field that pertains to a JSON key. A `url` tag is applied to a field that pertains to a URL Query String Parameter. Tag options _(`-`, `omitempty`)_ and pointers are used to maintain correctness. A field with `omitempty` will **NOT** be marshalled when it contains a zero value _(`nil` for pointers)_. A field with `-` will **NOT** be marshalled or unmarshalled: `-` is **ONLY** required when a respective tag _(i.e `json`, `url`)_ is included in a struct.
 
-[Discord Nullable and Optional Resource Fields Documentation](https://discord.com/developers/docs/reference#nullable-and-optional-resource-fields) outlines the conditions when a field is optional or null. Optional fields are **NOT** required to be included in marshalled data _(i.e JSON/Query String)_. As a result, **optional fields should include an `omitempty` tag**. As a corollary do **NOT** include an `omitempty` tag when a field is required.
+_[Discord Nullable and Optional Resource Fields Documentation](https://discord.com/developers/docs/reference#nullable-and-optional-resource-fields) outlines the conditions when a field is optional and/or null._
 
-When a valid value of an optional field is equivalent to the zero value of a field, it will **NOT** be marshalled. For example, a field `int` with a value of `0` and an `omitempty` tag will **NOT** be marshalled. This is problematic because the developer will **NOT** be able to set the field to the zero value. As a result, **optional fields that CAN be equal to the Go Type's zero value should be pointers**.
+**Optional fields** are **NOT** required to be included in marshalled data _(i.e JSON/Query String)_. Therefore, **optional fields must include an `omitempty` tag**. As a corollary, do **NOT** include an `omitempty` tag when a field is required. When a valid value of an optional field is equivalent to the zero value of a field, it will **NOT** be marshalled. For example, a field `int` with a value of `0` and an `omitempty` tag will **NOT** be marshalled. This is problematic because the developer will **NOT** be able to set the field to the zero value. As a result, **optional fields must be pointers**.
 
-Nullable fields are `nil` when marshalled. Therefore, **nullable fields should be pointers**. In contrast, an optional (`omitempty`) and nullable field (`*`) will cause conflict: For example, a field `*int` equivalent to `nil` with an `omitempty` tag will be **NOT** be included in marshalled data. This is problematic because the developer will **NOT** be able to set a field to null. As a result, **nullable and optional fields should be pointers _(without `omitempty`)_**.
+**Nullable fields** are `nil` when marshalled. Therefore, **nullable fields must be pointers**. In contrast, an optional (`omitempty`) and nullable field (`*`) will cause conflict: For example, a field `*int` equivalent to `nil` with an `omitempty` tag will be **NOT** be included in marshalled data. This is problematic because the developer will **NOT** be able to set a field to null. As a result, **nullable and optional fields must be double pointers**.
 
-As we can see, any of the above cases that require a solution to a problem places responsibility in the hands of the developer. Optional fields that **CAN** be equal to the Go Type's zero value might **NOT** be nullable, so the developer is expected to ensure that this doesn't occur. Nullable and optional fields will **ALWAYS** be included in marshalled data _(since `omitempty` is **NOT** applied)_, so the developer **must** handle these fields.
+**Summary**
+- Normal fields are tagged with no options.
+- Nullable fields must be defined with a pointer (`*`).
+- Optional fields are defined with a pointer and tagged with `omitempty`.
+  - _Exception:  `oauth2`, `ratelimit`_
+- Nullable and Optional fields must be defined with a double pointer (`**`).
+
+_Slices, channels, maps, and interfaces are pointers. Structs are always defined with pointers._
 
 #### Example
 
@@ -70,7 +83,7 @@ type ApplicationCommand struct {
 }
 ```
 
-If `FlagApplicationCommandType` contains a flag that **CAN** be 0, we need to apply a pointer.
+If `FlagApplicationCommandType` contains a flag that **CAN** be 0, you need to apply a pointer.
 
 ```go
 type ApplicationCommand struct {
@@ -89,8 +102,6 @@ type Embed struct {
 	Author *EmbedAuthor `json:"author,omitempty"`
 }
 ```
-
-_An exception is provided to slices, channels, maps, and interfaces which — 99% of the time — should **NEVER** be pointers, but may contain pointers to types._
 
 ## Requests
 

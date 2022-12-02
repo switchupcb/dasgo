@@ -1,7 +1,5 @@
 package dasgo
 
-import "time"
-
 // Gateway Events
 // https://discord.com/developers/docs/topics/gateway#gateway-events
 type Event interface{}
@@ -138,9 +136,9 @@ type AutoModerationActionExecution struct {
 	RuleID               Snowflake            `json:"rule_id"`
 	RuleTriggerType      Flag                 `json:"rule_trigger_type"`
 	UserID               Snowflake            `json:"user_id"`
-	ChannelID            Snowflake            `json:"channel_id"`
-	MessageID            Snowflake            `json:"message_id"`
-	AlertSystemMessageID Snowflake            `json:"alert_system_message_id"`
+	ChannelID            *Snowflake           `json:"channel_id,omitempty"`
+	MessageID            *Snowflake           `json:"message_id,omitempty"`
+	AlertSystemMessageID *Snowflake           `json:"alert_system_message_id,omitempty"`
 	Content              string               `json:"content"`
 	MatchedKeyword       *string              `json:"matched_keyword"`
 	MatchedContent       *string              `json:"matched_content"`
@@ -168,7 +166,7 @@ type ChannelDelete struct {
 // https://discord.com/developers/docs/topics/gateway-events#thread-create
 type ThreadCreate struct {
 	*Channel
-	NewlyCreated bool `json:"newly_created,omitempty"`
+	NewlyCreated *bool `json:"newly_created,omitempty"`
 }
 
 // Thread Update
@@ -212,9 +210,9 @@ type ThreadMembersUpdate struct {
 // Channel Pins Update
 // https://discord.com/developers/docs/topics/gateway-events#channel-pins-update
 type ChannelPinsUpdate struct {
-	GuildID          Snowflake `json:"guild_id,omitempty"`
-	ChannelID        Snowflake `json:"channel_id"`
-	LastPinTimestamp time.Time `json:"last_pin_timestamp,omitempty"`
+	GuildID          Snowflake   `json:"guild_id,omitempty"`
+	ChannelID        Snowflake   `json:"channel_id"`
+	LastPinTimestamp **Timestamp `json:"last_pin_timestamp,omitempty"`
 }
 
 // Guild Create
@@ -376,9 +374,9 @@ type IntegrationUpdate struct {
 // Integration Delete
 // https://discord.com/developers/docs/topics/gateway-events#integration-delete
 type IntegrationDelete struct {
-	IntegrationID Snowflake `json:"id"`
-	GuildID       Snowflake `json:"guild_id"`
-	ApplicationID Snowflake `json:"application_id,omitempty"`
+	IntegrationID Snowflake  `json:"id"`
+	GuildID       Snowflake  `json:"guild_id"`
+	ApplicationID *Snowflake `json:"application_id,omitempty"`
 }
 
 // Interaction Create
@@ -392,8 +390,8 @@ type InteractionCreate struct {
 type InviteCreate struct {
 	ChannelID         Snowflake    `json:"channel_id"`
 	Code              string       `json:"code"`
-	CreatedAt         time.Time    `json:"created_at"`
-	GuildID           Snowflake    `json:"guild_id,omitempty"`
+	CreatedAt         Timestamp    `json:"created_at"`
+	GuildID           *Snowflake   `json:"guild_id,omitempty"`
 	Inviter           *User        `json:"inviter,omitempty"`
 	MaxAge            int          `json:"max_age"`
 	MaxUses           int          `json:"max_uses"`
@@ -407,9 +405,9 @@ type InviteCreate struct {
 // Invite Delete
 // https://discord.com/developers/docs/topics/gateway-events#invite-delete
 type InviteDelete struct {
-	ChannelID Snowflake `json:"channel_id"`
-	GuildID   Snowflake `json:"guild_id,omitempty"`
-	Code      Snowflake `json:"code"`
+	ChannelID Snowflake  `json:"channel_id"`
+	GuildID   *Snowflake `json:"guild_id,omitempty"`
+	Code      Snowflake  `json:"code"`
 }
 
 // Message Create
@@ -427,9 +425,9 @@ type MessageUpdate struct {
 // Message Delete
 // https://discord.com/developers/docs/topics/gateway-events#message-delete
 type MessageDelete struct {
-	MessageID Snowflake `json:"id"`
-	ChannelID Snowflake `json:"channel_id"`
-	GuildID   Snowflake `json:"guild_id,omitempty"`
+	MessageID Snowflake  `json:"id"`
+	ChannelID Snowflake  `json:"channel_id"`
+	GuildID   *Snowflake `json:"guild_id,omitempty"`
 }
 
 // Message Delete Bulk
@@ -437,7 +435,7 @@ type MessageDelete struct {
 type MessageDeleteBulk struct {
 	MessageIDs []Snowflake `json:"ids"`
 	ChannelID  Snowflake   `json:"channel_id"`
-	GuildID    Snowflake   `json:"guild_id,omitempty"`
+	GuildID    *Snowflake  `json:"guild_id,omitempty"`
 }
 
 // Message Reaction Add
@@ -446,7 +444,7 @@ type MessageReactionAdd struct {
 	UserID    Snowflake    `json:"user_id"`
 	ChannelID Snowflake    `json:"channel_id"`
 	MessageID Snowflake    `json:"message_id"`
-	GuildID   Snowflake    `json:"guild_id,omitempty"`
+	GuildID   *Snowflake   `json:"guild_id,omitempty"`
 	Member    *GuildMember `json:"member,omitempty"`
 	Emoji     *Emoji       `json:"emoji"`
 }
@@ -454,28 +452,28 @@ type MessageReactionAdd struct {
 // Message Reaction Remove
 // https://discord.com/developers/docs/topics/gateway-events#message-reaction-remove
 type MessageReactionRemove struct {
-	UserID    Snowflake `json:"user_id"`
-	ChannelID Snowflake `json:"channel_id"`
-	MessageID Snowflake `json:"message_id"`
-	GuildID   Snowflake `json:"guild_id,omitempty"`
-	Emoji     *Emoji    `json:"emoji"`
+	UserID    Snowflake  `json:"user_id"`
+	ChannelID Snowflake  `json:"channel_id"`
+	MessageID Snowflake  `json:"message_id"`
+	GuildID   *Snowflake `json:"guild_id,omitempty"`
+	Emoji     *Emoji     `json:"emoji"`
 }
 
 // Message Reaction Remove All
 // https://discord.com/developers/docs/topics/gateway-events#message-reaction-remove-all
 type MessageReactionRemoveAll struct {
-	ChannelID Snowflake `json:"channel_id"`
-	MessageID Snowflake `json:"message_id"`
-	GuildID   Snowflake `json:"guild_id,omitempty"`
+	ChannelID Snowflake  `json:"channel_id"`
+	MessageID Snowflake  `json:"message_id"`
+	GuildID   *Snowflake `json:"guild_id,omitempty"`
 }
 
 // Message Reaction Remove Emoji
 // https://discord.com/developers/docs/topics/gateway-events#message-reaction-remove-emoji
 type MessageReactionRemoveEmoji struct {
-	ChannelID Snowflake `json:"channel_id"`
-	GuildID   Snowflake `json:"guild_id,omitempty"`
-	MessageID Snowflake `json:"message_id"`
-	Emoji     *Emoji    `json:"emoji"`
+	ChannelID Snowflake  `json:"channel_id"`
+	MessageID Snowflake  `json:"message_id"`
+	GuildID   *Snowflake `json:"guild_id,omitempty"`
+	Emoji     *Emoji     `json:"emoji"`
 }
 
 // Presence Update Event Fields
@@ -510,10 +508,10 @@ type StageInstanceDelete struct {
 // https://discord.com/developers/docs/topics/gateway-events#typing-start
 type TypingStart struct {
 	ChannelID Snowflake    `json:"channel_id"`
-	GuildID   Snowflake    `json:"guild_id,omitempty"`
+	GuildID   *Snowflake   `json:"guild_id,omitempty"`
 	UserID    Snowflake    `json:"user_id"`
-	Member    *GuildMember `json:"member,omitempty"`
 	Timestamp int          `json:"timestamp"`
+	Member    *GuildMember `json:"member,omitempty"`
 }
 
 // User Update
@@ -533,7 +531,7 @@ type VoiceStateUpdate struct {
 type VoiceServerUpdate struct {
 	Token    string    `json:"token"`
 	GuildID  Snowflake `json:"guild_id"`
-	Endpoint string    `json:"endpoint"`
+	Endpoint *string   `json:"endpoint"`
 }
 
 // Webhooks Update
