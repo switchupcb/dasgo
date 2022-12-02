@@ -59,7 +59,7 @@ type DeleteGlobalApplicationCommand struct {
 // https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
 type BulkOverwriteGlobalApplicationCommands struct {
 	ApplicationID       Snowflake             `json:"-"`
-	ApplicationCommands []*ApplicationCommand `json:"commands,omitempty"`
+	ApplicationCommands []*ApplicationCommand `json:"commands"`
 }
 
 // Get Guild Application Commands
@@ -125,7 +125,7 @@ type DeleteGuildApplicationCommand struct {
 type BulkOverwriteGuildApplicationCommands struct {
 	ApplicationID       Snowflake             `json:"-"`
 	GuildID             Snowflake             `json:"-"`
-	ApplicationCommands []*ApplicationCommand `json:"commands,omitempty"`
+	ApplicationCommands []*ApplicationCommand `json:"commands"`
 }
 
 // Get Guild Application Command Permissions
@@ -893,7 +893,13 @@ type CreateGuildChannel struct {
 // PATCH /guilds/{guild.id}/channels
 // https://discord.com/developers/docs/resources/guild#modify-guild-channel-positions
 type ModifyGuildChannelPositions struct {
-	GuildID         Snowflake  `json:"-"`
+	GuildID    Snowflake                               `json:"-"`
+	Parameters []*ModifyGuildChannelPositionParameters `json:"parameters"`
+}
+
+// Modify Guild Channel Position Parameters
+// https://discord.com/developers/docs/resources/guild#modify-guild-channel-positions-json-params
+type ModifyGuildChannelPositionParameters struct {
 	ID              Snowflake  `json:"id"`
 	Position        *int       `json:"position"`
 	LockPermissions *bool      `json:"lock_permissions"`
@@ -1054,7 +1060,13 @@ type CreateGuildRole struct {
 // PATCH /guilds/{guild.id}/roles
 // https://discord.com/developers/docs/resources/guild#modify-guild-role-positions
 type ModifyGuildRolePositions struct {
-	GuildID  Snowflake `json:"-"`
+	GuildID    Snowflake                            `json:"-"`
+	Parameters []*ModifyGuildRolePositionParameters `json:"parameters"`
+}
+
+// Modify Guild Role Position Parameters
+// https://discord.com/developers/docs/resources/guild#create-guild-role-json-params
+type ModifyGuildRolePositionParameters struct {
 	ID       Snowflake `json:"id"`
 	Position **int     `json:"position,omitempty"`
 }
