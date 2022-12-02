@@ -1,7 +1,5 @@
 package dasgo
 
-import "time"
-
 // Gateway Events
 // https://discord.com/developers/docs/topics/gateway#gateway-events
 type Event interface{}
@@ -214,7 +212,7 @@ type ThreadMembersUpdate struct {
 type ChannelPinsUpdate struct {
 	GuildID          Snowflake   `json:"guild_id,omitempty"`
 	ChannelID        Snowflake   `json:"channel_id"`
-	LastPinTimestamp **time.Time `json:"last_pin_timestamp,omitempty"`
+	LastPinTimestamp **Timestamp `json:"last_pin_timestamp,omitempty"`
 }
 
 // Guild Create
@@ -392,7 +390,7 @@ type InteractionCreate struct {
 type InviteCreate struct {
 	ChannelID         Snowflake    `json:"channel_id"`
 	Code              string       `json:"code"`
-	CreatedAt         time.Time    `json:"created_at"`
+	CreatedAt         Timestamp    `json:"created_at"`
 	GuildID           *Snowflake   `json:"guild_id,omitempty"`
 	Inviter           *User        `json:"inviter,omitempty"`
 	MaxAge            int          `json:"max_age"`

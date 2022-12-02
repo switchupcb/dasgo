@@ -138,12 +138,12 @@ type SendEvent interface{}
 // Gateway SendEvent Names
 // https://discord.com/developers/docs/topics/gateway-events#send-events
 const (
-	FlagGatewaySendEventIdentify            = "Identify"
-	FlagGatewaySendEventResume              = "Resume"
-	FlagGatewaySendEventHeartbeat           = "Heartbeat"
-	FlagGatewaySendEventRequestGuildMembers = "RequestGuildMembers"
-	FlagGatewaySendEventVoiceStateUpdate    = "VoiceStateUpdate"
-	FlagGatewaySendEventPresenceUpdate      = "PresenceUpdate"
+	FlagGatewaySendEventNameHeartbeat           = "Heartbeat"
+	FlagGatewaySendEventNameIdentify            = "Identify"
+	FlagGatewaySendEventNameUpdatePresence      = "UpdatePresence"
+	FlagGatewaySendEventNameUpdateVoiceState    = "UpdateVoiceState "
+	FlagGatewaySendEventNameResume              = "Resume"
+	FlagGatewaySendEventNameRequestGuildMembers = "RequestGuildMembers"
 )
 
 // Identify Structure
@@ -180,9 +180,9 @@ type Heartbeat struct {
 	Data int64 `json:"d"`
 }
 
-// Guild Request Members Structure
+// Request Guild Members Structure
 // https://discord.com/developers/docs/topics/gateway-events#request-guild-members-guild-request-members-structure
-type GuildRequestMembers struct {
+type RequestGuildMembers struct {
 	GuildID   Snowflake   `json:"guild_id"`
 	Query     *string     `json:"query,omitempty"`
 	Limit     int         `json:"limit"`

@@ -56,7 +56,7 @@ type ListNitroStickerPacksResponse struct {
 type CurrentAuthorizationInformationResponse struct {
 	Application *Application `json:"application"`
 	Scopes      []int        `json:"scopes"`
-	Expires     *time.Time   `json:"expires"`
+	Expires     *Timestamp   `json:"expires"`
 	User        *User        `json:"user,omitempty"`
 }
 
