@@ -58,14 +58,14 @@ Option fields are defined as a `Flag`, `BitFlag`, or [`CodeFlag`](https://discor
 
 _[Discord Nullable and Optional Resource Fields Documentation](https://discord.com/developers/docs/reference#nullable-and-optional-resource-fields) outlines the conditions when a field is optional and/or null._
 
-**Optional fields** are **NOT** required to be included in marshalled data _(i.e JSON/Query String)_. Therefore, **optional fields must include an `omitempty` tag**. As a corollary, do **NOT** include an `omitempty` tag when a field is required. When a valid value of an optional field is equivalent to the zero value of a field, it will **NOT** be marshalled. For example, a field `int` with a value of `0` and an `omitempty` tag will **NOT** be marshalled. This is problematic because the developer will **NOT** be able to set the field to the zero value. As a result, **optional fields that CAN be equal to the Go Type's zero value must be pointers**.
+**Optional fields** are **NOT** required to be included in marshalled data _(i.e JSON/Query String)_. Therefore, **optional fields must include an `omitempty` tag**. As a corollary, do **NOT** include an `omitempty` tag when a field is required. When a valid value of an optional field is equivalent to the zero value of a field, it will **NOT** be marshalled. For example, a field `int` with a value of `0` and an `omitempty` tag will **NOT** be marshalled. This is problematic because the developer will **NOT** be able to set the field to the zero value. As a result, **optional fields must be pointers**.
 
 **Nullable fields** are `nil` when marshalled. Therefore, **nullable fields must be pointers**. In contrast, an optional (`omitempty`) and nullable field (`*`) will cause conflict: For example, a field `*int` equivalent to `nil` with an `omitempty` tag will be **NOT** be included in marshalled data. This is problematic because the developer will **NOT** be able to set a field to null. As a result, **nullable and optional fields must be double pointers**.
 
 **Summary**
-- Optional fields are tagged with `omitempty`.
-- Optional fields that can be equal to the Go Type's zero value must be pointers (`*`).
+- Normal fields are tagged with no options.
 - Nullable fields must be defined with a pointer (`*`).
+- Optional fields are defined with a pointer and tagged with `omitempty`.
 - Nullable and Optional fields must be defined with a double pointer (`**`).
 
 #### Example
