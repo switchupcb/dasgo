@@ -18,7 +18,7 @@ There are two ways to use `dasgo`.
 Get a specific version of the `dasgo` library by specifying a tag or branch.
 
 ```
-go get github.com/switchupcb/dasgo@v10
+go get github.com/switchupcb/dasgo@latest
 ```
 
 _Dasgo branches are referenced by API version (i.e `v10`)._
