@@ -376,26 +376,27 @@ type Modal struct {
 // Application Object
 // https://discord.com/developers/docs/resources/application
 type Application struct {
-	ID                  Snowflake      `json:"id"`
-	Name                string         `json:"name"`
-	Icon                *string        `json:"icon"`
-	Description         string         `json:"description"`
-	RPCOrigins          []string       `json:"rpc_origins,omitempty"`
-	BotPublic           bool           `json:"bot_public"`
-	BotRequireCodeGrant bool           `json:"bot_require_code_grant"`
-	TermsOfServiceURL   *string        `json:"terms_of_service_url,omitempty"`
-	PrivacyProxyURL     *string        `json:"privacy_policy_url,omitempty"`
-	Owner               *User          `json:"owner,omitempty"`
-	VerifyKey           string         `json:"verify_key"`
-	Team                *Team          `json:"team"`
-	GuildID             *Snowflake     `json:"guild_id,omitempty"`
-	PrimarySKUID        *Snowflake     `json:"primary_sku_id,omitempty"`
-	Slug                *string        `json:"slug,omitempty"`
-	CoverImage          *string        `json:"cover_image,omitempty"`
-	Flags               *BitFlag       `json:"flags,omitempty"`
-	Tags                []string       `json:"tags,omitempty"`
-	InstallParams       *InstallParams `json:"install_params,omitempty"`
-	CustomInstallURL    *string        `json:"custom_install_url,omitempty"`
+	ID                             Snowflake      `json:"id"`
+	Name                           string         `json:"name"`
+	Icon                           *string        `json:"icon"`
+	Description                    string         `json:"description"`
+	RPCOrigins                     []string       `json:"rpc_origins,omitempty"`
+	BotPublic                      bool           `json:"bot_public"`
+	BotRequireCodeGrant            bool           `json:"bot_require_code_grant"`
+	TermsOfServiceURL              *string        `json:"terms_of_service_url,omitempty"`
+	PrivacyProxyURL                *string        `json:"privacy_policy_url,omitempty"`
+	Owner                          *User          `json:"owner,omitempty"`
+	VerifyKey                      string         `json:"verify_key"`
+	Team                           *Team          `json:"team"`
+	GuildID                        *Snowflake     `json:"guild_id,omitempty"`
+	PrimarySKUID                   *Snowflake     `json:"primary_sku_id,omitempty"`
+	Slug                           *string        `json:"slug,omitempty"`
+	CoverImage                     *string        `json:"cover_image,omitempty"`
+	Flags                          *BitFlag       `json:"flags,omitempty"`
+	Tags                           []string       `json:"tags,omitempty"`
+	InstallParams                  *InstallParams `json:"install_params,omitempty"`
+	CustomInstallURL               *string        `json:"custom_install_url,omitempty"`
+	RoleConnectionsVerificationURL *string        `json:"role_connections_verification_url,omitempty"`
 }
 
 // Application Flags
@@ -418,6 +419,30 @@ type InstallParams struct {
 	Scopes      []string `json:"scopes"`
 	Permissions string   `json:"permissions"`
 }
+
+// Application Role Connection Metadata Object
+// https://discord.com/developers/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object-application-role-connection-metadata-structure
+type ApplicationRoleConnectionMetadata struct {
+	Type                     Flag               `json:"type"`
+	Key                      string             `json:"key"`
+	Name                     string             `json:"name"`
+	NameLocalizations        *map[string]string `json:"name_localizations,omitempty"`
+	Description              string             `json:"description"`
+	DescriptionLocalizations *map[string]string `json:"description_localizations,omitempty"`
+}
+
+// Application Role Connection Metadata Types
+// https://discord.com/developers/docs/resources/application-role-connection-metadata#application-role-connection-metadata-object-application-role-connection-metadata-type
+const (
+	FlagApplicationRoleConnectionMetadataTypeINTEGER_LESS_THAN_OR_EQUAL     Flag = 1
+	FlagApplicationRoleConnectionMetadataTypeINTEGER_GREATER_THAN_OR_EQUAL  Flag = 2
+	FlagApplicationRoleConnectionMetadataTypeINTEGER_EQUAL                  Flag = 3
+	FlagApplicationRoleConnectionMetadataTypeINTEGER_NOT_EQUAL              Flag = 4
+	FlagApplicationRoleConnectionMetadataTypeDATETIME_LESS_THAN_OR_EQUAL    Flag = 5
+	FlagApplicationRoleConnectionMetadataTypeDATETIME_GREATER_THAN_OR_EQUAL Flag = 6
+	FlagApplicationRoleConnectionMetadataTypeBOOLEAN_EQUAL                  Flag = 7
+	FlagApplicationRoleConnectionMetadataTypeBOOLEAN_NOT_EQUAL              Flag = 8
+)
 
 // Audit Log Object
 // https://discord.com/developers/docs/resources/audit-log
@@ -1504,6 +1529,14 @@ const (
 	FlagVisibilityTypeEVERYONE Flag = 1
 )
 
+// Application Role Connection Structure
+// https://discord.com/developers/docs/resources/user#application-role-connection-object
+type ApplicationRoleConnection struct {
+	PlatformName     *string           `json:"platform_name"`
+	PlatformUsername *string           `json:"platform_user"`
+	Metadata         map[string]string `json:"metadata"`
+}
+
 // Voice State Object
 // https://discord.com/developers/docs/resources/voice#voice-state-object-voice-state-structure
 type VoiceState struct {
@@ -1782,6 +1815,7 @@ const (
 	FlagOAuth2ScopeIdentify                              = "identify"
 	FlagOAuth2ScopeMessagesRead                          = "messages.read"
 	FlagOAuth2ScopeRelationshipsRead                     = "relationships.read"
+	FlagOAuth2ScopeRoleConnectionsWrite                  = "role_connections.write"
 	FlagOAuth2ScopeRPC                                   = "rpc"
 	FlagOAuth2ScopeRPCActivitiesWrite                    = "rpc.activities.write"
 	FlagOAuth2ScopeRPCNotificationsRead                  = "rpc.notifications.read"
