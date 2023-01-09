@@ -21,6 +21,7 @@ type CreateGlobalApplicationCommand struct {
 	DefaultMemberPermissions **string                    `json:"default_member_permissions,omitempty"`
 	DMPermission             **bool                      `json:"dm_permission,omitempty"`
 	Type                     *Flag                       `json:"type,omitempty"`
+	NSFW                     *bool                       `json:"nsfw,omitempty"`
 }
 
 // Get Global Application Command
@@ -44,6 +45,7 @@ type EditGlobalApplicationCommand struct {
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions **string                    `json:"default_member_permissions,omitempty"`
 	DMPermission             **bool                      `json:"dm_permission,omitempty"`
+	NSFW                     *bool                       `json:"nsfw,omitempty"`
 }
 
 // Delete Global Application Command
@@ -84,6 +86,7 @@ type CreateGuildApplicationCommand struct {
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions **string                    `json:"default_member_permissions,omitempty"`
 	Type                     *Flag                       `json:"type,omitempty"`
+	NSFW                     *bool                       `json:"nsfw,omitempty"`
 }
 
 // Get Guild Application Command
@@ -108,6 +111,7 @@ type EditGuildApplicationCommand struct {
 	DescriptionLocalizations *map[string]string          `json:"description_localizations,omitempty"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions **string                    `json:"default_member_permissions,omitempty"`
+	NSFW                     *bool                       `json:"nsfw,omitempty"`
 }
 
 // Delete Guild Application Command
@@ -286,6 +290,7 @@ type GetGuildAuditLog struct {
 	UserID     Snowflake `url:"user_id,omitempty"`
 	ActionType Flag      `url:"action_type,omitempty"`
 	Before     Snowflake `url:"before,omitempty"`
+	After      Snowflake `url:"after,omitempty"`
 	Limit      int       `url:"limit,omitempty"`
 }
 

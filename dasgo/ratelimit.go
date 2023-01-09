@@ -42,6 +42,7 @@ type RateLimitResponse struct {
 	Message    string  `json:"message"`
 	RetryAfter float64 `json:"retry_after"`
 	Global     bool    `json:"global"`
+	Code       *int    `json:"code,omitempty"`
 }
 
 // Global Rate Limits

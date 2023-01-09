@@ -18,6 +18,7 @@ type ApplicationCommand struct {
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions *string                     `json:"default_member_permissions"`
 	DMPermission             *bool                       `json:"dm_permission,omitempty"`
+	NSFW                     *bool                       `json:"nsfw,omitempty"`
 	Version                  Snowflake                   `json:"version,omitempty"`
 }
 
@@ -663,6 +664,7 @@ type Channel struct {
 	DefaultReactionEmoji          *DefaultReaction       `json:"default_reaction_emoji"`
 	DefaultThreadRateLimitPerUser *int                   `json:"default_thread_rate_limit_per_user,omitempty"`
 	DefaultSortOrder              **int                  `json:"default_sort_order,omitempty"`
+	DefaultForumLayout            *Flag                  `json:"default_forum_layout,omitempty"`
 }
 
 // Channel Types
@@ -701,6 +703,14 @@ const (
 const (
 	FlagSortOrderTypeLATEST_ACTIVITY Flag = 0
 	FlagSortOrderTypeCREATION_DATE   Flag = 1
+)
+
+// Forum Layout Types
+// https://discord.com/developers/docs/resources/channel#channel-object-forum-layout-types
+const (
+	FlagForumLayoutTypeNOT_SET      Flag = 0
+	FlagForumLayoutTypeLIST_VIEW    Flag = 1
+	FlagForumLayoutTypeGALLERY_VIEW Flag = 2
 )
 
 // Message Object
@@ -770,6 +780,14 @@ const (
 	FlagMessageTypeGUILD_INVITE_REMINDER                        Flag = 22
 	FlagMessageTypeCONTEXT_MENU_COMMAND                         Flag = 23
 	FlagMessageTypeAUTO_MODERATION_ACTION                       Flag = 24
+	FlagMessageTypeROLE_SUBSCRIPTION_PURCHASE                   Flag = 25
+	FlagMessageTypeINTERACTION_PREMIUM_UPSELL                   Flag = 26
+	FlagMessageTypeSTAGE_START                                  Flag = 27
+	FlagMessageTypeSTAGE_END                                    Flag = 28
+	FlagMessageTypeSTAGE_SPEAKER                                Flag = 29
+	FlagMessageTypeSTAGE_RAISE_HAND                             Flag = 30
+	FlagMessageTypeSTAGE_TOPIC                                  Flag = 31
+	FlagMessageTypeGUILD_APPLICATION_PREMIUM_SUBSCRIPTION       Flag = 32
 )
 
 // Message Activity Structure
@@ -865,11 +883,11 @@ type DefaultReaction struct {
 // Forum Tag Structure
 // https://discord.com/developers/docs/resources/channel#forum-tag-object-forum-tag-structure
 type ForumTag struct {
-	ID        Snowflake `json:"id"`
-	Name      string    `json:"name"`
-	Moderated bool      `json:"moderated"`
-	EmojiID   Snowflake `json:"emoji_id"`
-	EmojiName *string   `json:"emoji_name"`
+	ID        Snowflake  `json:"id"`
+	Name      string     `json:"name"`
+	Moderated bool       `json:"moderated"`
+	EmojiID   *Snowflake `json:"emoji_id"`
+	EmojiName *string    `json:"emoji_name"`
 }
 
 // Embed Object
@@ -1127,29 +1145,32 @@ const (
 // Guild Features
 // https://discord.com/developers/docs/resources/guild#guild-object-guild-features
 const (
-	FlagGuildFeatureANIMATED_BANNER                    = "ANIMATED_BANNER"
-	FlagGuildFeatureANIMATED_ICON                      = "ANIMATED_ICON"
-	FlagGuildFeatureAPPLICATION_COMMAND_PERMISSIONS_V2 = "APPLICATION_COMMAND_PERMISSIONS_V2"
-	FlagGuildFeatureAUTO_MODERATION                    = "AUTO_MODERATION"
-	FlagGuildFeatureBANNER                             = "BANNER"
-	FlagGuildFeatureCOMMUNITY                          = "COMMUNITY"
-	FlagGuildFeatureDEVELOPER_SUPPORT_SERVER           = "DEVELOPER_SUPPORT_SERVER"
-	FlagGuildFeatureDISCOVERABLE                       = "DISCOVERABLE"
-	FlagGuildFeatureFEATURABLE                         = "FEATURABLE"
-	FlagGuildFeatureINVITES_DISABLED                   = "INVITES_DISABLED"
-	FlagGuildFeatureINVITE_SPLASH                      = "INVITE_SPLASH"
-	FlagGuildFeatureMEMBER_VERIFICATION_GATE_ENABLED   = "MEMBER_VERIFICATION_GATE_ENABLED"
-	FlagGuildFeatureMONETIZATION_ENABLED               = "MONETIZATION_ENABLED"
-	FlagGuildFeatureMORE_STICKERS                      = "MORE_STICKERS"
-	FlagGuildFeatureNEWS                               = "NEWS"
-	FlagGuildFeaturePARTNERED                          = "PARTNERED"
-	FlagGuildFeaturePREVIEW_ENABLED                    = "PREVIEW_ENABLED"
-	FlagGuildFeatureROLE_ICONS                         = "ROLE_ICONS"
-	FlagGuildFeatureTICKETED_EVENTS_ENABLED            = "TICKETED_EVENTS_ENABLED"
-	FlagGuildFeatureVANITY_URL                         = "VANITY_URL"
-	FlagGuildFeatureVERIFIED                           = "VERIFIED"
-	FlagGuildFeatureVIP_REGIONS                        = "VIP_REGIONS"
-	FlagGuildFeatureWELCOME_SCREEN_ENABLED             = "WELCOME_SCREEN_ENABLED"
+	FlagGuildFeatureANIMATED_BANNER                           = "ANIMATED_BANNER"
+	FlagGuildFeatureANIMATED_ICON                             = "ANIMATED_ICON"
+	FlagGuildFeatureAPPLICATION_COMMAND_PERMISSIONS_V2        = "APPLICATION_COMMAND_PERMISSIONS_V2"
+	FlagGuildFeatureAUTO_MODERATION                           = "AUTO_MODERATION"
+	FlagGuildFeatureBANNER                                    = "BANNER"
+	FlagGuildFeatureCOMMUNITY                                 = "COMMUNITY"
+	FlagGuildFeatureCREATOR_MONETIZABLE_PROVISIONAL           = "CREATOR_MONETIZABLE_PROVISIONAL"
+	FlagGuildFeatureCREATOR_STORE_PAGE                        = "CREATOR_STORE_PAGE"
+	FlagGuildFeatureDEVELOPER_SUPPORT_SERVER                  = "DEVELOPER_SUPPORT_SERVER"
+	FlagGuildFeatureDISCOVERABLE                              = "DISCOVERABLE"
+	FlagGuildFeatureFEATURABLE                                = "FEATURABLE"
+	FlagGuildFeatureINVITES_DISABLED                          = "INVITES_DISABLED"
+	FlagGuildFeatureINVITE_SPLASH                             = "INVITE_SPLASH"
+	FlagGuildFeatureMEMBER_VERIFICATION_GATE_ENABLED          = "MEMBER_VERIFICATION_GATE_ENABLED"
+	FlagGuildFeatureMORE_STICKERS                             = "MORE_STICKERS"
+	FlagGuildFeatureNEWS                                      = "NEWS"
+	FlagGuildFeaturePARTNERED                                 = "PARTNERED"
+	FlagGuildFeaturePREVIEW_ENABLED                           = "PREVIEW_ENABLED"
+	FlagGuildFeatureROLE_ICONS                                = "ROLE_ICONS"
+	FlagGuildFeatureROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE = "ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE"
+	FlagGuildFeatureROLE_SUBSCRIPTIONS_ENABLED                = "ROLE_SUBSCRIPTIONS_ENABLED"
+	FlagGuildFeatureTICKETED_EVENTS_ENABLED                   = "TICKETED_EVENTS_ENABLED"
+	FlagGuildFeatureVANITY_URL                                = "VANITY_URL"
+	FlagGuildFeatureVERIFIED                                  = "VERIFIED"
+	FlagGuildFeatureVIP_REGIONS                               = "VIP_REGIONS"
+	FlagGuildFeatureWELCOME_SCREEN_ENABLED                    = "WELCOME_SCREEN_ENABLED"
 )
 
 // Mutable Guild Features
@@ -1218,7 +1239,7 @@ type Integration struct {
 	ID                Snowflake          `json:"id"`
 	Name              string             `json:"name"`
 	Type              string             `json:"type"`
-	Enabled           *bool              `json:"enabled,omitempty"`
+	Enabled           bool               `json:"enabled"`
 	Syncing           *bool              `json:"syncing,omitempty"`
 	RoleID            *Snowflake         `json:"role_id,omitempty"`
 	EnableEmoticons   *bool              `json:"enable_emoticons,omitempty"`
@@ -1661,9 +1682,12 @@ type Role struct {
 // Role Tags Structure
 // https://discord.com/developers/docs/topics/permissions#role-object-role-tags-structure
 type RoleTags struct {
-	BotID             *Snowflake `json:"bot_id,omitempty"`
-	IntegrationID     *Snowflake `json:"integration_id,omitempty"`
-	PremiumSubscriber *bool      `json:"premium_subscriber,omitempty"`
+	BotID                *Snowflake `json:"bot_id,omitempty"`
+	IntegrationID        *Snowflake `json:"integration_id,omitempty"`
+	PremiumSubscriber    *string    `json:"premium_subscriber,omitempty"`
+	SubscriptionListedID *Snowflake `json:"subscription_listing_id,omitempty"`
+	AvailableForPurchase *string    `json:"available_for_purchase,omitempty"`
+	GuildConnections     *string    `json:"guild_connections,omitempty"`
 }
 
 // Team Object
