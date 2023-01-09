@@ -42,6 +42,7 @@ const (
 	FlagLocalesSpanish             = "es-ES"
 	FlagLocalesFrench              = "fr"
 	FlagLocalesCroatian            = "hr"
+	FlagLocalesIndonesian          = "id"
 	FlagLocalesItalian             = "it"
 	FlagLocalesLithuanian          = "lt"
 	FlagLocalesHungarian           = "hu"

@@ -21,6 +21,7 @@ type CreateGlobalApplicationCommand struct {
 	DefaultMemberPermissions **string                    `json:"default_member_permissions,omitempty"`
 	DMPermission             **bool                      `json:"dm_permission,omitempty"`
 	Type                     *Flag                       `json:"type,omitempty"`
+	NSFW                     *bool                       `json:"nsfw,omitempty"`
 }
 
 // Get Global Application Command
@@ -44,6 +45,7 @@ type EditGlobalApplicationCommand struct {
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions **string                    `json:"default_member_permissions,omitempty"`
 	DMPermission             **bool                      `json:"dm_permission,omitempty"`
+	NSFW                     *bool                       `json:"nsfw,omitempty"`
 }
 
 // Delete Global Application Command
@@ -84,6 +86,7 @@ type CreateGuildApplicationCommand struct {
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions **string                    `json:"default_member_permissions,omitempty"`
 	Type                     *Flag                       `json:"type,omitempty"`
+	NSFW                     *bool                       `json:"nsfw,omitempty"`
 }
 
 // Get Guild Application Command
@@ -108,6 +111,7 @@ type EditGuildApplicationCommand struct {
 	DescriptionLocalizations *map[string]string          `json:"description_localizations,omitempty"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions **string                    `json:"default_member_permissions,omitempty"`
+	NSFW                     *bool                       `json:"nsfw,omitempty"`
 }
 
 // Delete Guild Application Command
@@ -262,6 +266,20 @@ type DeleteFollowupMessage struct {
 	MessageID        Snowflake
 }
 
+// Get Application Role Connection Metadata Records
+// GET /applications/{application.id}/role-connections/metadata
+// https://discord.com/developers/docs/resources/application-role-connection-metadata#get-application-role-connection-metadata-records
+type GetApplicationRoleConnectionMetadataRecords struct {
+	ApplicationID Snowflake
+}
+
+// Update Application Role Connection Metadata Records
+// PUT /applications/{application.id}/role-connections/metadata
+// https://discord.com/developers/docs/resources/application-role-connection-metadata#update-application-role-connection-metadata-records
+type UpdateApplicationRoleConnectionMetadataRecords struct {
+	ApplicationID Snowflake
+}
+
 // Get Guild Audit Log
 // GET /guilds/{guild.id}/audit-logs
 // https://discord.com/developers/docs/resources/audit-log#get-guild-audit-log
@@ -272,6 +290,7 @@ type GetGuildAuditLog struct {
 	UserID     Snowflake `url:"user_id,omitempty"`
 	ActionType Flag      `url:"action_type,omitempty"`
 	Before     Snowflake `url:"before,omitempty"`
+	After      Snowflake `url:"after,omitempty"`
 	Limit      int       `url:"limit,omitempty"`
 }
 
@@ -1536,6 +1555,23 @@ type CreateGroupDM struct {
 // GET /users/@me/connections
 // https://discord.com/developers/docs/resources/user#get-user-connections
 type GetUserConnections struct{}
+
+// Get User Application Role Connection
+// GET /users/@me/applications/{application.id}/role-connection
+// https://discord.com/developers/docs/resources/user#get-user-application-role-connection
+type GetUserApplicationRoleConnection struct {
+	ApplicationID Snowflake
+}
+
+// Update User Application Role Connection
+// PUT /users/@me/applications/{application.id}/role-connection
+// https://discord.com/developers/docs/resources/user#update-user-application-role-connection
+type UpdateUserApplicationRoleConnection struct {
+	ApplicationID    Snowflake         `json:"-"`
+	PlatformName     *string           `json:"platform_name,omitempty"`
+	PlatformUsername *string           `json:"platform_user,omitempty"`
+	Metadata         map[string]string `json:"metadata,omitempty"`
+}
 
 // List Voice Regions
 // GET /voice/regions
