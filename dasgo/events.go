@@ -30,6 +30,7 @@ const (
 	FlagGatewayEventNameGuildCreate                         = "GUILD_CREATE"
 	FlagGatewayEventNameGuildUpdate                         = "GUILD_UPDATE"
 	FlagGatewayEventNameGuildDelete                         = "GUILD_DELETE"
+	FlagGatewayEventNameGuildAuditLogEntryCreate            = "GUILD_AUDIT_LOG_ENTRY_CREATE"
 	FlagGatewayEventNameGuildBanAdd                         = "GUILD_BAN_ADD"
 	FlagGatewayEventNameGuildBanRemove                      = "GUILD_BAN_REMOVE"
 	FlagGatewayEventNameGuildEmojisUpdate                   = "GUILD_EMOJIS_UPDATE"
@@ -234,6 +235,12 @@ type GuildUpdate struct {
 // https://discord.com/developers/docs/topics/gateway-events#guild-delete
 type GuildDelete struct {
 	*Guild
+}
+
+// Guild Audit Log Entry Create
+// https://discord.com/developers/docs/topics/gateway-events#guild-audit-log-entry-create
+type GuildAuditLogEntryCreate struct {
+	*AuditLogEntry
 }
 
 // Guild Ban Add

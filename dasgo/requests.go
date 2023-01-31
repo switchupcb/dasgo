@@ -731,15 +731,19 @@ type RemoveThreadMember struct {
 // GET /channels/{channel.id}/thread-members/{user.id}
 // https://discord.com/developers/docs/resources/channel#get-thread-member
 type GetThreadMember struct {
-	ChannelID Snowflake
-	UserID    Snowflake
+	ChannelID  Snowflake
+	UserID     Snowflake
+	WithMember *bool `json:"with_member,omitempty"`
 }
 
 // List Thread Members
 // GET /channels/{channel.id}/thread-members
 // https://discord.com/developers/docs/resources/channel#list-thread-members
 type ListThreadMembers struct {
-	ChannelID Snowflake
+	ChannelID  Snowflake
+	WithMember *bool      `json:"with_member,omitempty"`
+	After      *Snowflake `json:"after,omitempty"`
+	Limit      *int       `json:"limit,omitempty"`
 }
 
 // List Public Archived Threads
@@ -983,6 +987,7 @@ type ModifyGuildMember struct {
 	Deaf                       **bool       `json:"deaf,omitempty"`
 	ChannelID                  **Snowflake  `json:"channel_id,omitempty"`
 	CommunicationDisabledUntil **Timestamp  `json:"communication_disabled_until,omitempty"`
+	Flags                      **BitFlag    `json:"flags,omitempty"`
 }
 
 // Modify Current Member
