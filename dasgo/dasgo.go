@@ -4,8 +4,11 @@ package dasgo
 // Snowflake represents a Discord API Snowflake.
 type Snowflake uint64
 
-// Flag represents an (unused) alias for a Discord API Flag ranging from 0 - 255.
+// Flag represents an alias for a Discord API Flag ranging from 0 - 255.
 type Flag uint8
+
+// Flags represents an alias for a []Flag for JSON marshal purposes.
+type Flags []Flag
 
 // BitFlag represents an alias for a Discord API Bitwise Flag denoted by 1 << x.
 type BitFlag uint64

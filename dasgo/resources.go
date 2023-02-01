@@ -41,7 +41,7 @@ type ApplicationCommandOption struct {
 	Required                 *bool                             `json:"required,omitempty"`
 	Choices                  []*ApplicationCommandOptionChoice `json:"choices,omitempty"`
 	Options                  []*ApplicationCommandOption       `json:"options,omitempty"`
-	ChannelTypes             []Flag                            `json:"channel_types,omitempty"`
+	ChannelTypes             Flags                             `json:"channel_types,omitempty"`
 	MinValue                 *float64                          `json:"min_value,omitempty"`
 	MaxValue                 *float64                          `json:"max_value,omitempty"`
 	MinLength                *int                              `json:"min_length,omitempty"`
@@ -169,7 +169,7 @@ type SelectMenu struct {
 	Type         int                `json:"type"`
 	CustomID     string             `json:"custom_id"`
 	Options      []SelectMenuOption `json:"options"`
-	ChannelTypes []Flag             `json:"channel_types,omitempty"`
+	ChannelTypes Flags              `json:"channel_types,omitempty"`
 	Placeholder  *string            `json:"placeholder,omitempty"`
 	MinValues    *Flag              `json:"min_values,omitempty"`
 	MaxValues    *Flag              `json:"max_values,omitempty"`
@@ -586,8 +586,8 @@ const (
 type TriggerMetadata struct {
 	// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-matching-strategies
 	KeywordFilter     []string `json:"keyword_filter"`
-	RegexPatterns     []Flag   `json:"regex_patterns"`
-	Presets           []Flag   `json:"presets"`
+	RegexPatterns     Flags    `json:"regex_patterns"`
+	Presets           Flags    `json:"presets"`
 	AllowList         []string `json:"allow_list"`
 	MentionTotalLimit int      `json:"mention_total_limit"`
 }

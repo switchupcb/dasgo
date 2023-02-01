@@ -16,13 +16,13 @@ All types are named as defined by the source of truth; which is currently the co
 
 ## Flags
 
-A flag is a [flag](https://discord.com/developers/docs/resources/application#application-object-application-flags), [type](https://discord.com/developers/docs/resources/channel#embed-object-embed-types), [key](https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-key), [level](https://discord.com/developers/docs/resources/guild#guild-object-verification-level) or any other option that Discord provides. All flags are denoted by `Flag` followed by their option name _(in singular form)_, then the option value, and typed with the respective Flag (`Flag`, `BitFlag`): Each flag type is defined in [`dasgo.go`](dasgo/dasgo.go). Flags that cannot be represented by these definitions remain untyped.
+A flag is a [flag](https://discord.com/developers/docs/resources/application#application-object-application-flags), [type](https://discord.com/developers/docs/resources/channel#embed-object-embed-types), [key](https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-key), [level](https://discord.com/developers/docs/resources/guild#guild-object-verification-level) or any other option that Discord provides. All flags are denoted by `Flag` followed by their option name _(in singular form)_, then the option value, and typed with the respective Flag (`Flag`, `BitFlag`): Each flag type is defined in [`dasgo.go`](dasgo/dasgo.go). A flag that can't be represented by these definitions remains untyped.
 
 ```go
 FlagVerificationLevelHIGH Flag = 3 
 FlagMessageTypeDEFAULT Flag = 0
 FlagUserSTAFF BitFlag = 1 << 0
-``` 
+```
 
 _Flags that end in `Flags` should not include `Flags` (i.e `FlagMessageLOADING`)._
 
@@ -51,6 +51,8 @@ Snowflakes fields are defined using a `uint64` alias.
 - [Twitter Snowflake](https://developer.twitter.com/en/docs/twitter-ids)  
 
 Option fields are defined as a `Flag`, `BitFlag`, or [`CodeFlag`](https://discord.com/developers/docs/topics/opcodes-and-status-codes) to provide a separation of concerns.
+
+Fields that represent a slice of flags (`[]Flag`) are defined using the `Flags` type. This is required to differentiate a `[]Flag` from a `[]uint8` or `[]byte` which marshals to an empty string (`""`) with zero length; as opposed to an empty array (`[]`).
 
 ### Tags and Pointers
 
