@@ -586,7 +586,7 @@ const (
 type TriggerMetadata struct {
 	// https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-matching-strategies
 	KeywordFilter     []string `json:"keyword_filter"`
-	RegexPatterns     Flags    `json:"regex_patterns"`
+	RegexPatterns     []string `json:"regex_patterns"`
 	Presets           Flags    `json:"presets"`
 	AllowList         []string `json:"allow_list"`
 	MentionTotalLimit int      `json:"mention_total_limit"`
