@@ -731,19 +731,19 @@ type RemoveThreadMember struct {
 // GET /channels/{channel.id}/thread-members/{user.id}
 // https://discord.com/developers/docs/resources/channel#get-thread-member
 type GetThreadMember struct {
-	ChannelID  Snowflake
-	UserID     Snowflake
-	WithMember *bool `json:"with_member,omitempty"`
+	ChannelID  Snowflake `url:"-"`
+	UserID     Snowflake `url:"-"`
+	WithMember *bool     `url:"with_member,omitempty"`
 }
 
 // List Thread Members
 // GET /channels/{channel.id}/thread-members
 // https://discord.com/developers/docs/resources/channel#list-thread-members
 type ListThreadMembers struct {
-	ChannelID  Snowflake
-	WithMember *bool      `json:"with_member,omitempty"`
-	After      *Snowflake `json:"after,omitempty"`
-	Limit      *int       `json:"limit,omitempty"`
+	ChannelID  Snowflake  `url:"-"`
+	WithMember *bool      `url:"with_member,omitempty"`
+	After      *Snowflake `url:"after,omitempty"`
+	Limit      *int       `url:"limit,omitempty"`
 }
 
 // List Public Archived Threads
