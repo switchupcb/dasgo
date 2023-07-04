@@ -26,7 +26,7 @@ type Timestamp string
 // Nonce represents a Discord nonce (integer or string).
 type Nonce interface{}
 
-// Value represents a value (string, integer, or double).
+// Value represents a value (string, integer, double, or bool).
 type Value interface{}
 
 // Pointer returns a pointer to the given value.
