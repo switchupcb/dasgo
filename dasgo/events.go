@@ -294,6 +294,7 @@ type GuildMemberRemove struct {
 // Guild Member Update
 // https://discord.com/developers/docs/topics/gateway-events#guild-member-update
 type GuildMemberUpdate struct {
+	GuildID Snowflake `json:"guild_id"`
 	*GuildMember
 }
 
