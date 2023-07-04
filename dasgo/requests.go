@@ -873,6 +873,7 @@ type ModifyGuild struct {
 	Features                    []*string   `json:"features,omitempty"`
 	Description                 **string    `json:"description,omitempty"`
 	PremiumProgressBarEnabled   *bool       `json:"premium_progress_bar_enabled,omitempty"`
+	SafetyAlertsChannelID       **Snowflake `json:"safety_alerts_channel_id,omitempty"`
 }
 
 // Delete Guild
@@ -1240,6 +1241,12 @@ type ModifyGuildWelcomeScreen struct {
 	Enabled         **bool                   `json:"enabled,omitempty"`
 	WelcomeChannels *[]*WelcomeScreenChannel `json:"welcome_channels,omitempty"`
 	Description     **string                 `json:"description,omitempty"`
+}
+
+// Get Guild Onboarding
+// https://discord.com/developers/docs/resources/guild#get-guild-onboarding
+type GetGuildOnboarding struct {
+	GuildID Snowflake
 }
 
 // Modify Current User Voice State
