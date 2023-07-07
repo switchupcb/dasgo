@@ -7,8 +7,8 @@ import "encoding/json"
 type GatewayPayload struct {
 	Op             int             `json:"op"`
 	Data           json.RawMessage `json:"d"`
-	SequenceNumber *int64          `json:"s"`
-	EventName      *string         `json:"t"`
+	SequenceNumber *int64          `json:"s,omitempty"`
+	EventName      *string         `json:"t,omitempty"`
 }
 
 // Gateway URL Query String Params
@@ -196,7 +196,7 @@ type Heartbeat struct {
 type RequestGuildMembers struct {
 	GuildID   Snowflake   `json:"guild_id"`
 	Query     *string     `json:"query,omitempty"`
-	Limit     int         `json:"limit"`
+	Limit     *int        `json:"limit,omitempty"`
 	Presences *bool       `json:"presences,omitempty"`
 	UserIDs   []Snowflake `json:"user_ids,omitempty"`
 	Nonce     *string     `json:"nonce,omitempty"`

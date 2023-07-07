@@ -70,7 +70,7 @@ type GetGatewayResponse struct {
 // https://discord.com/developers/docs/topics/gateway#get-gateway-example-response
 type GetGatewayBotResponse struct {
 	URL               string            `json:"url"`
-	Shards            *int              `json:"shards"`
+	Shards            int               `json:"shards"`
 	SessionStartLimit SessionStartLimit `json:"session_start_limit"`
 }
 
