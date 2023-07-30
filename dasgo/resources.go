@@ -107,9 +107,10 @@ type Component interface {
 // Component Types
 // https://discord.com/developers/docs/interactions/message-components#component-object-component-types
 const (
+	FlagComponentTypeInvalid           Flag = 0
 	FlagComponentTypeActionRow         Flag = 1
 	FlagComponentTypeButton            Flag = 2
-	FlagComponentTypeSelectMenu        Flag = 3
+	FlagComponentTypeStringSelect      Flag = 3
 	FlagComponentTypeTextInput         Flag = 4
 	FlagComponentTypeUserSelect        Flag = 5
 	FlagComponentTypeRoleSelect        Flag = 6
@@ -126,7 +127,27 @@ func (c Button) ComponentType() Flag {
 }
 
 func (c SelectMenu) ComponentType() Flag {
-	return FlagComponentTypeSelectMenu
+	return FlagComponentTypeInvalid
+}
+
+func (c SelectMenu) FlagComponentTypeStringSelect() Flag {
+	return FlagComponentTypeStringSelect
+}
+
+func (c SelectMenu) ComponentTypeUserSelect() Flag {
+	return FlagComponentTypeUserSelect
+}
+
+func (c SelectMenu) ComponentTypeRoleSelect() Flag {
+	return FlagComponentTypeRoleSelect
+}
+
+func (c SelectMenu) ComponentTypeMentionableSelect() Flag {
+	return FlagComponentTypeMentionableSelect
+}
+
+func (c SelectMenu) ComponentTypeChannelSelect() Flag {
+	return FlagComponentTypeChannelSelect
 }
 
 func (c TextInput) ComponentType() Flag {
@@ -135,12 +156,14 @@ func (c TextInput) ComponentType() Flag {
 
 // https://discord.com/developers/docs/interactions/message-components#component-object
 type ActionsRow struct {
+	Type       Flag        `json:"type"`
 	Components []Component `json:"components"`
 }
 
 // Button Object
 // https://discord.com/developers/docs/interactions/message-components#button-object
 type Button struct {
+	Type     Flag    `json:"type"`
 	Style    Flag    `json:"style"`
 	Label    *string `json:"label,omitempty"`
 	Emoji    *Emoji  `json:"emoji,omitempty"`
@@ -166,7 +189,7 @@ const (
 // Select Menu Structure
 // https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
 type SelectMenu struct {
-	Type         int                `json:"type"`
+	Type         Flag               `json:"type"`
 	CustomID     string             `json:"custom_id"`
 	Options      []SelectMenuOption `json:"options"`
 	ChannelTypes Flags              `json:"channel_types,omitempty"`
@@ -189,8 +212,9 @@ type SelectMenuOption struct {
 // Text Input Structure
 // https://discord.com/developers/docs/interactions/message-components#text-inputs-text-input-structure
 type TextInput struct {
-	CustomID    string  `json:"custom_id"`
+	Type        Flag    `json:"type"`
 	Style       Flag    `json:"style"`
+	CustomID    string  `json:"custom_id"`
 	Label       *string `json:"label"`
 	MinLength   *int    `json:"min_length,omitempty"`
 	MaxLength   *int    `json:"max_length,omitempty"`
@@ -391,10 +415,12 @@ type Application struct {
 	VerifyKey                      string         `json:"verify_key"`
 	Team                           *Team          `json:"team"`
 	GuildID                        *Snowflake     `json:"guild_id,omitempty"`
+	Guild                          *Guild         `json:"guild,omitempty"`
 	PrimarySKUID                   *Snowflake     `json:"primary_sku_id,omitempty"`
 	Slug                           *string        `json:"slug,omitempty"`
 	CoverImage                     *string        `json:"cover_image,omitempty"`
 	Flags                          *BitFlag       `json:"flags,omitempty"`
+	ApproximateGuildCount          *int           `json:"approximate_guild_count,omitempty"`
 	Tags                           []string       `json:"tags,omitempty"`
 	InstallParams                  *InstallParams `json:"install_params,omitempty"`
 	CustomInstallURL               *string        `json:"custom_install_url,omitempty"`
@@ -528,6 +554,8 @@ const (
 	FlagAuditLogEventAUTO_MODERATION_BLOCK_MESSAGE               Flag = 143
 	FlagAuditLogEventAUTO_MODERATION_FLAG_TO_CHANNEL             Flag = 144
 	FlagAuditLogEventAUTO_MODERATION_USER_COMMUNICATION_DISABLED Flag = 145
+	FlagAuditLogEventCREATOR_MONETIZATION_REQUEST_CREATED        Flag = 150
+	FlagAuditLogEventCREATOR_MONETIZATION_TERMS_ACCEPTED         Flag = 151
 )
 
 // Optional Audit Entry Info
@@ -668,7 +696,7 @@ type Channel struct {
 	AppliedTags                   []Snowflake            `json:"applied_tags,omitempty"`
 	DefaultReactionEmoji          *DefaultReaction       `json:"default_reaction_emoji"`
 	DefaultThreadRateLimitPerUser *int                   `json:"default_thread_rate_limit_per_user,omitempty"`
-	DefaultSortOrder              **int                  `json:"default_sort_order,omitempty"`
+	DefaultSortOrder              **Flag                 `json:"default_sort_order,omitempty"`
 	DefaultForumLayout            *Flag                  `json:"default_forum_layout,omitempty"`
 }
 
@@ -1003,7 +1031,14 @@ type Attachment struct {
 	Emphemeral      *bool     `json:"ephemeral,omitempty"`
 	DurationSeconds *float64  `json:"duration_secs,omitempty"`
 	Waveform        *string   `json:"waveform,omitempty"`
+	Flags           *BitFlag  `json:"flags,omitempty"`
 }
+
+// Attachment Flags
+// https://discord.com/developers/docs/resources/channel#attachment-object-attachment-flags
+const (
+	IS_REMIX BitFlag = 1 << 2
+)
 
 // Channel Mention Object
 // https://discord.com/developers/docs/resources/channel#channel-mention-object
@@ -1344,6 +1379,7 @@ type GuildOnboarding struct {
 	Prompts           []*OnboardingPrompt `json:"prompt"`
 	DefaultChannelIDs []Snowflake         `json:"default_channel_ids"`
 	Enabled           bool                `json:"enabled"`
+	Mode              Flag                `json:"mode"`
 }
 
 // Onboarding Prompt Structure
@@ -1368,6 +1404,13 @@ type PromptOption struct {
 	Title       string      `json:"title"`
 	Description *string     `json:"description"`
 }
+
+// Onboarding Mode
+// https://discord.com/developers/docs/resources/guild#guild-onboarding-object-onboarding-mode
+const (
+	ONBOARDING_DEFAULT  Flag = 0
+	ONBOARDING_ADVANCED Flag = 1
+)
 
 // Prompt Types
 // https://discord.com/developers/docs/resources/guild#guild-onboarding-object-prompt-types
@@ -1556,22 +1599,23 @@ type StickerPack struct {
 // User Object
 // https://discord.com/developers/docs/resources/user#user-object
 type User struct {
-	ID            Snowflake `json:"id"`
-	Username      string    `json:"username"`
-	Discriminator string    `json:"discriminator"`
-	GlobalName    *string   `json:"global_name"`
-	Avatar        *string   `json:"avatar"`
-	Bot           *bool     `json:"bot,omitempty"`
-	System        *bool     `json:"system,omitempty"`
-	MFAEnabled    *bool     `json:"mfa_enabled,omitempty"`
-	Banner        **string  `json:"banner,omitempty"`
-	AccentColor   **int     `json:"accent_color,omitempty"`
-	Locale        *string   `json:"locale,omitempty"`
-	Verified      *bool     `json:"verified,omitempty"`
-	Email         **string  `json:"email,omitempty"`
-	Flags         *BitFlag  `json:"flag,omitempty"`
-	PremiumType   *Flag     `json:"premium_type,omitempty"`
-	PublicFlags   *BitFlag  `json:"public_flag,omitempty"`
+	ID               Snowflake `json:"id"`
+	Username         string    `json:"username"`
+	Discriminator    string    `json:"discriminator"`
+	GlobalName       *string   `json:"global_name"`
+	Avatar           *string   `json:"avatar"`
+	Bot              *bool     `json:"bot,omitempty"`
+	System           *bool     `json:"system,omitempty"`
+	MFAEnabled       *bool     `json:"mfa_enabled,omitempty"`
+	Banner           **string  `json:"banner,omitempty"`
+	AccentColor      **int     `json:"accent_color,omitempty"`
+	Locale           *string   `json:"locale,omitempty"`
+	Verified         *bool     `json:"verified,omitempty"`
+	Email            **string  `json:"email,omitempty"`
+	Flags            *BitFlag  `json:"flag,omitempty"`
+	PremiumType      *Flag     `json:"premium_type,omitempty"`
+	PublicFlags      *BitFlag  `json:"public_flag,omitempty"`
+	AvatarDecoration **string  `json:"avatar_decoration,omitempty"`
 }
 
 // User Flags
@@ -1757,6 +1801,7 @@ type Role struct {
 	Managed      bool      `json:"managed"`
 	Mentionable  bool      `json:"mentionable"`
 	Tags         *RoleTags `json:"tags,omitempty"`
+	Flags        BitFlag   `json:"flags"`
 }
 
 // Role Tags Structure
@@ -1769,6 +1814,12 @@ type RoleTags struct {
 	AvailableForPurchase *string    `json:"available_for_purchase,omitempty"`
 	GuildConnections     *string    `json:"guild_connections,omitempty"`
 }
+
+// Role Flags
+// https://discord.com/developers/docs/topics/permissions#role-object-role-flags
+const (
+	IN_PROMPT BitFlag = 1 << 0
+)
 
 // Team Object
 // https://discord.com/developers/docs/topics/teams#data-models-team-object

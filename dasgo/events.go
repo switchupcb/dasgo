@@ -449,12 +449,13 @@ type MessageDeleteBulk struct {
 // Message Reaction Add
 // https://discord.com/developers/docs/topics/gateway-events#message-reaction-add
 type MessageReactionAdd struct {
-	UserID    Snowflake    `json:"user_id"`
-	ChannelID Snowflake    `json:"channel_id"`
-	MessageID Snowflake    `json:"message_id"`
-	GuildID   *Snowflake   `json:"guild_id,omitempty"`
-	Member    *GuildMember `json:"member,omitempty"`
-	Emoji     *Emoji       `json:"emoji"`
+	UserID          Snowflake    `json:"user_id"`
+	ChannelID       Snowflake    `json:"channel_id"`
+	MessageID       Snowflake    `json:"message_id"`
+	MessageAuthorID *Snowflake   `json:"message_author_id"`
+	GuildID         *Snowflake   `json:"guild_id,omitempty"`
+	Member          *GuildMember `json:"member,omitempty"`
+	Emoji           *Emoji       `json:"emoji"`
 }
 
 // Message Reaction Remove
