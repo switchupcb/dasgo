@@ -200,7 +200,7 @@ const (
 	CDNEndpointDefaultUserAvatar        = "embed/avatars/{index}"
 	CDNEndpointUserAvatar               = "avatars/{user.id}/{user_avatar}"
 	CDNEndpointGuildMemberAvatar        = "guilds/{guild.id}/users/{user.id}/avatars/{member_avatar}"
-	CDNEndpointUserAvatarDecoration     = "avatar-decorations/{user.id}/user_avatar_decoration.png"
+	CDNEndpointUserAvatarDecoration     = "avatar-decorations/{user.id}/{user_avatar_decoration}"
 	CDNEndpointApplicationIcon          = "app-icons/{application.id}/{icon}"
 	CDNEndpointApplicationCover         = "app-icons/{application.id}/{cover_image}"
 	CDNEndpointApplicationAsset         = "app-assets/{application.id}/{asset.id}"
