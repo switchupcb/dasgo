@@ -107,9 +107,10 @@ type Component interface {
 // Component Types
 // https://discord.com/developers/docs/interactions/message-components#component-object-component-types
 const (
+	FlagComponentTypeInvalid           Flag = 0
 	FlagComponentTypeActionRow         Flag = 1
 	FlagComponentTypeButton            Flag = 2
-	FlagComponentTypeSelectMenu        Flag = 3
+	FlagComponentTypeStringSelect      Flag = 3
 	FlagComponentTypeTextInput         Flag = 4
 	FlagComponentTypeUserSelect        Flag = 5
 	FlagComponentTypeRoleSelect        Flag = 6
@@ -126,7 +127,27 @@ func (c Button) ComponentType() Flag {
 }
 
 func (c SelectMenu) ComponentType() Flag {
-	return FlagComponentTypeSelectMenu
+	return FlagComponentTypeInvalid
+}
+
+func (c SelectMenu) FlagComponentTypeStringSelect() Flag {
+	return FlagComponentTypeStringSelect
+}
+
+func (c SelectMenu) ComponentTypeUserSelect() Flag {
+	return FlagComponentTypeUserSelect
+}
+
+func (c SelectMenu) ComponentTypeRoleSelect() Flag {
+	return FlagComponentTypeRoleSelect
+}
+
+func (c SelectMenu) ComponentTypeMentionableSelect() Flag {
+	return FlagComponentTypeMentionableSelect
+}
+
+func (c SelectMenu) ComponentTypeChannelSelect() Flag {
+	return FlagComponentTypeChannelSelect
 }
 
 func (c TextInput) ComponentType() Flag {
@@ -135,12 +156,14 @@ func (c TextInput) ComponentType() Flag {
 
 // https://discord.com/developers/docs/interactions/message-components#component-object
 type ActionsRow struct {
+	Type       Flag        `json:"type"`
 	Components []Component `json:"components"`
 }
 
 // Button Object
 // https://discord.com/developers/docs/interactions/message-components#button-object
 type Button struct {
+	Type     Flag    `json:"type"`
 	Style    Flag    `json:"style"`
 	Label    *string `json:"label,omitempty"`
 	Emoji    *Emoji  `json:"emoji,omitempty"`
@@ -166,7 +189,7 @@ const (
 // Select Menu Structure
 // https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-menu-structure
 type SelectMenu struct {
-	Type         int                `json:"type"`
+	Type         Flag               `json:"type"`
 	CustomID     string             `json:"custom_id"`
 	Options      []SelectMenuOption `json:"options"`
 	ChannelTypes Flags              `json:"channel_types,omitempty"`
@@ -189,8 +212,9 @@ type SelectMenuOption struct {
 // Text Input Structure
 // https://discord.com/developers/docs/interactions/message-components#text-inputs-text-input-structure
 type TextInput struct {
-	CustomID    string  `json:"custom_id"`
+	Type        Flag    `json:"type"`
 	Style       Flag    `json:"style"`
+	CustomID    string  `json:"custom_id"`
 	Label       *string `json:"label"`
 	MinLength   *int    `json:"min_length,omitempty"`
 	MaxLength   *int    `json:"max_length,omitempty"`
