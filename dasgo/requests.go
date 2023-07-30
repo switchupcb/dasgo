@@ -266,6 +266,11 @@ type DeleteFollowupMessage struct {
 	MessageID        Snowflake
 }
 
+// Get Current Application
+// GET /applications/@me
+// https://discord.com/developers/docs/resources/application#get-current-application
+type GetCurrentApplication struct{}
+
 // Get Application Role Connection Metadata Records
 // GET /applications/{application.id}/role-connections/metadata
 // https://discord.com/developers/docs/resources/application-role-connection-metadata#get-application-role-connection-metadata-records
@@ -393,7 +398,7 @@ type ModifyChannelGuild struct {
 	AvailableTags                 []*ForumTag             `json:"available_tags,omitempty"`
 	DefaultReactionEmoji          **DefaultReaction       `json:"default_reaction_emoji,omitempty"`
 	DefaultThreadRateLimitPerUser *int                    `json:"default_thread_rate_limit_per_user,omitempty"`
-	DefaultSortOrder              **int                   `json:"default_sort_order,omitempty"`
+	DefaultSortOrder              **Flag                  `json:"default_sort_order,omitempty"`
 }
 
 // Modify Channel
@@ -910,7 +915,8 @@ type CreateGuildChannel struct {
 	DefaultAutoArchiveDuration **int                   `json:"default_auto_archive_duration,omitempty"`
 	DefaultReactionEmoji       **DefaultReaction       `json:"default_reaction_emoji,omitempty"`
 	AvailableTags              *[]*ForumTag            `json:"available_tags,omitempty"`
-	DefaultSortOrder           **int                   `json:"default_sort_order,omitempty"`
+	DefaultSortOrder           **Flag                  `json:"default_sort_order,omitempty"`
+	DefaultForumLayout         **Flag                  `json:"default_forum_layout,omitempty"`
 }
 
 // Modify Guild Channel Positions
@@ -924,10 +930,10 @@ type ModifyGuildChannelPositions struct {
 // Modify Guild Channel Position Parameters
 // https://discord.com/developers/docs/resources/guild#modify-guild-channel-positions-json-params
 type ModifyGuildChannelPositionParameters struct {
-	ID              Snowflake  `json:"id"`
-	Position        *int       `json:"position"`
-	LockPermissions *bool      `json:"lock_permissions"`
-	ParentID        *Snowflake `json:"parent_id"`
+	ID              Snowflake   `json:"id"`
+	Position        **int       `json:"position,omitempty"`
+	LockPermissions **bool      `json:"lock_permissions,omitempty"`
+	ParentID        **Snowflake `json:"parent_id,omitempty"`
 }
 
 // List Active Guild Threads
@@ -1244,9 +1250,21 @@ type ModifyGuildWelcomeScreen struct {
 }
 
 // Get Guild Onboarding
+// GET /guilds/{guild.id}/onboarding
 // https://discord.com/developers/docs/resources/guild#get-guild-onboarding
 type GetGuildOnboarding struct {
 	GuildID Snowflake
+}
+
+// Modify Guild Onboarding
+// PUT /guilds/{guild.id}/onboarding
+// https://discord.com/developers/docs/resources/guild#modify-guild-onboarding
+type ModifyGuildOnboarding struct {
+	GuildID           Snowflake           `json:"-"`
+	Prompts           []*OnboardingPrompt `json:"prompts"`
+	DefaultChannelIDs []Snowflake         `json:"default_channel_ids"`
+	Enabled           bool                `json:"enabled"`
+	Mode              Flag                `json:"mode"`
 }
 
 // Modify Current User Voice State
@@ -1529,9 +1547,10 @@ type ModifyCurrentUser struct {
 // GET /users/@me/guilds
 // https://discord.com/developers/docs/resources/user#get-current-user-guilds
 type GetCurrentUserGuilds struct {
-	Before *Snowflake `json:"before,omitempty"`
-	After  *Snowflake `json:"after,omitempty"`
-	Limit  *int       `json:"limit,omitempty"`
+	Before     *Snowflake `json:"before,omitempty"`
+	After      *Snowflake `json:"after,omitempty"`
+	Limit      *int       `json:"limit,omitempty"`
+	WithCounts *bool      `json:"with_counts,omitempty"`
 }
 
 // Get Current User Guild Member
