@@ -118,7 +118,7 @@ const (
 	FlagComponentTypeChannelSelect     Flag = 8
 )
 
-func (c ActionsRow) ComponentType() Flag {
+func (c ActionRow) ComponentType() Flag {
 	return FlagComponentTypeActionRow
 }
 
@@ -154,8 +154,8 @@ func (c TextInput) ComponentType() Flag {
 	return FlagComponentTypeTextInput
 }
 
-// https://discord.com/developers/docs/interactions/message-components#component-object
-type ActionsRow struct {
+// https://discord.com/developers/docs/interactions/message-components#action-rows
+type ActionRow struct {
 	Type       Flag        `json:"type"`
 	Components []Component `json:"components"`
 }
