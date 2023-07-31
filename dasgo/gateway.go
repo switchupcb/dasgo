@@ -142,10 +142,6 @@ var (
 	}
 )
 
-// Gateway SendEvent
-// https://discord.com/developers/docs/topics/gateway-events#send-events
-type SendEvent interface{}
-
 // Gateway SendEvent Names
 // https://discord.com/developers/docs/topics/gateway-events#send-events
 const (
@@ -185,7 +181,7 @@ type Resume struct {
 	Seq       int64  `json:"seq"`
 }
 
-// Heartbeat
+// Heartbeat Structure
 // https://discord.com/developers/docs/topics/gateway-events#heartbeat
 type Heartbeat struct {
 	Data int64 `json:"d"`
