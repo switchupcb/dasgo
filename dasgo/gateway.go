@@ -198,6 +198,12 @@ type RequestGuildMembers struct {
 	Nonce     *string     `json:"nonce,omitempty"`
 }
 
+// Request Soundboard Sounds Structure
+// https://discord.com/developers/docs/events/gateway-events#request-soundboard-sounds-request-soundboard-sounds-structure
+type RequestSoundboardSounds struct {
+	GuildIDs []Snowflake `json:"guild_ids"`
+}
+
 // Gateway Voice State Update Structure
 // https://discord.com/developers/docs/topics/gateway-events#update-voice-state-gateway-voice-state-update-structure
 type GatewayVoiceStateUpdate struct {

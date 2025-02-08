@@ -3,17 +3,18 @@ package dasgo
 // Gateway Opcodes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#gateway-gateway-opcodes
 const (
-	FlagGatewayOpcodeDispatch            = 0
-	FlagGatewayOpcodeHeartbeat           = 1
-	FlagGatewayOpcodeIdentify            = 2
-	FlagGatewayOpcodePresenceUpdate      = 3
-	FlagGatewayOpcodeVoiceStateUpdate    = 4
-	FlagGatewayOpcodeResume              = 6
-	FlagGatewayOpcodeReconnect           = 7
-	FlagGatewayOpcodeRequestGuildMembers = 8
-	FlagGatewayOpcodeInvalidSession      = 9
-	FlagGatewayOpcodeHello               = 10
-	FlagGatewayOpcodeHeartbeatACK        = 11
+	FlagGatewayOpcodeDispatch                = 0
+	FlagGatewayOpcodeHeartbeat               = 1
+	FlagGatewayOpcodeIdentify                = 2
+	FlagGatewayOpcodePresenceUpdate          = 3
+	FlagGatewayOpcodeVoiceStateUpdate        = 4
+	FlagGatewayOpcodeResume                  = 6
+	FlagGatewayOpcodeReconnect               = 7
+	FlagGatewayOpcodeRequestGuildMembers     = 8
+	FlagGatewayOpcodeInvalidSession          = 9
+	FlagGatewayOpcodeHello                   = 10
+	FlagGatewayOpcodeHeartbeatACK            = 11
+	FlagGatewayOpcodeRequestSoundboardSounds = 31
 )
 
 // Gateway Close Event Codes
@@ -191,7 +192,7 @@ var (
 	FlagVoiceCloseEventCodeNotAuthenticated = VoiceCloseEventCode{
 		Code:        4003,
 		Description: "Not authenticated",
-		Explanation: "You sent a payload before identifying with the Gateway.",
+		Explanation: "You sent a payload before identifying with the Gateway or this session has been invalidated.",
 	}
 
 	FlagVoiceCloseEventCodeAuthenticationFailed = VoiceCloseEventCode{
@@ -248,6 +249,12 @@ var (
 		Explanation: "We didn't recognize your encryption.",
 	}
 
+	FlagVoiceCloseEventCodeBadRequest = VoiceCloseEventCode{
+		Code:        4020,
+		Description: "Bad request",
+		Explanation: "You sent a malformed request.",
+	}
+
 	VoiceCloseEventCodes = map[int]*VoiceCloseEventCode{
 		FlagVoiceCloseEventCodeUnknownOpcode.Code:         &FlagVoiceCloseEventCodeUnknownOpcode,
 		FlagVoiceCloseEventCodeFailedDecode.Code:          &FlagVoiceCloseEventCodeFailedDecode,
@@ -261,6 +268,7 @@ var (
 		FlagVoiceCloseEventCodeDisconnectedChannel.Code:   &FlagVoiceCloseEventCodeDisconnectedChannel,
 		FlagVoiceCloseEventCodeVoiceServerCrash.Code:      &FlagVoiceCloseEventCodeVoiceServerCrash,
 		FlagVoiceCloseEventCodeUnknownEncryptionMode.Code: &FlagVoiceCloseEventCodeUnknownEncryptionMode,
+		FlagVoiceCloseEventCodeBadRequest.Code:            &FlagVoiceCloseEventCodeBadRequest,
 	}
 )
 
@@ -320,6 +328,7 @@ var (
 		10015:  "Unknown webhook",
 		10016:  "Unknown webhook service",
 		10020:  "Unknown session",
+		10021:  "Unknown asset",
 		10026:  "Unknown ban",
 		10027:  "Unknown SKU",
 		10028:  "Unknown Store Listing",
@@ -335,6 +344,7 @@ var (
 		10057:  "Unknown guild template",
 		10059:  "Unknown discoverable server category",
 		10060:  "Unknown sticker",
+		10061:  "Unknown sticker pack",
 		10062:  "Unknown interaction",
 		10063:  "Unknown application command",
 		10065:  "Unknown voice state",
@@ -398,6 +408,8 @@ var (
 		40006:  "This feature has been temporarily disabled server-side",
 		40007:  "The user is banned from this guild",
 		40012:  "Connection has been revoked",
+		40018:  "Only consumable SKUs can be consumed",
+		40019:  "You can only delete sandbox entitlements.",
 		40032:  "Target user is not connected to voice",
 		40033:  "This message has already been crossposted",
 		40041:  "An application command with that name already exists",
@@ -408,6 +420,9 @@ var (
 		40062:  "Service resource is being rate limited",
 		40066:  "There are no tags available that can be set by non-moderators",
 		40067:  "A tag is required to create a forum post in this channel",
+		40074:  "An entitlement has already been granted for this resource",
+		40094:  "This interaction has hit the maximum number of follow up messages",
+		40333:  "Cloudflare is blocking your request. This can often be resolved by setting a proper User Agent.",
 		50001:  "Missing access",
 		50002:  "Invalid account type",
 		50003:  "Cannot execute action on a DM channel",
@@ -443,6 +458,7 @@ var (
 		50046:  "Invalid file uploaded",
 		50054:  "Cannot self-redeem this gift",
 		50055:  "Invalid Guild",
+		50057:  "Invalid SKU",
 		50067:  "Invalid request origin",
 		50068:  "Invalid message type",
 		50070:  "Payment source required to redeem gift",
@@ -474,6 +490,7 @@ var (
 		60003:  "Two factor is required for this operation",
 		80004:  "No users with DiscordTag exist",
 		90001:  "Reaction was blocked",
+		90002:  "User cannot use burst reactions",
 		110001: "Application not yet available. Try again later",
 		130000: "API resource is currently overloaded. Try again a little later",
 		150006: "The Stage is already open",

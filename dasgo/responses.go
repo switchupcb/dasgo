@@ -45,6 +45,18 @@ type ModifyGuildMFALevelResponse struct {
 	Level Flag `json:"level"`
 }
 
+// Get Answer Voters Response
+// https://discord.com/developers/docs/resources/poll#get-answer-voters-response-body
+type GetAnswerVotersResponse struct {
+	Users []*User `json:"users"`
+}
+
+// List Guild Soundboard Sounds Response
+// https://discord.com/developers/docs/resources/soundboard#list-guild-soundboard-sounds-response-structure
+type ListGuildSoundboardSoundsResponse struct {
+	Items []*SoundboardSound `json:"items"`
+}
+
 // List Nitro Sticker Packs Response
 // https://discord.com/developers/docs/resources/sticker#list-nitro-sticker-packs
 type ListNitroStickerPacksResponse struct {
