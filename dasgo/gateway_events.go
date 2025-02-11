@@ -616,6 +616,19 @@ type UserUpdate struct {
 	*User
 }
 
+// Voice Channel Effect Send
+// https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send-voice-channel-effect-send-event-fields
+type VoiceChannelEffectSend struct {
+	ChannelID     Snowflake  `json:"channel_id"`
+	GuildID       Snowflake  `json:"guild_id"`
+	UserID        Snowflake  `json:"user_id"`
+	Emoji         **Emoji    `json:"emoji,omitempty"`
+	AnimationType **Flag     `json:"animation_type,omitempty"`
+	AnimationID   *Snowflake `json:"animation_id,omitempty"`
+	SoundID       *Snowflake `json:"sound_id,omitempty"`
+	SoundVolume   *float64   `json:"sound_volume,omitempty"`
+}
+
 // Voice State Update
 // https://discord.com/developers/docs/topics/gateway-events#voice-state-update
 type VoiceStateUpdate struct {

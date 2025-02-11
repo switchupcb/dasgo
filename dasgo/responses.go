@@ -26,6 +26,12 @@ type ListJoinedPrivateArchivedThreadsResponse struct {
 	HasMore bool            `json:"has_more"`
 }
 
+// List Application Emojis Response
+// https://discord.com/developers/docs/resources/emoji#list-application-emojis
+type ListApplicationEmojisResponse struct {
+	Items []*Emoji `json:"items"`
+}
+
 // List Active Guild Threads Response Body
 // https://discord.com/developers/docs/resources/guild#list-active-guild-threads-response-body
 type ListActiveGuildThreadsResponse struct {
@@ -57,9 +63,9 @@ type ListGuildSoundboardSoundsResponse struct {
 	Items []*SoundboardSound `json:"items"`
 }
 
-// List Nitro Sticker Packs Response
-// https://discord.com/developers/docs/resources/sticker#list-nitro-sticker-packs
-type ListNitroStickerPacksResponse struct {
+// List Sticker Packs Response
+// https://discord.com/developers/docs/resources/sticker#list-sticker-packs-response-structure
+type ListStickerPacksResponse struct {
 	StickerPacks []*StickerPack `json:"sticker_packs"`
 }
 

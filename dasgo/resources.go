@@ -1369,7 +1369,7 @@ const (
 type SoundboardSound struct {
 	Name      string     `json:"name"`
 	SoundID   Snowflake  `json:"sound_id"`
-	Volume    float32    `json:"volume"`
+	Volume    float64    `json:"volume"`
 	EmojiID   *Snowflake `json:"emoji_id"`
 	EmojiName *string    `json:"emoji_name"`
 	GuildID   *Snowflake `json:"guild_id,omitempty"`
@@ -2396,6 +2396,13 @@ const (
 	FlagActivityPARTY_PRIVACY_FRIENDS       BitFlag = 1 << 6
 	FlagActivityPARTY_PRIVACY_VOICE_CHANNEL BitFlag = 1 << 7
 	FlagActivityEMBEDDED                    BitFlag = 1 << 8
+)
+
+// Animation Types
+// https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send-animation-types
+const (
+	FlagAnimationTypePREMIUM Flag = 0
+	FlagAnimationTypeBASIC   Flag = 1
 )
 
 // OAuth2 Scopes

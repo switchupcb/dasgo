@@ -163,7 +163,7 @@ const (
 	EndpointModifyStageInstance                            = "stage-instances/{channel.id}"
 	EndpointDeleteStageInstance                            = "stage-instances/{channel.id}"
 	EndpointGetSticker                                     = "stickers/{sticker.id}"
-	EndpointListNitroStickerPacks                          = "sticker-packs"
+	EndpointListStickerPacks                               = "sticker-packs"
 	EndpointGetStickerPack                                 = "sticker-packs/{pack.id}"
 	EndpointListGuildStickers                              = "guilds/{guild.id}/stickers"
 	EndpointGetGuildSticker                                = "guilds/{guild.id}/stickers/{sticker.id}"

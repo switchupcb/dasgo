@@ -648,7 +648,7 @@ type CreateGuildSoundboardSound struct {
 	GuildID   Snowflake   `json:"-"`
 	Name      string      `json:"name"`
 	Sound     string      `json:"sound"`
-	Volume    **float32   `json:"volume,omitempty"`
+	Volume    **float64   `json:"volume,omitempty"`
 	EmojiID   **Snowflake `json:"emoji_id,omitempty"`
 	EmojiName **string    `json:"emoji_name,omitempty"`
 }
@@ -660,7 +660,7 @@ type ModifyGuildSoundboardSound struct {
 	GuildID   Snowflake  `json:"-"`
 	SoundID   Snowflake  `json:"-"`
 	Name      string     `json:"name"`
-	Volume    *float32   `json:"volume"`
+	Volume    *float64   `json:"volume"`
 	EmojiID   *Snowflake `json:"emoji_id"`
 	EmojiName *string    `json:"emoji_name"`
 }
@@ -1688,10 +1688,10 @@ type GetSticker struct {
 	StickerID Snowflake
 }
 
-// List Nitro Sticker Packs
+// List Sticker Packs
 // GET /sticker-packs
-// https://discord.com/developers/docs/resources/sticker#list-nitro-sticker-packs
-type ListNitroStickerPacks struct{}
+// https://discord.com/developers/docs/resources/sticker#list-sticker-packs
+type ListStickerPacks struct{}
 
 // Get Sticker Pack
 // GET /sticker-packs/{pack.id}
