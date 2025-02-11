@@ -79,6 +79,7 @@ const (
 	FlagGatewayEventNameSubscriptionDelete                  = "SUBSCRIPTION_DELETE"
 	FlagGatewayEventNameTypingStart                         = "TYPING_START"
 	FlagGatewayEventNameUserUpdate                          = "USER_UPDATE"
+	FlagGatewayEventNameVoiceChannelEffectSend              = "VOICE_CHANNEL_EFFECT_SEND"
 	FlagGatewayEventNameVoiceStateUpdate                    = "VOICE_STATE_UPDATE"
 	FlagGatewayEventNameVoiceServerUpdate                   = "VOICE_SERVER_UPDATE"
 	FlagGatewayEventNameWebhooksUpdate                      = "WEBHOOKS_UPDATE"

@@ -158,12 +158,13 @@ var (
 // Gateway SendEvent Names
 // https://discord.com/developers/docs/topics/gateway-events#send-events
 const (
-	FlagGatewaySendEventNameHeartbeat           = "Heartbeat"
-	FlagGatewaySendEventNameIdentify            = "Identify"
-	FlagGatewaySendEventNameUpdatePresence      = "UpdatePresence"
-	FlagGatewaySendEventNameUpdateVoiceState    = "UpdateVoiceState "
-	FlagGatewaySendEventNameResume              = "Resume"
-	FlagGatewaySendEventNameRequestGuildMembers = "RequestGuildMembers"
+	FlagGatewaySendEventNameHeartbeat               = "Heartbeat"
+	FlagGatewaySendEventNameIdentify                = "Identify"
+	FlagGatewaySendEventNameUpdatePresence          = "UpdatePresence"
+	FlagGatewaySendEventNameUpdateVoiceState        = "UpdateVoiceState "
+	FlagGatewaySendEventNameResume                  = "Resume"
+	FlagGatewaySendEventNameRequestGuildMembers     = "RequestGuildMembers"
+	FlagGatewaySendEventNameRequestSoundboardSounds = "RequestSoundboardSounds"
 )
 
 // Identify Structure
