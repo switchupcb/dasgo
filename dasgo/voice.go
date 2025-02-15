@@ -1,6 +1,8 @@
 package dasgo
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 // Voice Payload Structure
 // https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-websocket-connection
@@ -126,7 +128,17 @@ type ClientDisconnect struct{}
 // Voice Connection Encryption Modes
 // https://discord.com/developers/docs/topics/voice-connections#establishing-a-voice-udp-connection-encryption-modes
 const (
-	FlagVoiceEncryptionModeNormal = "xsalsa20_poly1305"
-	FlagVoiceEncryptionModeSuffix = "xsalsa20_poly1305_suffix"
-	FlagVoiceEncryptionModeLite   = "xsalsa20_poly1305_lite"
+	FlagVoiceEncryptionModeAES256    = "aead_aes256_gcm_rtpsize"
+	FlagVoiceEncryptionModeXChaCha20 = "aead_xchacha20_poly1305_rtpsize"
 )
+
+// Voice Packet Structure
+// https://discord.com/developers/docs/topics/voice-connections#transport-encryption-modes-voice-packet-structure
+type VoicePacket struct {
+	VersionFlags   []byte
+	PayloadType    []byte
+	Sequence       uint16
+	Timestamp      uint32
+	SSRC           uint32
+	EncryptedAudio []byte
+}

@@ -155,17 +155,29 @@ var (
 // Voice Opcodes
 // https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-opcodes
 const (
-	FlagVoiceOpcodeIdentify           = 0
-	FlagVoiceOpcodeSelectProtocol     = 1
-	FlagVoiceOpcodeReadyServer        = 2
-	FlagVoiceOpcodeHeartbeat          = 3
-	FlagVoiceOpcodeSessionDescription = 4
-	FlagVoiceOpcodeSpeaking           = 5
-	FlagVoiceOpcodeHeartbeatACK       = 6
-	FlagVoiceOpcodeResume             = 7
-	FlagVoiceOpcodeHello              = 8
-	FlagVoiceOpcodeResumed            = 9
-	FlagVoiceOpcodeClientDisconnect   = 13
+	FlagVoiceOpcodeIdentify                        = 0
+	FlagVoiceOpcodeSelectProtocol                  = 1
+	FlagVoiceOpcodeReadyServer                     = 2
+	FlagVoiceOpcodeHeartbeat                       = 3
+	FlagVoiceOpcodeSessionDescription              = 4
+	FlagVoiceOpcodeSpeaking                        = 5
+	FlagVoiceOpcodeHeartbeatACK                    = 6
+	FlagVoiceOpcodeResume                          = 7
+	FlagVoiceOpcodeHello                           = 8
+	FlagVoiceOpcodeResumed                         = 9
+	FlagVoiceOpcodeClientsConnect                  = 11
+	FlagVoiceOpcodeClientDisconnect                = 13
+	FlagVoiceOpcodeDAVEPrepareTransition           = 21
+	FlagVoiceOpcodeDAVEExecuteTransition           = 22
+	FlagVoiceOpcodeDAVETransitionReady             = 23
+	FlagVoiceOpcodeDAVEPrepareEpoch                = 24
+	FlagVoiceOpcodeDAVEMLSExternalSender           = 25
+	FlagVoiceOpcodeDAVEMLSKeyPackage               = 26
+	FlagVoiceOpcodeDAVEMLSProposals                = 27
+	FlagVoiceOpcodeDAVEMLSCommitWelcome            = 28
+	FlagVoiceOpcodeDAVEMLSAnnounceCommitTransition = 29
+	FlagVoiceOpcodeDAVEMLSWelcome                  = 30
+	FlagVoiceOpcodeDAVEMLSInvalidCommitWelcome     = 31
 )
 
 // Voice Close Event Codes
