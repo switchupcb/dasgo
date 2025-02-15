@@ -27,6 +27,9 @@ const (
 	FlagGatewayEventNameThreadListSync                      = "THREAD_LIST_SYNC"
 	FlagGatewayEventNameThreadMemberUpdate                  = "THREAD_MEMBER_UPDATE"
 	FlagGatewayEventNameThreadMembersUpdate                 = "THREAD_MEMBERS_UPDATE"
+	FlagGatewayEventNameEntitlementCreate                   = "ENTITLEMENT_CREATE"
+	FlagGatewayEventNameEntitlementUpdate                   = "ENTITLEMENT_UPDATE"
+	FlagGatewayEventNameEntitlementDelete                   = "ENTITLEMENT_DELETE"
 	FlagGatewayEventNameGuildCreate                         = "GUILD_CREATE"
 	FlagGatewayEventNameGuildUpdate                         = "GUILD_UPDATE"
 	FlagGatewayEventNameGuildDelete                         = "GUILD_DELETE"
@@ -48,6 +51,11 @@ const (
 	FlagGatewayEventNameGuildScheduledEventDelete           = "GUILD_SCHEDULED_EVENT_DELETE"
 	FlagGatewayEventNameGuildScheduledEventUserAdd          = "GUILD_SCHEDULED_EVENT_USER_ADD"
 	FlagGatewayEventNameGuildScheduledEventUserRemove       = "GUILD_SCHEDULED_EVENT_USER_REMOVE"
+	FlagGatewayEventNameGuildSoundboardSoundCreate          = "GUILD_SOUNDBOARD_SOUND_CREATE"
+	FlagGatewayEventNameGuildSoundboardSoundUpdate          = "GUILD_SOUNDBOARD_SOUND_UPDATE"
+	FlagGatewayEventNameGuildSoundboardSoundDelete          = "GUILD_SOUNDBOARD_SOUND_DELETE"
+	FlagGatewayEventNameGuildSoundboardSoundsUpdate         = "GUILD_SOUNDBOARD_SOUNDS_UPDATE"
+	FlagGatewayEventNameSoundboardSounds                    = "SOUNDBOARD_SOUNDS"
 	FlagGatewayEventNameIntegrationCreate                   = "INTEGRATION_CREATE"
 	FlagGatewayEventNameIntegrationUpdate                   = "INTEGRATION_UPDATE"
 	FlagGatewayEventNameIntegrationDelete                   = "INTEGRATION_DELETE"
@@ -66,11 +74,17 @@ const (
 	FlagGatewayEventNameStageInstanceCreate                 = "STAGE_INSTANCE_CREATE"
 	FlagGatewayEventNameStageInstanceDelete                 = "STAGE_INSTANCE_DELETE"
 	FlagGatewayEventNameStageInstanceUpdate                 = "STAGE_INSTANCE_UPDATE"
+	FlagGatewayEventNameSubscriptionCreate                  = "SUBSCRIPTION_CREATE"
+	FlagGatewayEventNameSubscriptionUpdate                  = "SUBSCRIPTION_UPDATE"
+	FlagGatewayEventNameSubscriptionDelete                  = "SUBSCRIPTION_DELETE"
 	FlagGatewayEventNameTypingStart                         = "TYPING_START"
 	FlagGatewayEventNameUserUpdate                          = "USER_UPDATE"
+	FlagGatewayEventNameVoiceChannelEffectSend              = "VOICE_CHANNEL_EFFECT_SEND"
 	FlagGatewayEventNameVoiceStateUpdate                    = "VOICE_STATE_UPDATE"
 	FlagGatewayEventNameVoiceServerUpdate                   = "VOICE_SERVER_UPDATE"
 	FlagGatewayEventNameWebhooksUpdate                      = "WEBHOOKS_UPDATE"
+	FlagGatewayEventNameMessagePollVoteAdd                  = "MESSAGE_POLL_VOTE_ADD"
+	FlagGatewayEventNameMessagePollVoteRemove               = "MESSAGE_POLL_VOTE_REMOVE"
 )
 
 // Hello Structure
@@ -214,6 +228,24 @@ type ChannelPinsUpdate struct {
 	GuildID          Snowflake   `json:"guild_id,omitempty"`
 	ChannelID        Snowflake   `json:"channel_id"`
 	LastPinTimestamp **Timestamp `json:"last_pin_timestamp,omitempty"`
+}
+
+// Entitlement Create
+// https://discord.com/developers/docs/events/gateway-events#entitlement-create
+type EntitlementCreate struct {
+	*Entitlement
+}
+
+// Entitlement Update
+// https://discord.com/developers/docs/events/gateway-events#entitlement-update
+type EntitlementUpdate struct {
+	*Entitlement
+}
+
+// Entitlement Delete
+// https://discord.com/developers/docs/events/gateway-events#entitlement-delete
+type EntitlementDelete struct {
+	*Entitlement
 }
 
 // Guild Create
@@ -365,6 +397,39 @@ type GuildScheduledEventUserRemove struct {
 	GuildID               Snowflake `json:"guild_id"`
 }
 
+// Guild Soundboard Sound Create
+// https://discord.com/developers/docs/events/gateway-events#guild-soundboard-sound-create
+type GuildSoundboardSoundCreate struct {
+	*SoundboardSound
+}
+
+// Guild Soundboard Sound Update
+// https://discord.com/developers/docs/events/gateway-events#guild-soundboard-sound-update
+type GuildSoundboardSoundUpdate struct {
+	*SoundboardSound
+}
+
+// Guild Soundboard Sound Delete
+// https://discord.com/developers/docs/events/gateway-events#guild-soundboard-sound-delete
+type GuildSoundboardSoundDelete struct {
+	SoundID Snowflake `json:"sound_id"`
+	GuildID Snowflake `json:"guild_id"`
+}
+
+// Guild Soundboard Sounds Update
+// https://discord.com/developers/docs/events/gateway-events#guild-soundboard-sounds-update
+type GuildSoundboardSoundsUpdate struct {
+	SoundboardSounds []*SoundboardSound `json:"soundboard_sounds"`
+	GuildID          Snowflake          `json:"guild_id"`
+}
+
+// Soundboard Sounds
+// https://discord.com/developers/docs/events/gateway-events#soundboard-sounds
+type SoundboardSounds struct {
+	SoundboardSounds []*SoundboardSound `json:"soundboard_sounds"`
+	GuildID          Snowflake          `json:"guild_id"`
+}
+
 // Integration Create
 // https://discord.com/developers/docs/topics/gateway-events#integration-create
 type IntegrationCreate struct {
@@ -456,6 +521,9 @@ type MessageReactionAdd struct {
 	GuildID         *Snowflake   `json:"guild_id,omitempty"`
 	Member          *GuildMember `json:"member,omitempty"`
 	Emoji           *Emoji       `json:"emoji"`
+	Burst           bool         `json:"burst"`
+	BurstColors     []string     `json:"burst_colors,omitempty"`
+	Type            Flag         `json:"type"`
 }
 
 // Message Reaction Remove
@@ -466,6 +534,8 @@ type MessageReactionRemove struct {
 	MessageID Snowflake  `json:"message_id"`
 	GuildID   *Snowflake `json:"guild_id,omitempty"`
 	Emoji     *Emoji     `json:"emoji"`
+	Burst     bool       `json:"burst"`
+	Type      Flag       `json:"type"`
 }
 
 // Message Reaction Remove All
@@ -513,6 +583,24 @@ type StageInstanceDelete struct {
 	*StageInstance
 }
 
+// Subscription Create
+// https://discord.com/developers/docs/events/gateway-events#subscription-create
+type SubscriptionCreate struct {
+	*Subscription
+}
+
+// Subscription Update
+// https://discord.com/developers/docs/events/gateway-events#subscription-update
+type SubscriptionUpdate struct {
+	*Subscription
+}
+
+// Subscription Delete
+// https://discord.com/developers/docs/events/gateway-events#subscription-delete
+type SubscriptionDelete struct {
+	*Subscription
+}
+
 // Typing Start
 // https://discord.com/developers/docs/topics/gateway-events#typing-start
 type TypingStart struct {
@@ -527,6 +615,19 @@ type TypingStart struct {
 // https://discord.com/developers/docs/topics/gateway-events#user-update
 type UserUpdate struct {
 	*User
+}
+
+// Voice Channel Effect Send
+// https://discord.com/developers/docs/events/gateway-events#voice-channel-effect-send-voice-channel-effect-send-event-fields
+type VoiceChannelEffectSend struct {
+	ChannelID     Snowflake  `json:"channel_id"`
+	GuildID       Snowflake  `json:"guild_id"`
+	UserID        Snowflake  `json:"user_id"`
+	Emoji         **Emoji    `json:"emoji,omitempty"`
+	AnimationType **Flag     `json:"animation_type,omitempty"`
+	AnimationID   *Snowflake `json:"animation_id,omitempty"`
+	SoundID       *Snowflake `json:"sound_id,omitempty"`
+	SoundVolume   *float64   `json:"sound_volume,omitempty"`
 }
 
 // Voice State Update
@@ -548,4 +649,24 @@ type VoiceServerUpdate struct {
 type WebhooksUpdate struct {
 	GuildID   Snowflake `json:"guild_id"`
 	ChannelID Snowflake `json:"channel_id"`
+}
+
+// Message Poll Vote Add
+// https://discord.com/developers/docs/events/gateway-events#message-poll-vote-add
+type MessagePollVoteAdd struct {
+	UserID    Snowflake  `json:"user_id"`
+	ChannelID Snowflake  `json:"channel_id"`
+	MessageID Snowflake  `json:"message_id"`
+	GuildID   *Snowflake `json:"guild_id,omitempty"`
+	AnswerID  int        `json:"answer_id"`
+}
+
+// Message Poll Vote Remove
+// https://discord.com/developers/docs/events/gateway-events#message-poll-vote-remove
+type MessagePollVoteRemove struct {
+	UserID    Snowflake  `json:"user_id"`
+	ChannelID Snowflake  `json:"channel_id"`
+	MessageID Snowflake  `json:"message_id"`
+	GuildID   *Snowflake `json:"guild_id,omitempty"`
+	AnswerID  int        `json:"answer_id"`
 }

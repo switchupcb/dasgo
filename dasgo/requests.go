@@ -19,7 +19,8 @@ type CreateGlobalApplicationCommand struct {
 	DescriptionLocalizations *map[string]string          `json:"description_localizations,omitempty"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions **string                    `json:"default_member_permissions,omitempty"`
-	DMPermission             **bool                      `json:"dm_permission,omitempty"`
+	IntegrationTypes         []Flag                      `json:"integration_types,omitempty"`
+	Contexts                 []Flag                      `json:"contexts"`
 	Type                     *Flag                       `json:"type,omitempty"`
 	NSFW                     *bool                       `json:"nsfw,omitempty"`
 }
@@ -44,7 +45,6 @@ type EditGlobalApplicationCommand struct {
 	DescriptionLocalizations *map[string]string          `json:"description_localizations,omitempty"`
 	Options                  []*ApplicationCommandOption `json:"options,omitempty"`
 	DefaultMemberPermissions **string                    `json:"default_member_permissions,omitempty"`
-	DMPermission             **bool                      `json:"dm_permission,omitempty"`
 	NSFW                     *bool                       `json:"nsfw,omitempty"`
 }
 
@@ -271,6 +271,33 @@ type DeleteFollowupMessage struct {
 // https://discord.com/developers/docs/resources/application#get-current-application
 type GetCurrentApplication struct{}
 
+// Edit Current Application
+// PATCH /applications/@me
+// https://discord.com/developers/docs/resources/application#edit-current-application
+type EditCurrentApplication struct {
+	CustomInstallURL               string          `json:"custom_install_url"`
+	Description                    string          `json:"string"`
+	RoleConnectionsVerificationURL string          `json:"role_connections_verification_url"`
+	InstallParams                  *InstallParams  `json:"install_params"`
+	IntegrationTypesConfig         map[string]Flag `json:"integration_types_config"`
+	Flags                          BitFlag         `json:"flags"`
+	Icon                           *string         `json:"icon"`
+	CoverImage                     *string         `json:"cover_image"`
+	InteractionsEndpointURL        string          `json:"interactions_endpoint_url"`
+	Tags                           []string        `json:"tags"`
+	EventWebhooksURL               string          `json:"event_webhooks_url"`
+	EventWebhooksStatus            Flag            `json:"event_webhooks_status"`
+	EventWebhooksTypes             []string        `json:"event_webhooks_types"`
+}
+
+// Get Application Activity Instance
+// GET /applications/{application.id}/activity-instances/{instance_id}
+// https://discord.com/developers/docs/resources/application#get-application-activity-instance
+type GetApplicationActivityInstance struct {
+	ApplicationID Snowflake
+	InstanceID    Snowflake
+}
+
 // Get Application Role Connection Metadata Records
 // GET /applications/{application.id}/role-connections/metadata
 // https://discord.com/developers/docs/resources/application-role-connection-metadata#get-application-role-connection-metadata-records
@@ -459,6 +486,7 @@ type CreateMessage struct {
 	PayloadJSON      *string           `json:"-" multipart:"payload_json,omitempty"`
 	Attachments      []*Attachment     `json:"attachments,omitempty"`
 	Flags            *BitFlag          `json:"flags,omitempty"`
+	EnforceNonce     *bool             `json:"enforce_nonce,omitempty"`
 }
 
 // Crosspost Message
@@ -504,6 +532,7 @@ type GetReactions struct {
 	ChannelID Snowflake  `url:"-"`
 	MessageID Snowflake  `url:"-"`
 	Emoji     string     `url:"-"`
+	Type      *Flag      `url:"type,omitempty"`
 	After     *Snowflake `url:"after,omitempty"`
 	Limit     *int       `url:"limit,omitempty"`
 }
@@ -555,6 +584,93 @@ type DeleteMessage struct {
 type BulkDeleteMessages struct {
 	ChannelID Snowflake    `json:"-"`
 	Messages  []*Snowflake `json:"messages"`
+}
+
+// Get Answer Voters
+// GET /channels/{channel.id}/polls/{message.id}/answers/{answer_id}
+// https://discord.com/developers/docs/resources/poll#get-answer-voters
+type GetAnswerVoters struct {
+	ChannelID Snowflake  `url:"-"`
+	MessageID Snowflake  `url:"-"`
+	AnswerID  Snowflake  `url:"-"`
+	After     *Snowflake `url:"after,omitempty"`
+	Limit     *int       `url:"limit"`
+}
+
+// End Poll
+// POST /channels/{channel.id}/polls/{message.id}/expire
+// https://discord.com/developers/docs/resources/poll#get-answer-voters
+type EndPoll struct {
+	ChannelID Snowflake
+	MessageID Snowflake
+}
+
+// List SKUs
+// GET applications/{application.id}/skus
+// https://discord.com/developers/docs/resources/sku#list-skus
+type ListSKUs struct {
+	ApplicationID Snowflake
+}
+
+// Send Soundboard Sound
+// POST channels/{channel.id}/send-soundboard-sound
+// https://discord.com/developers/docs/resources/soundboard#send-soundboard-sound
+type SendSoundboardSound struct {
+	ChannelID     Snowflake  `json:"-"`
+	SoundID       Snowflake  `json:"sound_id"`
+	SourceGuildID *Snowflake `json:"source_guild_id,omitempty"`
+}
+
+// List Default Soundboard Sounds
+// GET /soundboard-default-sounds
+// https://discord.com/developers/docs/resources/soundboard#list-default-soundboard-sounds
+type ListDefaultSoundboardSounds struct{}
+
+// List Guild Soundboard Sounds
+// GET /guilds/{guild.id}/soundboard-sounds
+// https://discord.com/developers/docs/resources/soundboard#list-guild-soundboard-sounds
+type ListGuildSoundboardSounds struct {
+	GuildID Snowflake
+}
+
+// Get Guild Soundboard Sound
+// GET /guilds/{guild.id}/soundboard-sounds/{sound.id}
+// https://discord.com/developers/docs/resources/soundboard#get-guild-soundboard-sound
+type GetGuildSoundboardSound struct {
+	GuildID Snowflake
+	SoundID Snowflake
+}
+
+// Create Guild Soundboard Sound
+// POST /guilds/{guild.id}/soundboard-sounds
+// https://discord.com/developers/docs/resources/soundboard#create-guild-soundboard-sound
+type CreateGuildSoundboardSound struct {
+	GuildID   Snowflake   `json:"-"`
+	Name      string      `json:"name"`
+	Sound     string      `json:"sound"`
+	Volume    **float64   `json:"volume,omitempty"`
+	EmojiID   **Snowflake `json:"emoji_id,omitempty"`
+	EmojiName **string    `json:"emoji_name,omitempty"`
+}
+
+// Modify Guild Soundboard Sound
+// PATCH/guilds/{guild.id}/soundboard-sounds/{sound.id}
+// https://discord.com/developers/docs/resources/soundboard#modify-guild-soundboard-sound
+type ModifyGuildSoundboardSound struct {
+	GuildID   Snowflake  `json:"-"`
+	SoundID   Snowflake  `json:"-"`
+	Name      string     `json:"name"`
+	Volume    *float64   `json:"volume"`
+	EmojiID   *Snowflake `json:"emoji_id"`
+	EmojiName *string    `json:"emoji_name"`
+}
+
+// Delete Guild Soundboard Sound
+// DELETE /guilds/{guild.id}/soundboard-sounds/{sound.id}
+// https://discord.com/developers/docs/resources/soundboard#delete-guild-soundboard-sound
+type DeleteGuildSoundboardSound struct {
+	GuildID Snowflake
+	SoundID Snowflake
 }
 
 // Edit Channel Permissions
@@ -680,25 +796,25 @@ type StartThreadwithoutMessage struct {
 // POST /channels/{channel.id}/threads
 // https://discord.com/developers/docs/resources/channel#start-thread-in-forum-channel
 type StartThreadinForumChannel struct {
-	ChannelID           Snowflake                 `json:"-"`
-	Name                string                    `json:"name"`
-	AutoArchiveDuration *int                      `json:"auto_archive_duration,omitempty"`
-	RateLimitPerUser    **int                     `json:"rate_limit_per_user,omitempty"`
-	Message             *ForumThreadMessageParams `json:"message"`
-	AppliedTags         []Snowflake               `json:"applied_tags,omitempty"`
+	ChannelID           Snowflake                         `json:"-"`
+	Name                string                            `json:"name"`
+	AutoArchiveDuration *int                              `json:"auto_archive_duration,omitempty"`
+	RateLimitPerUser    **int                             `json:"rate_limit_per_user,omitempty"`
+	Message             *ForumAndMediaThreadMessageParams `json:"message"`
+	AppliedTags         []Snowflake                       `json:"applied_tags,omitempty"`
+	Files               []*File                           `json:"-" url:"-" dasgo:"files"`
+	PayloadJSON         string                            `json:"-" multipart:"payload_json,omitempty"`
 }
 
-// Forum Thread Message Params Object
-// https://discord.com/developers/docs/resources/channel#start-thread-in-forum-channel-forum-thread-message-params-object
-type ForumThreadMessageParams struct {
+// Forum and Media Thread Message Params Object
+// https://discord.com/developers/docs/resources/channel#start-thread-in-forum-or-media-channel-forum-and-media-thread-message-params-object
+type ForumAndMediaThreadMessageParams struct {
 	Content         *string          `json:"content,omitempty"`
 	Embeds          []*Embed         `json:"embeds,omitempty"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
 	Components      []Component      `json:"components,omitempty"`
 	StickerIDS      []*Snowflake     `json:"sticker_ids,omitempty"`
 	Attachments     []*Attachment    `json:"attachments,omitempty"`
-	Files           []*File          `json:"-" dasgo:"files"`
-	PayloadJSON     string           `json:"-" multipart:"payload_json,omitempty"`
 	Flags           *BitFlag         `json:"flags,omitempty"`
 }
 
@@ -819,6 +935,96 @@ type ModifyGuildEmoji struct {
 type DeleteGuildEmoji struct {
 	GuildID Snowflake
 	EmojiID Snowflake
+}
+
+// List Application Emojis
+// GET /applications/{application.id}/emojis
+// https://discord.com/developers/docs/resources/emoji#list-application-emojis
+type ListApplicationEmojis struct {
+	ApplicationID Snowflake
+}
+
+// Get Application Emoji
+// GET /applications/{application.id}/emojis/{emoji.id}
+// https://discord.com/developers/docs/resources/emoji#get-application-emoji
+type GetApplicationEmoji struct {
+	ApplicationID Snowflake
+	EmojiID       Snowflake
+}
+
+// Create Application Emoji
+// POST /applications/{application.id}/emojis
+// https://discord.com/developers/docs/resources/emoji#create-application-emoji
+type CreateApplicationEmoji struct {
+	ApplicationID Snowflake `json:"-"`
+	Name          string    `json:"name"`
+	Image         string    `json:"image"`
+}
+
+// Modify Application Emoji
+// PATCH /applications/{application.id}/emojis/{emoji.id}
+// https://discord.com/developers/docs/resources/emoji#modify-application-emoji
+type ModifyApplicationEmoji struct {
+	ApplicationID Snowflake `json:"-"`
+	EmojiID       Snowflake `json:"-"`
+	Name          string    `json:"name"`
+}
+
+// Delete Application Emoji
+// DELETE /applications/{application.id}/emojis/{emoji.id}
+// https://discord.com/developers/docs/resources/emoji#delete-application-emoji
+type DeleteApplicationEmoji struct {
+	ApplicationID Snowflake
+	EmojiID       Snowflake
+}
+
+// List Entitlements
+// GET /applications/{application.id}/entitlements
+// https://discord.com/developers/docs/resources/entitlement#list-entitlements
+type ListEntitlements struct {
+	ApplicationID  Snowflake   `url:"-"`
+	UserID         *Snowflake  `url:"user_id,omitempty"`
+	SKUIDs         []Snowflake `url:"sku_ids,omitempty"`
+	Before         *Snowflake  `url:"before,omitempty"`
+	After          *Snowflake  `url:"after,omitempty"`
+	Limit          *int        `url:"limit,omitempty"`
+	GuildID        *Snowflake  `url:"guild_id,omitempty"`
+	ExcludeEnded   *bool       `url:"exclude_ended,omitempty"`
+	ExcludeDeleted *bool       `url:"exclude_deleted,omitempty"`
+}
+
+// Get Entitlement
+// GET /applications/{application.id}/entitlements/{entitlement.id}
+// https://discord.com/developers/docs/resources/entitlement#get-entitlement
+type GetEntitlement struct {
+	ApplicationID Snowflake
+	EntitlementID Snowflake
+}
+
+// Consume an Entitlement
+// POST /applications/{application.id}/entitlements/{entitlement.id}/consume
+// https://discord.com/developers/docs/resources/entitlement#consume-an-entitlement
+type ConsumeEntitlement struct {
+	ApplicationID Snowflake
+	EntitlementID Snowflake
+}
+
+// Create Test Entitlement
+// POST /applications/{application.id}/entitlements
+// https://discord.com/developers/docs/resources/entitlement#create-test-entitlement
+type CreateTestEntitlement struct {
+	ApplicationID Snowflake `json:"-"`
+	SKUID         string    `json:"sku_id"`
+	OwnerID       string    `json:"owner_id"`
+	OwnerType     Flag      `json:"owner_type"`
+}
+
+// Delete Test Entitlement
+// DELETE /applications/{application.id}/entitlements/{entitlement.id}
+// https://discord.com/developers/docs/resources/entitlement#delete-test-entitlement
+type DeleteTestEntitlement struct {
+	ApplicationID Snowflake
+	EntitlementID Snowflake
 }
 
 // Create Guild
@@ -1085,6 +1291,14 @@ type CreateGuildRole struct {
 	Icon         **string  `json:"icon,omitempty"`
 	UnicodeEmoji **string  `json:"unicode_emoji,omitempty"`
 	Mentionable  *bool     `json:"mentionable,omitempty"`
+}
+
+// Get Guild Role
+// GET /guilds/{guild.id}/roles/{role.id}
+// https://discord.com/developers/docs/resources/guild#get-guild-role
+type GetGuildRole struct {
+	GuildID Snowflake
+	RoleID  Snowflake
 }
 
 // Modify Guild Role Positions
@@ -1437,10 +1651,11 @@ type DeleteInvite struct {
 // POST /stage-instances
 // https://discord.com/developers/docs/resources/stage-instance#create-stage-instance
 type CreateStageInstance struct {
-	ChannelID             Snowflake `json:"channel_id"`
-	Topic                 string    `json:"topic"`
-	PrivacyLevel          *Flag     `json:"privacy_level,omitempty"`
-	SendStartNotification *bool     `json:"send_start_notification,omitempty"`
+	ChannelID             Snowflake  `json:"channel_id"`
+	Topic                 string     `json:"topic"`
+	PrivacyLevel          *Flag      `json:"privacy_level,omitempty"`
+	SendStartNotification *bool      `json:"send_start_notification,omitempty"`
+	GuildScheduledEventID *Snowflake `json:"guild_scheduled_event_id,omitempty"`
 }
 
 // Get Stage Instance
@@ -1473,10 +1688,17 @@ type GetSticker struct {
 	StickerID Snowflake
 }
 
-// List Nitro Sticker Packs
+// List Sticker Packs
 // GET /sticker-packs
-// https://discord.com/developers/docs/resources/sticker#list-nitro-sticker-packs
-type ListNitroStickerPacks struct{}
+// https://discord.com/developers/docs/resources/sticker#list-sticker-packs
+type ListStickerPacks struct{}
+
+// Get Sticker Pack
+// GET /sticker-packs/{pack.id}
+// https://discord.com/developers/docs/resources/sticker#get-sticker-pack
+type GetStickerPack struct {
+	PackID Snowflake `url:"-"`
+}
 
 // List Guild Stickers
 // GET /guilds/{guild.id}/stickers
@@ -1523,6 +1745,25 @@ type DeleteGuildSticker struct {
 	StickerID Snowflake
 }
 
+// List SKU Subscriptions
+// GET skus/{sku.id}/subscriptions
+// https://discord.com/developers/docs/resources/subscription#list-sku-subscriptions
+type ListSKUSubscriptions struct {
+	SKUID  Snowflake  `url:"-"`
+	Before *Snowflake `url:"before,omitempty"`
+	After  *Snowflake `url:"after,omitempty"`
+	Limit  *int       `url:"limit,omitempty"`
+	UserID *Snowflake `url:"user_id,omitempty"`
+}
+
+// Get SKU Subscription
+// GET /skus/{sku.id}/subscriptions/{subscription.id}
+// https://discord.com/developers/docs/resources/subscription#get-sku-subscription
+type GetSKUSubscription struct {
+	SKUID          Snowflake
+	SubscriptionID Snowflake
+}
+
 // Get Current User
 // GET/users/@me
 // https://discord.com/developers/docs/resources/user#get-current-user
@@ -1541,6 +1782,7 @@ type GetUser struct {
 type ModifyCurrentUser struct {
 	Username *string `json:"username,omitempty"`
 	Avatar   *string `json:"avatar,omitempty"`
+	Banner   *string `json:"banner,omitempty"`
 }
 
 // Get Current User Guilds
@@ -1585,19 +1827,19 @@ type CreateGroupDM struct {
 // Get User Connections
 // GET /users/@me/connections
 // https://discord.com/developers/docs/resources/user#get-user-connections
-type GetUserConnections struct{}
+type GetCurrentUserConnections struct{}
 
 // Get User Application Role Connection
 // GET /users/@me/applications/{application.id}/role-connection
 // https://discord.com/developers/docs/resources/user#get-user-application-role-connection
-type GetUserApplicationRoleConnection struct {
+type GetCurrentUserApplicationRoleConnection struct {
 	ApplicationID Snowflake
 }
 
 // Update User Application Role Connection
 // PUT /users/@me/applications/{application.id}/role-connection
 // https://discord.com/developers/docs/resources/user#update-user-application-role-connection
-type UpdateUserApplicationRoleConnection struct {
+type UpdateCurrentUserApplicationRoleConnection struct {
 	ApplicationID    Snowflake         `json:"-"`
 	PlatformName     *string           `json:"platform_name,omitempty"`
 	PlatformUsername *string           `json:"platform_user,omitempty"`
@@ -1702,6 +1944,8 @@ type ExecuteWebhook struct {
 	Attachments     []*Attachment    `json:"attachments,omitempty" url:"-"`
 	Flags           *BitFlag         `json:"flags,omitempty" url:"-"`
 	ThreadName      *string          `json:"thread_name,omitempty" url:"-"`
+	AppliedTags     []Snowflake      `json:"applied_tags" url:"-"`
+	Poll            *Poll            `json:"poll" url:"-"`
 }
 
 // Execute Slack-Compatible Webhook
@@ -1749,6 +1993,7 @@ type EditWebhookMessage struct {
 	AllowedMentions **AllowedMentions `json:"allowed_mentions,omitempty" url:"-"`
 	PayloadJSON     string            `json:"-" url:"-" multipart:"payload_json"`
 	Attachments     *[]*Attachment    `json:"attachments,omitempty" url:"-"`
+	Poll            *Poll             `json:"poll,omitempty" url:"-"`
 }
 
 // Delete Webhook Message

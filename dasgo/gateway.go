@@ -65,7 +65,11 @@ const (
 
 	// GUILD_EMOJIS_UPDATE
 	// GUILD_STICKERS_UPDATE
-	FlagIntentGUILD_EMOJIS_AND_STICKERS BitFlag = 1 << 3
+	// GUILD_SOUNDBOARD_SOUND_CREATE
+	// GUILD_SOUNDBOARD_SOUND_UPDATE
+	// GUILD_SOUNDBOARD_SOUND_DELETE
+	// GUILD_SOUNDBOARD_SOUNDS_UPDATE
+	FlagIntentGUILD_EXPRESSIONS BitFlag = 1 << 3
 
 	// GUILD_INTEGRATIONS_UPDATE
 	// INTEGRATION_CREATE
@@ -80,6 +84,7 @@ const (
 	// INVITE_DELETE
 	FlagIntentGUILD_INVITES BitFlag = 1 << 6
 
+	// VOICE_CHANNEL_EFFECT_SEND
 	// VOICE_STATE_UPDATE
 	FlagIntentGUILD_VOICE_STATES BitFlag = 1 << 7
 
@@ -130,6 +135,14 @@ const (
 
 	// AUTO_MODERATION_ACTION_EXECUTION
 	FlagIntentAUTO_MODERATION_EXECUTION BitFlag = 1 << 21
+
+	// MESSAGE_POLL_VOTE_ADD
+	// MESSAGE_POLL_VOTE_REMOVE
+	FlagIntentGUILD_MESSAGE_POLLS BitFlag = 1 << 24
+
+	// MESSAGE_POLL_VOTE_ADD
+	// MESSAGE_POLL_VOTE_REMOVE
+	FlagIntentDIRECT_MESSAGE_POLLS BitFlag = 1 << 25
 )
 
 // Privileged Intents
@@ -142,19 +155,16 @@ var (
 	}
 )
 
-// Gateway SendEvent
-// https://discord.com/developers/docs/topics/gateway-events#send-events
-type SendEvent interface{}
-
 // Gateway SendEvent Names
 // https://discord.com/developers/docs/topics/gateway-events#send-events
 const (
-	FlagGatewaySendEventNameHeartbeat           = "Heartbeat"
-	FlagGatewaySendEventNameIdentify            = "Identify"
-	FlagGatewaySendEventNameUpdatePresence      = "UpdatePresence"
-	FlagGatewaySendEventNameUpdateVoiceState    = "UpdateVoiceState "
-	FlagGatewaySendEventNameResume              = "Resume"
-	FlagGatewaySendEventNameRequestGuildMembers = "RequestGuildMembers"
+	FlagGatewaySendEventNameHeartbeat               = "Heartbeat"
+	FlagGatewaySendEventNameIdentify                = "Identify"
+	FlagGatewaySendEventNameUpdatePresence          = "UpdatePresence"
+	FlagGatewaySendEventNameUpdateVoiceState        = "UpdateVoiceState "
+	FlagGatewaySendEventNameResume                  = "Resume"
+	FlagGatewaySendEventNameRequestGuildMembers     = "RequestGuildMembers"
+	FlagGatewaySendEventNameRequestSoundboardSounds = "RequestSoundboardSounds"
 )
 
 // Identify Structure
@@ -185,7 +195,7 @@ type Resume struct {
 	Seq       int64  `json:"seq"`
 }
 
-// Heartbeat
+// Heartbeat Structure
 // https://discord.com/developers/docs/topics/gateway-events#heartbeat
 type Heartbeat struct {
 	Data int64 `json:"d"`
@@ -200,6 +210,12 @@ type RequestGuildMembers struct {
 	Presences *bool       `json:"presences,omitempty"`
 	UserIDs   []Snowflake `json:"user_ids,omitempty"`
 	Nonce     *string     `json:"nonce,omitempty"`
+}
+
+// Request Soundboard Sounds Structure
+// https://discord.com/developers/docs/events/gateway-events#request-soundboard-sounds-request-soundboard-sounds-structure
+type RequestSoundboardSounds struct {
+	GuildIDs []Snowflake `json:"guild_ids"`
 }
 
 // Gateway Voice State Update Structure
