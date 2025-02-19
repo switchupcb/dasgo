@@ -458,7 +458,7 @@ type GetChannelMessages struct {
 	Around    *Snowflake `url:"around,omitempty"`
 	Before    *Snowflake `url:"before,omitempty"`
 	After     *Snowflake `url:"after,omitempty"`
-	Limit     *Flag      `url:"limit,omitempty"`
+	Limit     *int       `url:"limit,omitempty"`
 }
 
 // Get Channel Message
@@ -481,7 +481,7 @@ type CreateMessage struct {
 	AllowedMentions  *AllowedMentions  `json:"allowed_mentions,omitempty"`
 	MessageReference *MessageReference `json:"message_reference,omitempty"`
 	Components       []Component       `json:"components,omitempty"`
-	StickerIDS       []*Snowflake      `json:"sticker_ids,omitempty"`
+	StickerIDS       []Snowflake       `json:"sticker_ids,omitempty"`
 	Files            []*File           `json:"-" dasgo:"files,omitempty"`
 	PayloadJSON      *string           `json:"-" multipart:"payload_json,omitempty"`
 	Attachments      []*Attachment     `json:"attachments,omitempty"`
@@ -582,8 +582,8 @@ type DeleteMessage struct {
 // POST /channels/{channel.id}/messages/bulk-delete
 // https://discord.com/developers/docs/resources/channel#bulk-delete-messages
 type BulkDeleteMessages struct {
-	ChannelID Snowflake    `json:"-"`
-	Messages  []*Snowflake `json:"messages"`
+	ChannelID Snowflake   `json:"-"`
+	Messages  []Snowflake `json:"messages"`
 }
 
 // Get Answer Voters
@@ -813,7 +813,7 @@ type ForumAndMediaThreadMessageParams struct {
 	Embeds          []*Embed         `json:"embeds,omitempty"`
 	AllowedMentions *AllowedMentions `json:"allowed_mentions,omitempty"`
 	Components      []Component      `json:"components,omitempty"`
-	StickerIDS      []*Snowflake     `json:"sticker_ids,omitempty"`
+	StickerIDS      []Snowflake      `json:"sticker_ids,omitempty"`
 	Attachments     []*Attachment    `json:"attachments,omitempty"`
 	Flags           *BitFlag         `json:"flags,omitempty"`
 }
@@ -913,20 +913,20 @@ type GetGuildEmoji struct {
 // POST /guilds/{guild.id}/emojis
 // https://discord.com/developers/docs/resources/emoji#create-guild-emoji
 type CreateGuildEmoji struct {
-	GuildID Snowflake    `json:"-"`
-	Name    string       `json:"name"`
-	Image   string       `json:"image"`
-	Roles   []*Snowflake `json:"roles"`
+	GuildID Snowflake   `json:"-"`
+	Name    string      `json:"name"`
+	Image   string      `json:"image"`
+	Roles   []Snowflake `json:"roles"`
 }
 
 // Modify Guild Emoji
 // PATCH /guilds/{guild.id}/emojis/{emoji.id}
 // https://discord.com/developers/docs/resources/emoji#modify-guild-emoji
 type ModifyGuildEmoji struct {
-	GuildID Snowflake     `json:"-"`
-	EmojiID Snowflake     `json:"-"`
-	Name    *string       `json:"name,omitempty"`
-	Roles   *[]*Snowflake `json:"roles,omitempty"`
+	GuildID Snowflake    `json:"-"`
+	EmojiID Snowflake    `json:"-"`
+	Name    *string      `json:"name,omitempty"`
+	Roles   *[]Snowflake `json:"roles"`
 }
 
 // Delete Guild Emoji

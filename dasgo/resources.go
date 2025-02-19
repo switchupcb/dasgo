@@ -868,7 +868,7 @@ type Message struct {
 	TTS                  bool                                `json:"tts"`
 	MentionEveryone      bool                                `json:"mention_everyone"`
 	Mentions             []*User                             `json:"mentions"`
-	MentionRoles         []*Snowflake                        `json:"mention_roles"`
+	MentionRoles         []Snowflake                         `json:"mention_roles"`
 	MentionChannels      []*ChannelMention                   `json:"mention_channels,omitempty"`
 	Attachments          []*Attachment                       `json:"attachments"`
 	Embeds               []*Embed                            `json:"embeds"`
@@ -1250,10 +1250,10 @@ type ChannelMention struct {
 // Allowed Mentions Structure
 // https://discord.com/developers/docs/resources/channel#allowed-mentions-object-allowed-mentions-structure
 type AllowedMentions struct {
-	Parse       []*string    `json:"parse"`
-	Roles       []*Snowflake `json:"roles"`
-	Users       []*Snowflake `json:"users"`
-	RepliedUser bool         `json:"replied_user"`
+	Parse       []*string   `json:"parse"`
+	Roles       []Snowflake `json:"roles"`
+	Users       []Snowflake `json:"users"`
+	RepliedUser bool        `json:"replied_user"`
 }
 
 // Allowed Mention Types
@@ -1614,7 +1614,7 @@ type GuildMember struct {
 	Nick                       **string               `json:"nick,omitempty"`
 	Avatar                     **string               `json:"avatar,omitempty"`
 	Banner                     **string               `json:"banner,omitempty"`
-	Roles                      []*Snowflake           `json:"roles"`
+	Roles                      []Snowflake            `json:"roles"`
 	JoinedAt                   Timestamp              `json:"joined_at"`
 	PremiumSince               **Timestamp            `json:"premium_since,omitempty"`
 	Deaf                       bool                   `json:"deaf"`
